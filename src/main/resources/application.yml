@@ -3,8 +3,35 @@ server:
 
 
 spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
   datasource:
-    url: jdbc:mysql://dleown.synology.me:8806/junggo
-    username: junggo
-    password: jgnaraDB1!
+    url: jdbc:mysql://127.0.0.1:3306/test
+    username: root
+    password: root1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: create
+
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
+          type:
+            descriptor:
+              sql:
+                BasicBinder: TRACE
+
+
