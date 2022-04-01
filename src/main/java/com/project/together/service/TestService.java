@@ -17,4 +17,8 @@ public class TestService {
     public List<Test> testList(){
         return testRepository.findAll();
     }
+
+    public void joinUser(Test test) {
+        testRepository.save(test);
+    }
 }

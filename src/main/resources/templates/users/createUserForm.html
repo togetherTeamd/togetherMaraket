@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form role="form" action="/users/new" th:object="${userForm}"
+          method="post">
+        <div class="form-group">
+            <label th:for="userId">아이디</label>
+            <input type="text" th:field="*{userId}" class="form-control"
+                   placeholder="아이디을 입력하세요"
+                   th:class="${#fields.hasErrors('userId')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('userId')}"
+               th:errors="*{userId}">Incorrect date</p>
+
+            <label th:for="userPw">비밀번호</label>
+            <input type="password" th:field="*{userPw}" class="form-control"
+                   placeholder="비밀번호를 입력하세요"
+                    th:class="${#fields.hasErrors('userPw')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('userPw')}"
+               th:errors="*{userPw}">Incorrect date</p>
+            <label th:for="userName">이름</label>
+            <input type="text" th:field="*{userName}" class="form-control"
+                   placeholder="이름을 입력하세요"
+                   th:class="${#fields.hasErrors('userName')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('userName')}"
+               th:errors="*{userName}">Incorrect date</p>
+        </div>
+        <div class="form-group">
+            <label th:for="userPhone">전화번호</label>
+            <input type="text" th:field="*{userPhone}" class="form-control"
+                   placeholder="전화번호를 입력하세요"
+                   th:class="${#fields.hasErrors('userPhone')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('userPhone')}"
+               th:errors="*{userPhone}">Incorrect date</p>
+        </div>-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
