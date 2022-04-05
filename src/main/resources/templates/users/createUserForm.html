@@ -7,8 +7,9 @@
     }
 </style>
 <body>
-<div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div class="container">
+
     <form role="form" action="/users/new" th:object="${userForm}"
           method="post">
         <div class="form-group">
