@@ -1,14 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
+
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-<div class="container">
+<body class="text-center">
+<!--<div class="container">-->
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
+        <main class="container">
+            <div class="bg-light p-5 rounded">
+            <h1>마지막에 꾸밀 부분</h1>
+            <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll,
+            this navbar remains in its original position and moves with the rest of the page.</p>
+            <a class="btn btn-lg btn-primary" href="/docs/5.1/components/navbar/" role="button">View navbar docs &raquo;</a>
+            </div>
+        </main>
     <div class="jumbotron">
-        <h1>TOGETHER MARKET</h1>
         <p class="lead">회원 기능</p>
         <p>
             <a class="btn btn-lg btn-secondary" href="/users/new">회원 가입</a>
@@ -26,5 +34,5 @@
             <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>
         </p>
     </div>
-    <div th:replace="fragments/footer :: footer" />
-</div> <!-- /container -->
+<!--    <div th:replace="fragments/footer :: footer" />-->
+<!--</div> &lt;!&ndash; /container &ndash;&gt;-->
