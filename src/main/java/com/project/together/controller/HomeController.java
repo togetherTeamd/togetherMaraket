@@ -4,6 +4,7 @@ import com.project.together.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -19,7 +20,18 @@ public class HomeController {
             return "home";
         }
         model.addAttribute("user", loginUser);
-        log.info("로그인 홈화면");
-        return "loginHome";
+        if(loginUser.getUserId().equals("admin")) {
+            log.info("관리자 홈화면");
+            return "adminHome";
+        }
+        else {
+            log.info("로그인 홈화면");
+            return "loginHome";
+        }
+    }
+
+    @GetMapping("/test")
+    public String showIndex(){
+        return "test";
     }
 }
