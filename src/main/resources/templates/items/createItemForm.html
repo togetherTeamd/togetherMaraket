@@ -2,8 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div class="py-5">
+        <h2>상품 등록</h2>
+    </div>
     <form th:action="@{/items/new}" th:object="${form}" method="post">
 
         <div th:if="${#fields.hasGlobalErrors()}">
