@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,7 +41,7 @@ public class UserController {
         user.setUserPw(form.getUserPw());
         user.setUserName(form.getUserName());
         user.setUserPhone(form.getUserPhone());
-        user.setCreatedAt(LocalDate.now());
+        user.setCreatedAt(LocalDateTime.now());
         userService.join(user);
         log.info("회원가입 성공");
         return "redirect:/";
