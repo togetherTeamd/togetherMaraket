@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -48,6 +49,7 @@ public class LoginController {
         session.setAttribute(SessionConstants.LOGIN_USER, loginUser);
 
         log.info("로그인 성공");
+
         return "redirect:" + redirectURL;
     }
 
@@ -57,8 +59,8 @@ public class LoginController {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();   // 세션 날림
-        }
 
+        }
         log.info("로그아웃 성공");
         return "redirect:/";
     }

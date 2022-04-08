@@ -10,6 +10,9 @@
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div class="container">
 
+        <div class="py-5">
+            <h2>회원가입</h2>
+        </div>
     <form role="form" action="/users/new" th:object="${userForm}"
           method="post">
         <div class="form-group">
@@ -46,5 +49,6 @@
     <br/>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
+
 </body>
 </html>
