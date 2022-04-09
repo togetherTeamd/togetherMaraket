@@ -32,7 +32,7 @@ public class KakaoLoginController {
 
     /***
      *
-     * @param code : 인가코드로 access 토큰 받기 받기 자기
+     * @param code : 인가코드로 access 토큰.
      * @param
      * @return
      * @throws Exception
