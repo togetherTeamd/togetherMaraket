@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -21,7 +22,9 @@ public class SellRepository {
         return em.find(Sell.class, id);
     }
 
-    /*public Long findUser(Long id) {
+    public List<Sell> findAll() {
+        return em.createQuery("select s from Sell s", Sell.class)
+                .getResultList();
+    }
 
-    }*/
 }

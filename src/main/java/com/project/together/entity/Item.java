@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +20,27 @@ public class Item {
 
     @Column(name = "item_name")
     private String name;
+
     @Column(name = "item_price")
     private int price;
 
-    private LocalDate createdAt;
+    @Column(name = "item_seller")
+    private String seller;
+
+    private LocalDateTime createdAt;
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+    private int wishCount = 0;
+
+    public void addWishCount() {
+        this.wishCount++;
+    }
+
+    public void removeWishCount() {
+        this.wishCount--;
+    }
 
     @Enumerated(EnumType.STRING)
     private ItemStatus itemStatus; //ENUM [SELLING(판매중), SOLD(판매 완료)]
