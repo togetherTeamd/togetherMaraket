@@ -62,7 +62,6 @@ public class KakaoLoginController {
             user.setCreatedAt(LocalDateTime.now());
             userService.join(user);
             log.info("회원가입 성공");
-            log.info("회원가입 성공");
             HttpSession session = request.getSession();
             session.setAttribute(SessionConstants.LOGIN_USER, user);
         } else {
