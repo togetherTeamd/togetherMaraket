@@ -6,15 +6,16 @@ import com.project.together.service.BuyService;
 import com.project.together.service.ItemService;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class BuyController {
 
     private final BuyService buyService;
@@ -44,5 +45,24 @@ public class BuyController {
         buyService.buy(loginUser.getUserIdx(), item.getId());
 
         return "redirect:/";
+    }
+
+    @GetMapping("items/{itemId}/buy")
+    public String buyForm(Model model, @PathVariable Long itemId) {
+        BuyForm buyForm = new BuyForm();
+        model.addAttribute("form", buyForm);
+        return "items/buyForm";
+    }
+
+    @PostMapping(value = "/items/{itemId}/buy")
+    public String buyItem(@PathVariable Long itemId, @ModelAttribute("form") BuyForm form) {
+
+        if(userService.findById(form.getId()).isEmpty()) {
+            log.info(form.getId());
+            return "redirect:/";
+        }
+        itemService.setBuyer(userService.findById(form.getId()).get(0).getUserIdx(),itemId);
+
+        return "redirect:/items";
     }
 }

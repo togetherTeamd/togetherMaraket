@@ -50,7 +50,7 @@ public class LoginController {
 
         log.info("로그인 성공");
 
-        return "redirect:" + redirectURL;
+        return "redirect:/"; //+ redirectURL;
     }
 
     @PostMapping("/logout")

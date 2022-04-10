@@ -40,16 +40,8 @@ public class User {
     private List<Sell> sellList = new ArrayList<>();
     //private Role role; //로그인 상태 [ADMIN, USER]
 
+    @OneToMany(mappedBy = "user")
+    private List<Wish> wishList = new ArrayList<>();
 
-    /*@Builder
-    public User(@NotEmpty String userId, @NotEmpty String userPw, @NotEmpty String userName
-    , @NotEmpty String userPhone, @NotEmpty String address) {
-        this.address = address;
-        this.createdAt = LocalDate.now();
-        this.userId = userId;
-        this.userPw = userPw;
-        this.userName = userName;
-        this.userPhone = userPhone;
-    }*/
 
 }
