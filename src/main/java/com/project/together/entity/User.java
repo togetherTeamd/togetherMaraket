@@ -1,11 +1,9 @@
 package com.project.together.entity;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,7 @@ public class User {
     @Embedded
     private Address address;
 
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")// 연관관계 주인 설정 1:N 일 경우 N쪽이 주인
