@@ -32,7 +32,7 @@ public class ItemRepository {
     }
 
     public List<Item> findBySeller(String sellerId) {
-        return em.createQuery("select i from Item i where i.seller =: sellerId")
+        return em.createQuery("select i from Item i where i.seller =: sellerId", Item.class)
                 .setParameter("sellerId", sellerId)
                 .getResultList();
     }
@@ -46,15 +46,15 @@ public class ItemRepository {
     }
 
     public List<Item> findSellingItem() {
-        return em.createQuery("select i from Item i where i.itemStatus =: itemStatus")
+        return em.createQuery("select i from Item i where i.itemStatus =: itemStatus", Item.class)
                 .setParameter("itemStatus", ItemStatus.SELLING)
                 .getResultList();
     }
 
-    public void cancelItem(Long itemId) {
-
-         em.createQuery("delete from Item i where i.id =: itemId")
-                .setParameter("itemId", itemId)
-                 .executeUpdate();
+    public List<Item> findByBuyer(String buyerId) {
+        return em.createQuery("select i from Item i where i.buyer =: buyerId", Item.class)
+                .setParameter("buyerId", buyerId)
+                .getResultList();
     }
+
 }

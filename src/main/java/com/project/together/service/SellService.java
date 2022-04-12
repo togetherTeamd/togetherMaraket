@@ -39,8 +39,7 @@ public class SellService {
 
         return sell.getId();
     }
-
-    public List<Sell> findAll() {
+    /*public List<Sell> findAll() {
         return sellRepository.findAll();
-    }
+    }*/
 }
