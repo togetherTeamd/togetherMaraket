@@ -19,7 +19,7 @@ public class Wish {
     private User user; // 찜한 사용자
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "wishItem_id")
+    @JoinColumn(name = "wish_Item_id")
     private WishItem wishItem;
 
     private int isCancel;//취소 확인 용 db연관관계가 복잡해 삭제가 되지 않아 안에 속성으로 넣었습니다.
