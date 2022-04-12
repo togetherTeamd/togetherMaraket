@@ -19,10 +19,10 @@ public class Wish {
     private User user; // 찜한 사용자
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "wishItem_id")
+    @JoinColumn(name = "wish_Item_id")
     private WishItem wishItem;
 
-    private int isCancel;//취소 확인 용 db연관관계가 복잡해 삭제가 되지 않아 안에 속성으로 넣었습니다.
+
 
     //조회용으로 만들었습니다.
     private String wishItemName;
@@ -48,7 +48,6 @@ public class Wish {
         wish.setWishItemCreateTime(wishItem.getItem().getCreatedAt());
         //여기까지
         wishItem.setWisherId(user.getUserIdx());// 중복방지용 위시유저 설정
-        wish.setIsCancel(0);//취소시 1 등록시 0 반환
         wish.setWishItem(wishItem);
         
         return wish;

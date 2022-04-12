@@ -53,8 +53,10 @@ public class WishService {
         return wishRepository.findByUser(userIdx);
     }
 
-    public void removeWish(Long userIdx, Long itemId) {
-        wishRepository.findByItem(userIdx, itemId).get(0).setIsCancel(1);
+    @Transactional
+    public void removeWish(Long userIdx, Long wishId) {
+        wishRepository.findByUserItem(userIdx, wishId).get(0).getWishItem().getItem().removeWishCount();
+        wishRepository.wishCancel(userIdx, wishId);
     }
 
 

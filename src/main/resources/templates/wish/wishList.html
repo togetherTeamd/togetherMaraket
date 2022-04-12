@@ -24,7 +24,7 @@
                 <td th:text="${item.getWishItemSeller()}"></td>
                 <td th:text="${item.getWishItemCreateTime()}"></td>
                 <td>
-                    <form th:action="@{/items/{id}/removeWish (id=${item.id})}" method="post">
+                    <form th:action="@{/wish/{id}/removeWish (id=${item.id})}" method="post">
                         <button class="w-100 btn btn-dark btn-lg" type="submit">
                             찜하기 취소
                         </button>

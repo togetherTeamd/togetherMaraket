@@ -42,6 +42,10 @@ public class ItemService {
         return itemRepository.findSellingItem();
     }
 
+    public List<Item> findByBuyer(String buyerId) {
+        return itemRepository.findByBuyer(buyerId);
+    }
+
     @Transactional
     public void updateItem(Long itemId, String name, int price) {
         Item item = itemRepository.findOne(itemId);
