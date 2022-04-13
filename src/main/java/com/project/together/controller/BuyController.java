@@ -22,7 +22,7 @@ public class BuyController {
     private final UserService userService;
     private final ItemService itemService;
 
-    @GetMapping("/buy")
+    /*@GetMapping("/buy")
     public String createForm(Model model) {
         model.addAttribute("form", new ItemForm());
         return "buy/buyForm";
@@ -45,7 +45,7 @@ public class BuyController {
         buyService.buy(loginUser.getUserIdx(), item.getId());
 
         return "redirect:/";
-    }
+    }*/
 
     @GetMapping("items/{itemId}/buy")
     public String buyForm(Model model, @PathVariable Long itemId) {
@@ -64,5 +64,15 @@ public class BuyController {
         itemService.setBuyer(userService.findById(form.getId()).get(0).getUserIdx(),itemId);
 
         return "redirect:/items";
+    }
+
+    @GetMapping(value = "/buy")
+    public String list(Model model, @SessionAttribute
+            (name = SessionConstants.LOGIN_USER, required = false) User loginUser) {
+
+        List<Item> items = itemService.findByBuyer(loginUser.getUserId());
+        model.addAttribute("items", items);
+
+        return "buy/buyList";
     }
 }

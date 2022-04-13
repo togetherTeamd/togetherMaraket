@@ -27,12 +27,14 @@ public class SellController {
     @GetMapping(value = "/sell")
     public String sellList(Model model, @SessionAttribute
             (name = SessionConstants.LOGIN_USER, required = false) User loginUser) {
+
         if(loginUser != null) {
             log.info("회원 정보 얻어오기 성공");
         }
+
         List<Item> items = itemService.findBySeller(loginUser.getUserId());
         model.addAttribute("items", items);
-        //model.addAttribute("sellList", sellList);
+
         return "sell/sellList";
     }
 }

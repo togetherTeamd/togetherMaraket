@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -29,6 +31,9 @@ public class BuyService {
         User user = userRepository.findByIdx(userIdx);
         Item item = itemRepository.findOne(itemId);
 
+        item.setBuyer(user.getUserId());
+        item.setBuyDate(LocalDateTime.now());
+
         //구매상품 생성
         BuyItem buyItem = BuyItem.createBuyItem(item);
 
@@ -40,6 +45,7 @@ public class BuyService {
 
         return buy.getId();
     }
+
 
     /**
      * 검색

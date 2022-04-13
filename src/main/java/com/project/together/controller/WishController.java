@@ -42,12 +42,13 @@ public class WishController {
         return "redirect:/";
     }
 
-    /*@PostMapping(value = "/items/{itemId}/removeWish")
-    public String removeWish(@PathVariable Long itemId, @SessionAttribute
+    @PostMapping(value = "/wish/{wishId}/removeWish")
+    public String removeWish(@PathVariable Long wishId, @SessionAttribute
             (name = SessionConstants.LOGIN_USER, required = false) User loginUser) {
 
-        wishService.removeWish(itemId, loginUser.getUserIdx());
+        //wishService.removeWish(wishId, loginUser.getUserIdx());
 
+        wishService.removeWish(loginUser.getUserIdx(), wishId);
         return "redirect:/";
-    }*/
+    }
 }

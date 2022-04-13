@@ -34,6 +34,12 @@ public class Item {
 
     private int wishCount = 0;
 
+    @Column(name = "item_buyer")
+    private String buyer;
+
+    @Column(name = "buy_date")
+    private LocalDateTime buyDate;
+
     public void addWishCount() {
         this.wishCount++;
     }
