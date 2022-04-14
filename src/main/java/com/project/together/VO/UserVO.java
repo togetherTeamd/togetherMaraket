@@ -2,11 +2,13 @@ package com.project.together.VO;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString
 public class UserVO {
 
     private Long userIdx;
