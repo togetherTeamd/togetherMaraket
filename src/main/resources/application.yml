@@ -22,7 +22,7 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-      ddl-auto: validate
+      ddl-auto: create
 
 mybatis:
   type-aliases-package: com.project.together
