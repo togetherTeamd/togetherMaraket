@@ -2,6 +2,7 @@ package com.project.together.service;
 
 import com.project.together.entity.*;
 import com.project.together.repository.BuyRepository;
+import com.project.together.repository.ItemRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,9 @@ public class BuyServiceTest {
     BuyService buyService;
     @Autowired
     BuyRepository buyRepository;
+    @Autowired ItemRepository itemRepository;
 
+    @Autowired CategoryService categoryService;
     @Test
     public void 구매() throws Exception {
         User user = new User();
@@ -38,15 +41,17 @@ public class BuyServiceTest {
         category.setName("도서");
         em.persist(category);
 
-        List<Category> categories = new ArrayList<>();
         Item item = new Item();
         item.setName("테스트 상품");
-        item.setCategories(categories);
         em.persist(item);
+
+        categoryService.addCategory(item.getId(), category.getId());
 
         Long buyId = buyService.buy(user.getUserIdx(), item.getId());
 
         Buy getBuy = buyRepository.findOne(buyId);
+
+        System.out.println(itemRepository.findOne(item.getId()).getItemCategories().get(0).getCategory().getName());
 
         assertEquals(ItemStatus.SOLD, getBuy.getBuyItems().get(0).getItem().getItemStatus());
 

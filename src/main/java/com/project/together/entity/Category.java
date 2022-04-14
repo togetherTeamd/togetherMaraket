@@ -1,6 +1,7 @@
 package com.project.together.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.*;
@@ -12,12 +13,20 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
-    private String name;
+    @OneToMany(mappedBy = "category")
+    private List<ItemCategory> itemCategories = new ArrayList<>();
 
-    @ManyToMany
+    /*@Column(name = "category_name", unique = true)
+    private CategoryList categoryName;*/
+    @Column(name = "category_name", unique = true)
+    private String categoryName;
+
+
+    /*@ManyToMany
     @JoinTable(name = "category_item",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
+    @Cascade(org.hiberna    te.annotations.CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,6 +39,6 @@ public class Category {
     public void addChildCategory(Category child) {
         this.child.add(child);
         this.setParent(this);
-    }
+    }*/
 
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<div class="container">
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>등록자</th>
+                <th>등록날짜</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${wishList}">
+                <td th:text="${item.getWishItemIdx()}"></td>
+                <td th:text="${item.getWishItemName()}"></td>
+                <td th:text="${item.getWishItemPrice()}"></td>
+                <td th:text="${item.getWishItemSeller()}"></td>
+                <td th:text="${item.getWishItemCreateTime()}"></td>
+
+                <td>
+                    <form th:action="@{/wish/{id}/removeWish (id=${item.id})}" method="post">
+                        <button class="w-100 btn btn-dark btn-lg" type="submit">
+                            찜하기 취소
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>
