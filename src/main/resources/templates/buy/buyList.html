@@ -12,6 +12,7 @@
                 <th>상품명</th>
                 <th>가격</th>
                 <th>구매 날짜</th>
+                <th>카테고리</th>
                 <th></th>
             </tr>
             </thead>
@@ -21,6 +22,11 @@
                 <td th:text="${item.name}"></td>
                 <td th:text="${item.price}"></td>
                 <td th:text="${item.buyDate}"></td>
+                <td>
+                    <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">
+                        <span th:text="${category.categoryName}"></span>
+                    </span>
+                </td>
             </tr>
             </tbody>
         </table>

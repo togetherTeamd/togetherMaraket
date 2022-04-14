@@ -27,6 +27,7 @@
         <th>등록자</th>
         <th>등록날짜</th>
         <th>찜한 사용자수</th>
+        <th>카테고리</th>
         <th></th>
       </tr>
       </thead>
@@ -39,13 +40,16 @@
         <td th:text="${item.createdAt}"></td>
         <td th:text="${item.wishCount}"></td>
         <td>
+        <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">
+          <span th:text="${category.categoryName}"></span>
+        </span>
+        </td>
+        <td>
           <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
             <button class="w-100 btn btn-dark btn-lg" type="submit">
               찜하기
             </button>
           </form>
-          <!--<a href="#" th:href="@{/items/{id}/wish (id=${item.id})}" method="post"
-             class="btn btn-primary" role="button">찜하기</a>-->
         </td>
       </tr>
       </tbody>
