@@ -10,9 +10,9 @@ spring:
 #      force: true
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test
-    username: root
-    password: mysql1234
+    url: jdbc:mysql://dleown.synology.me:8806/junggo
+    username: junggo
+    password: jgnaraDB1!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
