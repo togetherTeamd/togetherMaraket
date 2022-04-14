@@ -1,7 +1,7 @@
 package com.project.together.entity;
 
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,7 +29,6 @@ public class User {
     @Embedded
     private Address address;
 
-    @CreatedDate
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user")// 연관관계 주인 설정 1:N 일 경우 N쪽이 주인
@@ -37,18 +36,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Sell> sellList = new ArrayList<>();
-    //private Role role; //로그인 상태 [ADMIN, USER]
 
+    @OneToMany(mappedBy = "user")
+    private List<Wish> wishList = new ArrayList<>();
 
-    /*@Builder
-    public User(@NotEmpty String userId, @NotEmpty String userPw, @NotEmpty String userName
-    , @NotEmpty String userPhone, @NotEmpty String address) {
-        this.address = address;
-        this.createdAt = LocalDate.now();
-        this.userId = userId;
-        this.userPw = userPw;
-        this.userName = userName;
-        this.userPhone = userPhone;
-    }*/
 
 }

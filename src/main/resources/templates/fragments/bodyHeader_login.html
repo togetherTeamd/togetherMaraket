@@ -19,15 +19,55 @@
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
             </form>
-            <div class="text-end">
+            <div class="text-end" style="display:flex; justify-content: space-between">
                 <form th:action="@{/logout}" method="post">
                 <button type="submit" class="btn btn-outline-light me-2" onclick="location.href='home.html'">
                     로그아웃
                 </button>
-
-                <button class="btn btn-warning" href="#">My Page</button>
                 </form>
+                <button class="btn btn-warning" onclick="location.href='/updateUserForm'">My Page</button>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="#" th:href="@{/}">Together Market</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">상품등록</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">상품보기</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+                            <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                    <li><a class="dropdown-item" href="#">인기상품</a></li>
+                                    <li><a class="dropdown-item" href="#">디지털기기</a></li>
+                                    <li><a class="dropdown-item" href="#">가구/인테리어</a></li>
+                                    <li><a class="dropdown-item" href="#">스포츠/레저</a></li>
+                                    <li><a class="dropdown-item" href="#">의류/잡화</a></li>
+                                    <li><a class="dropdown-item" href="#">게임/취미</a></li>
+                                    <li><a class="dropdown-item" href="#">도서/티켓/음반</a></li>
+                                    <li><a class="dropdown-item" href="#">모바일상품권</a></li>
+                                    <li><a class="dropdown-item" href="#">기타</a></li>
+                                </ul>
+                            </li>
 
+                        </ul>
+
+                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                            <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                        </form>
+                        <div class="text-end">
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="btn btn-outline-light me-2" onclick="location.href='home.html'">
+                                    로그아웃
+                                </button>
+
+                                <button class="btn btn-warning" href="#">My Page</button>
+                            </form>
+                    </div>
+                </div>
+            </nav>
 <!--                <button type="button" class="btn btn-outline-light me-2" onclick="location.href='/login/new'">Login</button>-->
 <!--                <button type="button" class="btn btn-warning" onclick="location.href='/users/new'">Sign-up</button>-->
             </div>

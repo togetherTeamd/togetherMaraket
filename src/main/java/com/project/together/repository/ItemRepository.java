@@ -1,7 +1,7 @@
 package com.project.together.repository;
 
-import com.project.together.entity.Category;
 import com.project.together.entity.Item;
+import com.project.together.entity.ItemStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -27,14 +27,34 @@ public class ItemRepository {
 
     public List<Item> findByName(String name) {
         return em.createQuery("select i from Item i where i.name like :name")
+                .setParameter("name", name)
                 .getResultList();
     }
 
-    /*public List<Item> findByCategory(Category category) {
-        return em.createQuery("select i from Item i where i.categories")
+    public List<Item> findBySeller(String sellerId) {
+        return em.createQuery("select i from Item i where i.seller =: sellerId", Item.class)
+                .setParameter("sellerId", sellerId)
+                .getResultList();
+    }
+
+    /*public List<Item> findByCategory(String categoryId) {
+        return em.createQuery("select i from Item i where i.itemCategories")
     }*/
     public List<Item> findAll() {
         return em.createQuery("select i from Item i", Item.class)
                 .getResultList();
     }
+
+    public List<Item> findSellingItem() {
+        return em.createQuery("select i from Item i where i.itemStatus =: itemStatus", Item.class)
+                .setParameter("itemStatus", ItemStatus.SELLING)
+                .getResultList();
+    }
+
+    public List<Item> findByBuyer(String buyerId) {
+        return em.createQuery("select i from Item i where i.buyer =: buyerId", Item.class)
+                .setParameter("buyerId", buyerId)
+                .getResultList();
+    }
+
 }

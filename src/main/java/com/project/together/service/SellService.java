@@ -9,8 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class SellService {
     private final SellRepository sellRepository;
     private final UserRepository userRepository;
@@ -36,4 +39,7 @@ public class SellService {
 
         return sell.getId();
     }
+    /*public List<Sell> findAll() {
+        return sellRepository.findAll();
+    }*/
 }

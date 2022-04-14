@@ -1,6 +1,7 @@
 package com.project.together.service;
 
 import com.project.together.entity.Item;
+import com.project.together.entity.ItemStatus;
 import com.project.together.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final BuyService buyService;
 
     @Transactional
     public void saveItem(Item item) {
@@ -31,4 +33,31 @@ public class ItemService {
     public Item findOne(Long itemIdx) {
         return itemRepository.findOne(itemIdx);
     }
+
+    public List<Item> findBySeller(String sellerId) {
+        return itemRepository.findBySeller(sellerId);
+    }
+
+    public List<Item> findSellingItem() {
+        return itemRepository.findSellingItem();
+    }
+
+    public List<Item> findByBuyer(String buyerId) {
+        return itemRepository.findByBuyer(buyerId);
+    }
+
+    @Transactional
+    public void updateItem(Long itemId, String name, int price) {
+        Item item = itemRepository.findOne(itemId);
+        item.setName(name);
+        item.setPrice(price);
+    }
+
+    @Transactional
+    public void setBuyer(Long userIdx, Long itemId) {//판매완료
+        Item item = itemRepository.findOne(itemId);
+        item.setItemStatus(ItemStatus.SOLD);
+        buyService.buy(userIdx, itemId);
+    }
+
 }

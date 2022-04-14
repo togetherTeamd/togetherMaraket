@@ -42,19 +42,29 @@
 <body class="text-center">
 <!--<div class="container">-->
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login" />
-<main class="container">
-  <div class="bg-light p-5 rounded">
-    <h1>마지막에 꾸밀 부분</h1>
-    <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll,
-      this navbar remains in its original position and moves with the rest of the page.</p>
-    <a class="btn btn-lg btn-primary" href="/docs/5.1/components/navbar/" role="button">View navbar docs &raquo;</a>
+<header class="bg-dark py-5">
+  <div class="container px-5">
+    <div class="row gx-5 align-items-center justify-content-center">
+      <div class="col-lg-8 col-xl-7 col-xxl-6">
+        <div class="my-5 text-center text-xl-start">
+          <h1 class="display-5 fw-bolder text-white mb-2">A Bootstrap 5 template for modern businesses</h1>
+          <p class="lead fw-normal text-white-50 mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit!</p>
+          <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
+            <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..."></div>
+    </div>
   </div>
-</main>
+</header>
 <div class="jumbotron">
   <p class="lead">회원 기능</p>
   <p>
-    <a class="btn btn-lg btn-secondary" href="/users/new">회원 가입</a>
-    <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
+    <a class="btn btn-lg btn-secondary" href="/sell">판매 목록</a>
+    <a class="btn btn-lg btn-secondary" href="/buy">구매 목록</a>
+    <a class="btn btn-lg btn-secondary" href="/wish">찜 목록</a>
   <h4 class="mb-3" th:text="|로그인 사용자 이름: ${user.userName}|">로그인 사용자 이름</h4>
   <form th:action="@{/logout}" method="post">
     <button class="w-100 btn btn-dark btn-lg" onclick="location.href='home.html'" type="submit">

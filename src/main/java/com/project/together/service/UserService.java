@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService {
 
@@ -19,6 +19,7 @@ public class UserService {
     /**
      * 회원가입
      */
+    @Transactional
     public Long join(User user) {
         validateDuplicateUser(user); // 중복아이디 검증
         userRepository.save(user);
@@ -32,10 +33,8 @@ public class UserService {
         }
     }
 
-    @Transactional(readOnly = true)
     public List<User> findById(String userId) {return userRepository.findById(userId);}
 
-    @Transactional(readOnly = true)
     public User findByIdx(Long userIdx) {
         return userRepository.findByIdx(userIdx);
     }
