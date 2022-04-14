@@ -69,6 +69,7 @@ public class UserController {
 
         //userID 는 무조건 하나이니깐 List 0번째에서 가져오면 됨.
         model.addAttribute("user", userVOList.get(0));
+        System.out.println("updateUserForm 데이터 확인 : " + userVOList.get(0).toString());
 
         HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
         session.setAttribute(SessionConstants.LOGIN_USER, loginUser);
@@ -82,7 +83,7 @@ public class UserController {
      */
     @PostMapping("/updateUserForm")
     public String updateUserForm(@ModelAttribute UserVO userVO, Model model) throws Exception{
-        System.out.println(userVO.toString());
+        System.out.println("updateUserForm 수정할 데이터 확인 : " + userVO.toString());
         List<UserVO> originUserVO = userMapper.selectUser(userVO);
         if(!originUserVO.get(0).getUserPw().equals(userVO.getUserPw())){
             model.addAttribute("user", originUserVO.get(0));
