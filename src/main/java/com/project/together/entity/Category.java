@@ -1,4 +1,4 @@
-package com.project.together.entity;
+/*package com.project.together.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.Cascade;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.*;
 @Entity
 @Data
-public class Category {
+public class Categori {
 
     @Id @GeneratedValue
     @Column(name = "category_id")
@@ -34,4 +34,4 @@ public class Category {
         this.setParent(this);
     }
 
-}
+}*/
