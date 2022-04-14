@@ -37,8 +37,8 @@ public class ItemRepository {
                 .getResultList();
     }
 
-    /*public List<Item> findByCategory(Category category) {
-        return em.createQuery("select i from Item i where i.categories")
+    /*public List<Item> findByCategory(String categoryId) {
+        return em.createQuery("select i from Item i where i.itemCategories")
     }*/
     public List<Item> findAll() {
         return em.createQuery("select i from Item i", Item.class)

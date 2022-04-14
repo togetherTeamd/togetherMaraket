@@ -38,7 +38,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Sell> sellList = new ArrayList<>();
-    //private Role role; //로그인 상태 [ADMIN, USER]
 
     @OneToMany(mappedBy = "user")
     private List<Wish> wishList = new ArrayList<>();

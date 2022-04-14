@@ -15,6 +15,7 @@
                 <th>판매 상태</th>
                 <th>등록 날짜</th>
                 <th>찜한 사용자수</th>
+                <th>카테고리</th>
                 <th></th>
             </tr>
             </thead>
@@ -26,6 +27,11 @@
                 <td th:text="${item.itemStatus}"></td>
                 <td th:text="${item.createdAt}"></td>
                 <td th:text="${item.wishCount}"></td>
+                <td>
+                    <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">
+                        <span th:text="${category.categoryName}"></span>
+                    </span>
+                </td>
                 <td>
                     <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
                        class="btn btn-primary" role="button">수정</a>

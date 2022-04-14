@@ -1,9 +1,7 @@
 package com.project.together.controller;
 
-import com.project.together.entity.Item;
-import com.project.together.entity.Sell;
-import com.project.together.entity.SellItem;
-import com.project.together.entity.User;
+import com.project.together.entity.*;
+import com.project.together.service.CategoryService;
 import com.project.together.service.ItemService;
 import com.project.together.service.SellService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +21,7 @@ import java.util.List;
 public class SellController {
 
     private final ItemService itemService;
+    private final CategoryService categoryService;
 
     @GetMapping(value = "/sell")
     public String sellList(Model model, @SessionAttribute
@@ -31,6 +30,9 @@ public class SellController {
         if(loginUser != null) {
             log.info("회원 정보 얻어오기 성공");
         }
+
+        List<ItemCategory> itemCategories = categoryService.findAllItemCategory();
+        model.addAttribute("itemCategories", itemCategories);
 
         List<Item> items = itemService.findBySeller(loginUser.getUserId());
         model.addAttribute("items", items);

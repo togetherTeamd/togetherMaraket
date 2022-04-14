@@ -42,7 +42,7 @@ public class WishRepository {
 
     public List<Wish> findByUserItem(Long userIdx, Long wishId) {
 
-       return em.createQuery("select w from Wish w where w.user.userIdx =: userIdx and w.id =: wishId")
+       return em.createQuery("select w from Wish w where w.user.userIdx =: userIdx and w.id =: wishId", Wish.class)
                 .setParameter("userIdx", userIdx)
                 .setParameter("wishId", wishId)
                 .getResultList();

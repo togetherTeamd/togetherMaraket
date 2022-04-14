@@ -25,6 +25,16 @@
             <div class="field-error" th:errors="*{price}"/>
         </div>
 
+        <div class="form-group">
+            <label for="category">카테고리</label>
+            <select name="categoryId" id="category" class="form-control">
+                <option value="">카테고리선택</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:text="${category.categoryName}" />
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br/>
