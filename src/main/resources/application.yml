@@ -22,7 +22,14 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-      ddl-auto: create
+#      ddl-auto: create
+      ddl-auto: update
+
+mybatis:
+  type-aliases-package: com.project.together
+  mapper-locations: mybatis/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
 
   logging:
     level:
