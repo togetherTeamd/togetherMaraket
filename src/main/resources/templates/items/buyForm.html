@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
     <form th:object="${form}" method="post">
         <!-- id -->
        <!-- <input type="hidden" th:field="*{id}" />-->

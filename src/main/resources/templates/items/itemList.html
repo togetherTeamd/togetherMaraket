@@ -15,7 +15,7 @@
   <meta name="theme-color" content="#7952b3">
 </head>
 <body>
-  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+  <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
   <div class="container">
   <div>
     <table class="table table-striped">
@@ -27,6 +27,7 @@
         <th>등록자</th>
         <th>등록날짜</th>
         <th>찜한 사용자수</th>
+        <th>카테고리</th>
         <th></th>
       </tr>
       </thead>
@@ -39,48 +40,56 @@
         <td th:text="${item.createdAt}"></td>
         <td th:text="${item.wishCount}"></td>
         <td>
+        <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">
+          <span th:text="${category.categoryName}"></span>
+        </span>
+        </td>
+        <td>
           <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
             <button class="w-100 btn btn-dark btn-lg" type="submit">
               찜하기
             </button>
           </form>
-          <!--<a href="#" th:href="@{/items/{id}/wish (id=${item.id})}" method="post"
-             class="btn btn-primary" role="button">찜하기</a>-->
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-    <div class="album py-5 bg-light">
-      <div class="container">
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <tr th:each="item : ${items}">
-          <div class="col">
-            <div class="card shadow-sm">
-              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">사진들어갈자리</text></svg>
-
-              <div class="card-body">
-                <p class="card-text">상품 설명 들어갈 자리</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary"><td th:text="${item.name}"></td></button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary"><td th:text="${item.name}"></button>
-                  </div>
-                  <small class="text-muted"><a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
-                                               class="btn btn-primary" role="button">수정</a></small>
+    <section class="py-5">
+      <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <tr th:each="item:${items}">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Product image-->
+              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder"><td th:text="${item.name}"></td></h5>
+                  <!-- Product price-->
+                  <td th:text="${item.price}"></td>
                 </div>
               </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
+                  <a class="btn btn-outline-dark mt-auto" href="#">View</a>
+                  <button class="btn btn-outline-dark mt-auto" type="submit">찜</button>
+                  </form>
+                </div>
+
+              </div>
+
             </div>
           </div>
           </tr>
-
-
-            </div>
-          </div>
         </div>
-    </main>
-  <div th:replace="fragments/footer :: footer"/>
+      </div>
+    </section>
+    <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
   <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

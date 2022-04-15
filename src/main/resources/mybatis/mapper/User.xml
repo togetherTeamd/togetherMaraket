@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.together.repository.UserMapper">
+
+    <insert id="joinUser">
+        insert into user (user_id, user_pw, user_name, user_phone, city, street, zipcode, created_at)
+        values (#{userId}, #{userPw}, #{userName}, #{userPhone}, #{city}, #{street}, #{zipcode}, now())
+    </insert>
+
+    <select id="selectUser" resultType="UserVO">
+        select * from user where user_id = #{userId}
+    </select>
+
+    <update id="updateUser">
+        update user set
+            user_pw = #{userPw},
+            user_name = #{userName},
+            user_phone = #{userPhone},
+            city = #{city},
+            street = #{street},
+            zipcode = #{zipcode}
+        where user_id = #{userId}
+    </update>
+</mapper>

@@ -28,6 +28,7 @@ dependencies {
 	implementation 'com.squareup.okio:okio:1.14.0'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 	implementation 'com.google.code.gson:gson:2.8.7'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 	implementation 'junit:junit:4.13.1'
 	implementation 'junit:junit:4.13.1'
 	implementation 'junit:junit:4.13.1'

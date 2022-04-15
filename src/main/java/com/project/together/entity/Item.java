@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +28,8 @@ public class Item {
 
     private LocalDateTime createdAt;
 
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
+    /*@ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();*/
 
     private int wishCount = 0;
 
@@ -39,6 +38,9 @@ public class Item {
 
     @Column(name = "buy_date")
     private LocalDateTime buyDate;
+
+    @OneToMany(mappedBy = "item")
+    private List<ItemCategory> itemCategories = new ArrayList<>();
 
     public void addWishCount() {
         this.wishCount++;

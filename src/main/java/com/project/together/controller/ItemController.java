@@ -1,14 +1,8 @@
 package com.project.together.controller;
 
-import com.project.together.entity.Item;
-import com.project.together.entity.Sell;
-import com.project.together.entity.SellItem;
-import com.project.together.entity.User;
+import com.project.together.entity.*;
 import com.project.together.repository.SellRepository;
-import com.project.together.service.ItemService;
-import com.project.together.service.LoginService;
-import com.project.together.service.SellService;
-import com.project.together.service.UserService;
+import com.project.together.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,29 +22,31 @@ public class ItemController {
 
     private final ItemService itemService;
     private final SellService sellService;
-    private final LoginService loginService;
-    private final SellRepository sellRepository;
-    private final UserService userService;
+    private final CategoryService categoryService;
 
     @GetMapping("items/new")
     public String createForm(Model model) {
+        if(categoryService.findAll().isEmpty()) {
+            categoryService.createCategory();
+        }
         model.addAttribute("form", new ItemForm());
+        model.addAttribute("categories", categoryService.findAll());
         return "items/createItemForm";
     }//상품생성
 
     @PostMapping("items/new")//
-    public String create(ItemForm form, @SessionAttribute
-            (name = SessionConstants.LOGIN_USER, required = false) User loginUser,
-                         BindingResult result){
+    public String create(ItemForm form, @RequestParam("categoryId") Long categoryId,
+                         @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false)
+                                 User loginUser, BindingResult result) {
         if(result.hasErrors()) {
             return "items/createItemForm";
         }
-        //User user = loginService.login(loginUser.getUserId(), loginUser.getUserPw());
 
         if(loginUser == null) {
             result.reject("sellFail", "로그인 후 이용해 주세요");
             return "items/createItemForm";
         }
+
         Item item = new Item();
         item.setName(form.getName());
         item.setPrice(form.getPrice());
@@ -58,15 +54,19 @@ public class ItemController {
         item.setCreatedAt(LocalDateTime.now());
 
         itemService.saveItem(item);
+        categoryService.addCategory(item.getId(), categoryId);
         sellService.sell(loginUser.getUserIdx(), item.getId());
 
-        return "redirect:/items";
+        return "redirect:/";
     }
 
     @GetMapping(value = "/items")
     public String list(Model model) {
         List<Item> items = itemService.findSellingItem();
+        List<ItemCategory> itemCategories = categoryService.findAllItemCategory();
+
         model.addAttribute("items", items);
+        model.addAttribute("itemCategories", itemCategories);
         return "items/itemList";
     }
 

@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
     <div>
         <table class="table table-striped">
             <thead>
@@ -23,6 +24,7 @@
                 <td th:text="${item.getWishItemPrice()}"></td>
                 <td th:text="${item.getWishItemSeller()}"></td>
                 <td th:text="${item.getWishItemCreateTime()}"></td>
+
                 <td>
                     <form th:action="@{/wish/{id}/removeWish (id=${item.id})}" method="post">
                         <button class="w-100 btn btn-dark btn-lg" type="submit">

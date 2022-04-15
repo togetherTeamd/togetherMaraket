@@ -4,8 +4,6 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Sell> sellList = new ArrayList<>();
-    //private Role role; //로그인 상태 [ADMIN, USER]
 
     @OneToMany(mappedBy = "user")
     private List<Wish> wishList = new ArrayList<>();
