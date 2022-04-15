@@ -5,9 +5,9 @@ server:
 spring:
   http:
     encoding:
-#      charset: UTF-8
-#      enabled: true
-#      force: true
+      charset: UTF-8
+      enabled: true
+      force: true
 
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/test
