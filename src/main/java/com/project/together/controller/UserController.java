@@ -131,6 +131,7 @@ public class UserController {
     public String updateUserForm2(@RequestBody UserVO userVO, Model model) throws Exception{
         User user = new User();
 
+        user.setUserIdx(userVO.getUserIdx());
         user.setUserId(userVO.getUserId());
         user.setUserPw(userVO.getUserPw());
         user.setUserName(userVO.getUserName());

@@ -23,9 +23,10 @@ public class UserRepository {
     }
 
     public void merge(User user){
-        if(user.getUserId() != null){
-            em.merge(user);
-        }
+        User originalUserInfo = em.find(User.class, user.getUserIdx());
+        originalUserInfo.setUserPw(user.getUserPw());
+        originalUserInfo.setUserPhone(user.getUserPhone());
+        em.merge(originalUserInfo);
     }
 
     public List<User> findById(String userId) {
