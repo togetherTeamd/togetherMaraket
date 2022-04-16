@@ -19,13 +19,7 @@
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
             </form>
-            <div class="text-end" style="display:flex; justify-content: space-between">
-                <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-outline-light me-2" onclick="location.href='home.html'">
-                    로그아웃
-                </button>
-                </form>
-                <button class="btn btn-warning" onclick="location.href='/updateUserForm'">My Page</button>
+            <div class="text-end">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container px-5">
                     <a class="navbar-brand" href="#" th:href="@{/}">Together Market</a>
@@ -57,19 +51,18 @@
                         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                             <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
                         </form>
-                        <div class="text-end">
+                        <div class="text-end" style="display:flex; justify-content: space-between">
                             <form th:action="@{/logout}" method="post">
                                 <button type="submit" class="btn btn-outline-light me-2" onclick="location.href='home.html'">
                                     로그아웃
                                 </button>
 
-                                <button class="btn btn-warning" href="#">My Page</button>
                             </form>
+                            <button class="btn btn-warning" onclick="location.href='/updateUserForm'">My Page</button>
+                        </div>
                     </div>
                 </div>
             </nav>
-<!--                <button type="button" class="btn btn-outline-light me-2" onclick="location.href='/login/new'">Login</button>-->
-<!--                <button type="button" class="btn btn-warning" onclick="location.href='/users/new'">Sign-up</button>-->
             </div>
 
         </div>

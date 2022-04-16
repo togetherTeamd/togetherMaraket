@@ -10,9 +10,9 @@ spring:
 #      force: true
 
   datasource:
-    url: jdbc:mysql://dleown.synology.me:8806/junggo
-    username: junggo
-    password: jgnaraDB1!
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: mysql1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -22,7 +22,8 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-      ddl-auto: create
+      #ddl-auto: create
+      ddl-auto: validate
 
 mybatis:
   type-aliases-package: com.project.together

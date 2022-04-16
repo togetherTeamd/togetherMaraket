@@ -3,11 +3,13 @@ package com.project.together.controller;
 import com.project.together.entity.CategoryList;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
+@ToString
 public class ItemForm {
 
     private Long id;
