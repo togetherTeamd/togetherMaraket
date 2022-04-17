@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,12 +24,16 @@ public class ItemController {
     private final ItemService itemService;
     private final SellService sellService;
     private final CategoryService categoryService;
+    private final LoginService loginService;
 
     @GetMapping("items/new")
-    public String createForm(Model model) {
+    public String createForm(Model model, @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false)
+            User loginUser) {
         if(categoryService.findAll().isEmpty()) {
             categoryService.createCategory();
         }
+        User user = loginService.login(loginUser.getUserId(), loginUser.getUserPw());
+        model.addAttribute("user", user);
         model.addAttribute("form", new ItemForm());
         model.addAttribute("categories", categoryService.findAll());
         return "items/createItemForm";
@@ -71,6 +76,16 @@ public class ItemController {
         model.addAttribute("items", items);
         model.addAttribute("itemCategories", itemCategories);
         return "items/itemList";
+    }
+
+    @GetMapping(value = "/items2")
+    public String list2(Model model) {
+        List<Item> items = itemService.findSellingItem();
+        List<ItemCategory> itemCategories = categoryService.findAllItemCategory();
+
+        model.addAttribute("items", items);
+        model.addAttribute("itemCategories", itemCategories);
+        return "items2/itemList2";
     }
 
     @GetMapping("items/{itemId}/edit")
