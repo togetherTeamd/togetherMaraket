@@ -28,9 +28,6 @@ public class UserRepository {
         originalUserInfo.setUserPhone(user.getUserPhone());
         originalUserInfo.setUserName(user.getUserName());
         originalUserInfo.setAddress(user.getAddress());
-        /**
-         * 다른 데이터로 변경하려면 setter를 더 넣어야 함.
-         * */
         em.merge(originalUserInfo);
     }
 
