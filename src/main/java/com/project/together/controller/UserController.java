@@ -129,7 +129,33 @@ public class UserController {
      */
     @PostMapping("/updateUserForm2")
     @ResponseBody
-    public String updateUserForm2(@RequestBody UserVO userVO, Model model) throws Exception{
+    public String updateUserForm2(@ModelAttribute UserVO userVO, Model model) throws Exception{
+        User user = new User();
+
+        user.setUserIdx(userVO.getUserIdx());
+        user.setUserId(userVO.getUserId());
+        user.setUserPw(userVO.getUserPw());
+        user.setUserName(userVO.getUserName());
+        user.setUserPhone(userVO.getUserPhone());
+
+        Address address = new Address();
+        address.setCity(userVO.getCity());
+        address.setZipcode(userVO.getZipcode());
+        address.setStreet(userVO.getStreet());
+
+        user.setAddress(address);
+
+        Long check = userService.update(user);
+        System.out.println(check);
+        return "redirect:/";
+    }
+
+    /***
+     * @throws
+     */
+    @PostMapping("/updateUserForm2_postman")
+    @ResponseBody
+    public String updateUserForm2_postman(@RequestBody UserVO userVO, Model model) throws Exception{
         User user = new User();
 
         user.setUserIdx(userVO.getUserIdx());
