@@ -18,4 +18,12 @@ public class UserForm {
     private String userName;
     @NotEmpty(message = "전화번호를 입력해 주세요")
     private String userPhone;
+
+    private String city;
+
+    @NotEmpty(message = "상세 주소를 넣어주세요")
+    private String street;
+
+    @NotEmpty(message = "주소를 검색해주세요")
+    private String zipcode;
 }

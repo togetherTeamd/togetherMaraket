@@ -26,6 +26,12 @@ public class UserService {
         return user.getUserIdx();
     }
 
+    @Transactional
+    public Long update(User user){
+        userRepository.merge(user);
+        return user.getUserIdx();
+    }
+
     private void validateDuplicateUser(User user) {
         List<User> findUsers = userRepository.findById(user.getUserId());
         if(!findUsers.isEmpty()) {

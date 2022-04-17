@@ -22,6 +22,13 @@ public class UserRepository {
         em.persist(user);
     }
 
+    public void merge(User user){
+        User originalUserInfo = em.find(User.class, user.getUserIdx());
+        originalUserInfo.setUserPw(user.getUserPw());
+        originalUserInfo.setUserPhone(user.getUserPhone());
+        em.merge(originalUserInfo);
+    }
+
     public List<User> findById(String userId) {
         return em.createQuery("select m from User m where m.userId =:userId", User.class)
                 .setParameter("userId", userId)

@@ -1,6 +1,7 @@
 package com.project.together.controller;
 
 import com.project.together.VO.UserVO;
+import com.project.together.entity.Address;
 import com.project.together.entity.User;
 import com.project.together.repository.UserMapper;
 import com.project.together.service.UserService;
@@ -42,15 +43,43 @@ public class UserController {
         }
 
         User user = new User();
+        Address address = new Address();
         user.setUserId(form.getUserId());
         user.setUserPw(form.getUserPw());
         user.setUserName(form.getUserName());
         user.setUserPhone(form.getUserPhone());
         user.setCreatedAt(LocalDateTime.now());
+        address.setCity(form.getCity());
+        address.setStreet(form.getStreet());
+        address.setZipcode(form.getZipcode());
+        user.setAddress(address);
         userService.join(user);
         log.info("회원가입 성공");
         return "redirect:/";
     }
+
+    /***
+     * @Desc : 화면 호출
+     * 회원가입
+     */
+    @GetMapping("/createUserForm2")
+    public String createUserForm2(
+            HttpServletRequest request, Model model) throws Exception{
+        return "users/createUserForm2";
+    }
+
+    /***
+     * @Desc : 화면 호출
+     * 회원정보 mybatis DB 저장
+     */
+    @PostMapping("/createUserForm2")
+    public String createUserForm2(@ModelAttribute UserVO userVO,
+            HttpServletRequest request, Model model) throws Exception{
+        int result = userMapper.joinUser(userVO);
+        System.out.println(result);
+        return "redirect:/";
+    }
+
 
     //updateUserForm 오버로딩 메소드
     /***
@@ -93,6 +122,32 @@ public class UserController {
         int check = userMapper.updateUser(userVO);
         System.out.println(check);
         return "redirect:/";
+    }
+
+    /***
+     * @throws
+     */
+    @PostMapping("/updateUserForm2")
+    @ResponseBody
+    public String updateUserForm2(@RequestBody UserVO userVO, Model model) throws Exception{
+        User user = new User();
+
+        user.setUserIdx(userVO.getUserIdx());
+        user.setUserId(userVO.getUserId());
+        user.setUserPw(userVO.getUserPw());
+        user.setUserName(userVO.getUserName());
+        user.setUserPhone(userVO.getUserPhone());
+
+        Address address = new Address();
+        address.setCity(userVO.getCity());
+        address.setZipcode(userVO.getZipcode());
+        address.setStreet(userVO.getStreet());
+
+        user.setAddress(address);
+
+        Long check = userService.update(user);
+        System.out.println(check);
+        return "success";
     }
 
 
