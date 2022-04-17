@@ -1,10 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
+<style>
+    .form-group{
+        max-width: 50%;
+        margin:0 auto;
+        padding: 10px;
+    }
+</style>
 <body>
-
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
-<div class="container">
+<div class="container" >
     <form th:action="@{/items/new}" th:object="${form}" method="post">
 
         <div th:if="${#fields.hasGlobalErrors()}">
@@ -34,8 +40,17 @@
                         th:text="${category.categoryName}" />
             </select>
         </div>
+<!--이미지 첨부 연결-->
+<!--        <div class="form-group">-->
+<!--            <label th:for="filebox">물품 사진</label>-->
+<!--            <input type="file" th:field="*{}" class="form-control"-->
+<!--                   th:errorclass="field-error" placeholder="물품 사진을 업로드하세요">-->
+<!--            <div class="field-error" th:errors="*{}"/>-->
+<!--        </div>-->
 
+        <div class="form-group">
         <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer"/>
