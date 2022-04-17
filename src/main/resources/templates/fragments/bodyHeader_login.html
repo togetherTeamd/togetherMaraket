@@ -65,13 +65,12 @@
 
                 <section class="nav-login">
                     <div class="text-end">
-                            <form th:action="@{/logout}" method="post">
-                                <button type="submit" class="btn btn-outline-light me-2" onclick="location.href='home.html'">
-                                    로그아웃
-                                </button>
-
-                                <button class="btn btn-warning" href="#">My Page</button>
-                            </form>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn btn-outline-light me-2" onclick="location.href='home.html'">
+                                로그아웃
+                            </button>
+                        </form>
+                        <button class="btn btn-warning" onclick="location.href='/updateUserForm'">My Page</button>
                     </div>
                 </section>
             </div>
