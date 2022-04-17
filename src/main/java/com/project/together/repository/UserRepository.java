@@ -28,6 +28,7 @@ public class UserRepository {
         originalUserInfo.setUserPhone(user.getUserPhone());
         originalUserInfo.setUserName(user.getUserName());
         originalUserInfo.setAddress(user.getAddress());
+
         em.merge(originalUserInfo);
     }
 
