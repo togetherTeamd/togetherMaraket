@@ -26,6 +26,8 @@ public class UserRepository {
         User originalUserInfo = em.find(User.class, user.getUserIdx());
         originalUserInfo.setUserPw(user.getUserPw());
         originalUserInfo.setUserPhone(user.getUserPhone());
+        originalUserInfo.setUserName(user.getUserName());
+        originalUserInfo.setAddress(user.getAddress());
         /**
          * 다른 데이터로 변경하려면 setter를 더 넣어야 함.
          * */

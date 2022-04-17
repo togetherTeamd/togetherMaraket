@@ -128,7 +128,6 @@ public class UserController {
      * @throws
      */
     @PostMapping("/updateUserForm2")
-    @ResponseBody
     public String updateUserForm2(@ModelAttribute UserVO userVO, Model model) throws Exception{
         User user = new User();
 
