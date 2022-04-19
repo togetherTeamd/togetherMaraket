@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<div class="container">
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>친절해요!</th>
+                <th>상품 사진이 그대로에요!</th>
+                <th>시간 약속을 잘 지켜요!</th>
+                <th>나의 매너 점수</th>
+                <th>받은 거래후기 메시지</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="review : ${reviewList}">
+                <td th:text="${review.id}"></td>
+                <td th:text="${user.kind}"></td>
+                <td th:text="${user.goodPicture}"></td>
+                <td th:text="${user.goodTime}"></td>
+                <td th:text="${user.mannerScore}"></td>
+                <td th:text="${review.getMessage()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

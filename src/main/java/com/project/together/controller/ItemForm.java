@@ -1,6 +1,5 @@
 package com.project.together.controller;
 
-import com.project.together.entity.CategoryList;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

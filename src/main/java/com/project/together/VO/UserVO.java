@@ -29,4 +29,9 @@ public class UserVO {
 
     private LocalDateTime createdAt;
 
+    private int kind = 0;
+    private int goodPicture = 0;
+    private int goodTime = 0;
+
+    private int mannerScore = 0;
 }

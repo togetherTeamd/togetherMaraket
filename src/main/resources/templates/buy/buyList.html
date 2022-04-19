@@ -1,9 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<head th:replace="fragments/header :: header">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
+    <!-- Bootstrap core CSS -->
+    <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#7952b3">
+</head>
 <body>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
         <table class="table table-striped">
             <thead>
@@ -13,6 +26,7 @@
                 <th>가격</th>
                 <th>구매 날짜</th>
                 <th>카테고리</th>
+                <th>후기</th>
                 <th></th>
             </tr>
             </thead>
@@ -27,11 +41,46 @@
                         <span th:text="${category.categoryName}"></span>
                     </span>
                 </td>
+                <td>
+                    <span th:if= "${item.review == null}">
+                        <a href="#" th:href= "@{/review/{id}/review (id=${item.id})}"class="btn btn-primary" role="button">
+                        거래후기 보내기
+                        </a>
+                        <!--<button th:data-url="@{/review/{id}/review (id=${item.id})}"
+                                onclick="goPopup(this.getAttribute('data-url'));">후기 보내기</button>
+
+                        <script>
+                            function goPopup(url) {
+                                pop = window.open(url, "pop", "width = 570, height =420, scrollbars = yes");
+                                var param = url.serialize();
+                                $.ajax(
+                                    {
+                                        url : url,
+                                        data : param,
+                                        success: function (data) {
+                                            window.close();
+                                        }
+                                    });
+                            }
+                        </script>-->
+                    </span>
+                    <span th:unless= "${item.getReview() == null}">
+                        <a href="#" class="btn btn-primary" onclick="javascript:reject()" role="button">
+                        거래후기 보내기
+                        </a>
+                        <script>
+                            function reject() {
+                                swal("이미 후기를 보낸 상품입니다")
+                            }
+                        </script>
+                    </span>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

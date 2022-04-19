@@ -37,21 +37,21 @@ public class BuyServiceTest {
         user.setUserName("테스트");
         em.persist(user);
 
-        Category category = new Category();
+        /*Category category = new Category();
         category.setName("도서");
-        em.persist(category);
+        em.persist(category);*/
 
         Item item = new Item();
         item.setName("테스트 상품");
         em.persist(item);
 
-        categoryService.addCategory(item.getId(), category.getId());
+        //categoryService.addCategory(item.getId(), category.getId());
 
         Long buyId = buyService.buy(user.getUserIdx(), item.getId());
 
         Buy getBuy = buyRepository.findOne(buyId);
 
-        System.out.println(itemRepository.findOne(item.getId()).getItemCategories().get(0).getCategory().getName());
+        //System.out.println(itemRepository.findOne(item.getId()).getItemCategories().get(0).getCategory().getName());
 
         assertEquals(ItemStatus.SOLD, getBuy.getBuyItems().get(0).getItem().getItemStatus());
 
