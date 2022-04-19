@@ -4,8 +4,8 @@
 <mapper namespace="com.project.together.repository.UserMapper">
 
     <insert id="joinUser">
-        insert into user (user_id, user_pw, user_name, user_phone, city, street, zipcode, created_at)
-        values (#{userId}, #{userPw}, #{userName}, #{userPhone}, #{city}, #{street}, #{zipcode}, now())
+        insert into user (user_id, user_pw, user_name, user_phone, city, street, zipcode, created_at, good_picture, good_time, kind, manner_score )
+        values (#{userId}, #{userPw}, #{userName}, #{userPhone}, #{city}, #{street}, #{zipcode}, now(), 0, 0, 0, 0)
     </insert>
 
     <select id="selectUser" resultType="UserVO">

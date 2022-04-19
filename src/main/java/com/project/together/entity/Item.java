@@ -42,6 +42,10 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<ItemCategory> itemCategories = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_id")
+    private Review review;
+
     public void addWishCount() {
         this.wishCount++;
     }

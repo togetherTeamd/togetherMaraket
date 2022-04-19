@@ -133,7 +133,8 @@
     </p>
     <p class="lead">상품 기능</p>
     <p>
-        <a class="btn btn-lg btn-dark" href="/items/new">상품 등록</a>
+        <a class="btn btn-lg btn-dark" onclick="javascript:btn()">상품 등록</a>
+        <script> function btn(){ swal('로그인 후 이용해 주세요'); } </script>
         <a class="btn btn-lg btn-dark" href="/items2">상품 목록</a>
     </p>
     <p class="lead">주문 기능</p>
@@ -143,6 +144,9 @@
     </p>
 </div>
 <div th:replace="fragments/footer :: footer" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--</div> &lt;!&ndash; /container &ndash;&gt;-->
 </body>
+
 </html>
