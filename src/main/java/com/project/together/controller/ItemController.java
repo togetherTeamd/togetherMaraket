@@ -45,14 +45,14 @@ public class ItemController {
                                  User loginUser, BindingResult result) {
         System.out.println("상품정보 잘 들어왔나 : " + form.toString());
         System.out.println("카테고리 아이디는 왔는가 : " + categoryId);
-        System.out.println("유저정보 왔는가 : " + loginUser.toString());
-        if(result.hasErrors()) {
+        System.out.println("유저정보 왔는가 : " + loginUser.getUserId());
+        /*if(result.hasErrors()) {
             return "items/createItemForm";
-        }
+        }*/
 
         if(loginUser == null) {
             result.reject("sellFail", "로그인 후 이용해 주세요");
-            return "items/createItemForm";
+            return "redirect:/";
         }
 
         Item item = new Item();
