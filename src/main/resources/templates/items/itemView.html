@@ -21,26 +21,47 @@
   <div class="container px-4 px-lg-5 my-5">
     <div class="row gx-4 gx-lg-5 align-items-center">
       <tr th:each="item:${item}">
+<!--          <div class="col-md-6">-->
+<!--              <div class="small mb-1">-->
+<!--                  <td th:text="${category.categoryName}"></td>-->
+<!--              </div>-->
+
+<!--          </div>-->
         <!--             <c:forEach var="items" items="${items}">-->
         <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."></div>
         <div class="col-md-6">
-          <div class="small mb-1">SKU: BST-498</div>
+            <div class="col-md">
           <h1 class="display-5 fw-bolder"><td th:text="${item.name}"></td></h1>
           <div class="fs-5 mb-5">
             <!--                    <span class="text-decoration-line-through">$45.00</span>-->
-            <span><td th:text="${item.price}"></td></span>
+            <span><td th:text="${item.price}"></td>원</span>
           </div>
-          <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+          <p class="lead">설명 들어갈 자리</p>
+          <div class="col-md-6">
+            <div class="small mb-1">
+              등록 날짜 : <td th:text="${item.createdAt}"></td>
+            </div>
+
+          </div>
+          <br>
           <div class="d-flex">
-            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem">
+              <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
+<!--            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem">-->
+            <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+              <i class="bi-cart-fill me-1"></i>
+              찜 : <td th:text="${item.wishCount}"></td>
+            </button>
+
             <button class="btn btn-outline-dark flex-shrink-0" type="button">
               <i class="bi-cart-fill me-1"></i>
               Add to cart
             </button>
+              </form>
           </div>
 
         </div>
         <!--             </c:forEach>-->
+        </div>
       </tr>
     </div>
   </div>
