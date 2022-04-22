@@ -106,4 +106,11 @@ public class ItemController {
         itemService.updateItem(form.getId(), form.getName(), form.getPrice());
         return "redirect:/";
     }
+
+    @GetMapping("items/{itemId}/itemView")
+    public String itemView(@PathVariable("itemId") Long itemId, Model model) {
+        Item item = itemService.findOne(itemId);
+        model.addAttribute("item", item);
+        return "items/itemView";
+    }
 }
