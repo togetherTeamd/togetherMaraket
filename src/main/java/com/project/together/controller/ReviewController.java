@@ -43,12 +43,14 @@ public class ReviewController {
 
     @PostMapping(value ="/review/{itemId}/review")
     public String createReview(@RequestParam("reviewContentId") Long reviewContentsId,
-                               @PathVariable Long itemId, @ModelAttribute("form") ReviewForm form) {
+                               @PathVariable Long itemId, @ModelAttribute("form") ReviewForm form, Model model) {
         //해당 아이템 조회, 아이템 판매자 조회회
         Item item = itemService.findOne(itemId);
         User user = userService.findById(item.getSeller()).get(0);
 
         reviewService.addReview(itemId, user.getUserIdx(), reviewContentsId, form.getMessage());
+
+        model.addAttribute("message", "정상적으로 처리되었습니다.");
 
 
         return "redirect:/";

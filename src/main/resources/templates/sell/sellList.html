@@ -37,10 +37,22 @@
                        class="btn btn-primary" role="button">수정</a>
                 </td>
                 <td>
+                    <span th:if="${item.buyer == null}">
                     <a href="#" th:href="@{/items/{id}/buy (id=${item.id})}"
                        class="btn btn-primary" role="button">거래완료</a>
                     </form>
+                    </span>
 
+                    <span th:unless="${item.buyer == null}">
+                    <a href="#" class="btn btn-primary" onclick="javascript:reject()"
+                       role="button">거래완료</a>
+                        </form>
+                    </span>
+                    <script>
+                        function reject() {
+                            swal("이미 후기를 보낸 상품입니다")
+                        }
+                    </script>
                 </td>
             </tr>
             </tbody>
@@ -48,5 +60,6 @@
     </div>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

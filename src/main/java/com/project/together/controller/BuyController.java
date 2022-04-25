@@ -57,11 +57,11 @@ public class BuyController {
     }
 
     @PostMapping(value = "/items/{itemId}/buy")
-    public String buyItem(@PathVariable Long itemId, @ModelAttribute("form") BuyForm form) {
+    public String buyItem(@PathVariable Long itemId, @ModelAttribute("form") BuyForm form, Model model) {
 
         if(userService.findById(form.getId()).isEmpty()) {
             log.info(form.getId());
-            return "redirect:/";
+            return "items/rejectForm";
         }
         itemService.setBuyer(userService.findById(form.getId()).get(0).getUserIdx(),itemId);
 

@@ -36,17 +36,13 @@ public class WishService {
         return wish;
     }
 
-    public void checkDuplicate(Long userIdx) {
+    public int checkDuplicate(Long userIdx, Long itemId) {
 
-        List<Wish> wishList = wishRepository.findByUser(userIdx);
-
-        for(int i = 0; i < wishList.size(); i++) {
-            for(int j = 0; j <wishList.size(); j++) {
-                if(wishList.get(i).getWishItem().getItem().equals(wishList.get(j).getWishItem().getItem())){
-                    throw new IllegalStateException("이미 찜한 상품입니다.");
-                }
-            }
+        List<Wish> wishList = wishRepository.findDuplicate(userIdx, itemId);
+        if(wishList.size() > 0) {
+            return 1;
         }
+        return 0;
     }
 
     public List<Wish> findByUser(Long userIdx) {

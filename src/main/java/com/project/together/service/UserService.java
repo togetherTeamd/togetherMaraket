@@ -21,7 +21,7 @@ public class UserService {
      */
     @Transactional
     public Long join(User user) {
-        validateDuplicateUser(user); // 중복아이디 검증
+        validateDuplicateUser(user);
         userRepository.save(user);
         return user.getUserIdx();
     }
@@ -39,10 +39,19 @@ public class UserService {
         }
     }
 
+    public int idCheck(String id) {
+        if(!userRepository.findById(id).isEmpty())
+            return 1;
+        return 0;
+    }
+
     public List<User> findById(String userId) {return userRepository.findById(userId);}
 
     public User findByIdx(Long userIdx) {
         return userRepository.findByIdx(userIdx);
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 }

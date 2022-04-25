@@ -82,7 +82,44 @@
         <div class="form-group">
             <label th:for="userId" class="text-field" >아이디</label>
             <input type="text" class="form-control" name="userId"
-                   placeholder="아이디을 입력하세요">
+                   id="userId" placeholder="아이디을 입력하세요">
+            <!--<button type="button" onclick="idCheck()">아이디 중복확인</button>
+            <script type="text/javascript">
+                function idCheck() {
+
+                    var memberId = $("#userId").val();
+
+                    if(memberId.search(/\s/) != -1) {
+                        alert("아이디에는 공백이 들어갈 수 없습니다.");
+                    } else {
+                        if(memberId.trim().length != 0) {
+                            $.ajax({
+                                async : true,
+                                type : 'POST',
+                                data: memberId,
+                                url: "/idCheck",
+                                dataType: "json",
+                                contentType: "application/json; charset=UTF-8",
+                                success: function(count) {
+                                    if(count > 0) {
+                                        alert("해당 아이디 존재");
+                                        $("#submit").attr("disabled", "disabled");
+                                        window.location.reload();
+                                    } else {
+                                        alert("사용가능 아이디");
+                                        $("#submit").removeAttr("disabled");
+                                    }
+                                },
+                                error: function(error) {
+                                    alert("아이디를 입력해주세요.");
+                                }
+                            });
+                        } else {
+                            alert("아이디를 입력해주세요.");
+                        }
+                    }
+                }
+            </script>-->
             <label th:for="userPw" class="text-field">비밀번호</label>
             <input type="password" class="form-control" name="userPw"
                    placeholder="비밀번호를 입력하세요">
