@@ -48,14 +48,6 @@
           <span th:text="${category.categoryName}"></span>
         </span>
         </td>
-        <td>
-          <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
-            <button class="w-100 btn btn-dark btn-lg" type="submit">
-              찜하기
-            </button>
-          </form>
-
-        </td>
       </tr>
       </tbody>
 

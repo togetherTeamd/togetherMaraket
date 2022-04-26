@@ -41,6 +41,9 @@ public class WishController {
     @PostMapping(value = "/items/{itemId}/wish")
     public String addWish(@PathVariable Long itemId, @SessionAttribute
             (name = SessionConstants.LOGIN_USER, required = false) User loginUser) {
+        if(wishService.checkDuplicate(loginUser.getUserIdx(), itemId) == 1) {
+            return "wish/rejectForm";
+        }
 
         wishService.Wish(loginUser.getUserIdx(), itemId);
 
