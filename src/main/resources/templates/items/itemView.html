@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:c="">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
   <!-- Bootstrap core CSS -->
-  <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
   <!-- Favicons -->
   <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -17,55 +16,87 @@
 </head>
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
-<section class="py-5">
-  <div class="container px-4 px-lg-5 my-5">
-    <div class="row gx-4 gx-lg-5 align-items-center">
-      <tr th:each="item:${item}">
-        <!--          <div class="col-md-6">-->
-        <!--              <div class="small mb-1">-->
-        <!--                  <td th:text="${category.categoryName}"></td>-->
-        <!--              </div>-->
+<div class="container">
+  <div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>상품명</th>
+        <th>가격</th>
+        <th>등록자</th>
+        <th>등록날짜</th>
+        <th>찜한 사용자수</th>
+        <th>카테고리</th>
+        <th>가격협상</th>
+        <th>거래형태</th>
+        <th>물품상태</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item : ${items}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.seller}"></td>
+        <td th:text="${item.createdAt}"></td>
+        <td th:text="${item.wishCount}"></td>
+        <td>
+        <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">
+          <span th:text="${category.categoryName}"></span>
+        </span>
+        </td>
+        <td th:text="${item.enul}"></td>
+        <td th:text="${item.dealForm}"></td>
+        <td th:text="${item.itemLevel}"></td>
+        <td>
+          <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
+            <button class="w-100 btn btn-dark btn-lg" type="submit">
+              찜하기
+            </button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <tr th:each="item:${items}">
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Product image-->
+              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder"><td th:text="${item.name}"></td></h5>
+                  <!-- Product price-->
+                  <td th:text="${item.price}"></td>
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
+                    <a href="#" th:href= "@{/items/{id}/itemView (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">View</a>
+                    <button class="btn btn-outline-dark mt-auto" type="submit">찜</button>
+                  </form>
+                </div>
 
-        <!--          </div>-->
-        <!--             <c:forEach var="items" items="${items}">-->
-        <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."></div>
-        <div class="col-md-6">
-          <div class="col-md">
-            <h1 class="display-5 fw-bolder"><td th:text="${item.name}"></td></h1>
-            <div class="fs-5 mb-5">
-              <!--                    <span class="text-decoration-line-through">$45.00</span>-->
-              <span><td th:text="${item.price}"></td>원</span>
-            </div>
-            <p class="lead" th:text="${item.contents}"></p>
-            <div class="col-md-6">
-              <div class="small mb-1">
-                등록 날짜 : <td th:text="${item.createdAt}"></td>
               </div>
 
             </div>
-            <br>
-            <div class="d-flex">
-              <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
-                <!--            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem">-->
-                <button class="btn btn-outline-dark flex-shrink-0" type="submit">
-                  <i class="bi-cart-fill me-1"></i>
-                  찜 : <td th:text="${item.wishCount}"></td>
-                </button>
-
-                <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                  <i class="bi-cart-fill me-1"></i>
-                  Add to cart
-                </button>
-              </form>
-            </div>
-
           </div>
-          <!--             </c:forEach>-->
-        </div>
-      </tr>
+        </tr>
+      </div>
     </div>
-  </div>
-</section>
-<div th:replace="fragments/footer :: footer"/>
+  </section>
+  <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+<script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
