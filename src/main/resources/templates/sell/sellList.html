@@ -37,11 +37,11 @@
                        class="btn btn-primary" role="button">수정</a>
                 </td>
                 <td>
-                    <span th:if="item.buyer == null"l>
+                    <span th:if="${item.buyer == null}"l>
                     <a href="#" th:href="@{/items/{id}/buy (id=${item.id})}"
                        class="btn btn-primary" role="button">거래완료</a>
                     </span>
-                    <span th:unless="item.buyer == null">
+                    <span th:unless="${item.buyer == null}">
                         <a href="#" onclick="alert('이미 거래완료한 상품입니다.');"
                            class="btn btn-primary" role="button">거래완료</a>
                     </span>
