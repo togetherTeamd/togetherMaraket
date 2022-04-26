@@ -48,6 +48,13 @@ public class WishRepository {
                 .getResultList();
     }
 
+    public List<Wish> findDuplicate(Long userIdx, Long itemId) {
+        return em.createQuery("select w from Wish w where w.user.userIdx =: userIdx and w.wishItemIdx =: itemId", Wish.class)
+                .setParameter("userIdx", userIdx)
+                .setParameter("itemId", itemId)
+                .getResultList();
+    }
+
     /*public List<Item> findByWishId(Long wishId) {
         em.createQuery("select w from Wish w where w.id =: wishId ")
     }*/
