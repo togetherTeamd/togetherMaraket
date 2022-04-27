@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>simpleMap</title>
+</head>
+<body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div><h4>도보 길찾기 & 거리</h4></div>
+<div id="map_div"></div>
+<div id="result1"></div>
+<div id="result2"></div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx48396a5595344e91870ba48981274ebf"></script>
+<script type="text/javascript" src="/js/map.js"></script>
+<script th:inline="javascript">
+    findMapDirection([[${buyer.lon}]],[[${buyer.lat}]],[[${seller.lon}]],[[${seller.lat}]]);
+    findMapStraight([[${buyer.lon}]],[[${buyer.lat}]],[[${seller.lon}]],[[${seller.lat}]]);
+</script>
+</body>
+</html>
