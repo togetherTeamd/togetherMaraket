@@ -37,14 +37,14 @@
               <span><td th:text="${item.price}"></td>원</span>
             </div>
             <p class="lead" th:text="${item.contents}"></p>
-<!--            판매자:<p class="lead" th:text="${item.seller}"></p>-->
+            <!--            판매자:<p class="lead" th:text="${item.seller}"></p>-->
             <div class="col-md-6">
 
-            협상 여부:<td th:text="${item.enul}"></td>
+              협상 여부:<td th:text="${item.enul}"></td>
               <br>
-            거래 형태:<td th:text="${item.dealForm}"></td>
+              거래 형태:<td th:text="${item.dealForm}"></td>
               <br>
-            물품 상태:<td th:text="${item.itemLevel}"></td>
+              물품 상태:<td th:text="${item.itemLevel}"></td>
             </div>
             <div class="col-md-6">
               <div class="small mb-1">
@@ -66,6 +66,8 @@
                   Add to cart
                 </button>
               </form>
+              <button class="btn btn-outline-dark flex-shrink-0" th:onclick="makeRoom();" >채팅</button>
+              <button class="btn btn-outline-dark flex-shrink-0" th:onclick="location.href='/mapFind'" >경로</button>
             </div>
 
           </div>
@@ -74,6 +76,14 @@
       </tr>
     </div>
   </div>
+  <script>
+    function makeRoom(){
+      var owner = '[[${item.seller}]]';
+      console.log(owner);
+      var url = "/chat/roomMake?owner=" + owner;
+      location.href = url;
+    }
+  </script>
 </section>
 <div th:replace="fragments/footer :: footer"/>
 </body>
