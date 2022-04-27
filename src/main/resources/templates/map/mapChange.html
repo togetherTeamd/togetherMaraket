@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>simpleMap</title>
+</head>
+<body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<form role="form" action="mapSave" th:object="${userForm}"
+      method="post">
+    <select id="sido">
+    </select>
+    <select id="gugun">
+    </select>
+    <select id="dong">
+    </select>
+    <input type="text" class="text_custom" id="bunji" name="bunji"
+           value="1">
+    <button id="btn_position">적용하기</button>
+    <div id="map_div"></div>
+    <button id="btn_save">저장하기</button>
+</form>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx48396a5595344e91870ba48981274ebf"></script>
+<script type="text/javascript" src="/js/map.js"></script>
+<script type="text/javascript" src="/js/select.js"></script>
+<script th:inline="javascript">
+    selectMapPoint();
+</script>
+<script th:inline="javascript">
+    new sojaeji('sido', 'gugun','dong');
+</script>
+</body>
+</html>
