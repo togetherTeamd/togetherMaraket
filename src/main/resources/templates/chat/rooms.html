@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>simpleChat</title>
+</head>
+<body>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<div class="container">
+    <div>
+        <h4>채팅방 목록</h4>
+    </div>
+    <div>
+        <ul th:each="room : ${list}">
+            <li><a th:href="@{/chat/room(roomId=${room.roomId})}">[[${room.roomId}]]</a></li>
+        </ul>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</body>
+</html>

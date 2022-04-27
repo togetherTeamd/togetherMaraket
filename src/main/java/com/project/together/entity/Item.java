@@ -23,6 +23,18 @@ public class Item {
     @Column(name = "item_price")
     private int price;
 
+    @Column(name = "item_contents")
+    private String contents;
+
+    @Column(name = "item_level")
+    private String itemLevel; //아이템 등급
+
+    @Enumerated(EnumType.STRING)
+    private Enul enul; // 에눌 가능
+
+    @Enumerated(EnumType.STRING)
+    private DealForm dealForm; //1이면 택배 2면 직거래 3이면 둘다 가능
+
     @Column(name = "item_seller")
     private String seller;
 
@@ -41,6 +53,10 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     private List<ItemCategory> itemCategories = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_id")
+    private Review review;
 
     public void addWishCount() {
         this.wishCount++;

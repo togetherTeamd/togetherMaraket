@@ -117,7 +117,19 @@
             <p th:if="${#fields.hasErrors('zipcode')}"
                th:errors="*{zipcode}">Incorrect date</p>
         </div>
+        <span th:if="${error == null}">
         <button type="submit" class="btn-primary">회원가입</button>
+        </span>
+        <span th:unless="${error == null}">
+        <a href="#" class="btn btn-primary" onclick="javascript:reject()" role="button">
+                        거래후기 보내기
+        </a>
+            <script th:inline="">
+
+                function reject() {
+                    /*<![CDATA[*/ let name = [[ ${message} ]]; /*]]*/
+                swal("이미 후기를 보낸 상품입니다")}</script>
+        </span>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer" />

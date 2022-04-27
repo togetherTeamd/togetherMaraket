@@ -32,6 +32,12 @@ public class User {
 
     private LocalDateTime createdAt;
 
+    private int kind = 0;
+    private int goodPicture = 0;
+    private int goodTime = 0;
+
+    private int mannerScore = 0;
+
     @OneToMany(mappedBy = "user")// 연관관계 주인 설정 1:N 일 경우 N쪽이 주인
     private List<Buy> buyList = new ArrayList<>();
 
@@ -41,5 +47,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Wish> wishList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviewList = new ArrayList<>();
 
+    @Transient
+    private List<ChatRoom> roomList = new ArrayList<>();
 }

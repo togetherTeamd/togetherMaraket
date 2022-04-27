@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<div class="container">
+
+    <form th:object="${form}" method="post">
+        <!-- id -->
+        <!-- <input type="hidden" th:field="*{id}" />-->
+        <div class="form-group">
+            <label th:for="name">구매 후기</label>
+            <input type="text" th:field="*{message}" class="form-control"
+                   placeholder="거래 후기를 작성해 주세요" />
+        </div>
+        <div class="form-group">
+            <label for="reviewContent">리뷰 항목</label>
+            <!--<select name="reviewContentId" id="reviewContent" class="form-control">
+                <option value="">리뷰선택</option>
+                <option th:each="reviewContent : ${reviewContents}"
+                        th:value="${reviewContent.id}"
+                        th:text="${reviewContent.contents}" />
+            </select>-->
+            <div th:each="reviewContent : ${reviewContents}" class="form-check form-check-inline">
+                <input type="radio" name="reviewContentId" th:value="${reviewContent.id}" th:text="${reviewContent.contents}" class="form-check-input">
+                <!--<label th:for="${#ids.prev('itemType')}" th:text="${reviewContent.contents}" class="form-check-label"></label>-->
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" onclick="btn()";>Submit</button>
+        <script th:inline="javascript">
+            function btn() {
+                alert('등록되었습니다!');
+            }
+                var message = [[${message}]];
+                /*swal(message);*/
+
+        </script>
+
+    </form>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+</body>
+</html>

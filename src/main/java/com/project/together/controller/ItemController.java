@@ -45,19 +45,23 @@ public class ItemController {
                                  User loginUser, BindingResult result) {
         System.out.println("상품정보 잘 들어왔나 : " + form.toString());
         System.out.println("카테고리 아이디는 왔는가 : " + categoryId);
-        System.out.println("유저정보 왔는가 : " + loginUser.toString());
-        if(result.hasErrors()) {
+        System.out.println("유저정보 왔는가 : " + loginUser.getUserId());
+        /*if(result.hasErrors()) {
             return "items/createItemForm";
-        }
+        }*/
 
         if(loginUser == null) {
             result.reject("sellFail", "로그인 후 이용해 주세요");
-            return "items/createItemForm";
+            return "redirect:/";
         }
 
         Item item = new Item();
         item.setName(form.getName());
         item.setPrice(form.getPrice());
+        item.setContents(form.getContents());
+        item.setItemLevel(form.getItemLevel());
+        item.setDealForm(form.getDealForm());
+        item.setEnul(form.getEnul());
         item.setSeller(loginUser.getUserId());
         item.setCreatedAt(LocalDateTime.now());
 
@@ -96,6 +100,7 @@ public class ItemController {
         form.setId(item.getId());
         form.setName(item.getName());
         form.setPrice(item.getPrice());
+        //form.setContents(item.getContents());
 
         model.addAttribute("form", form);
         return "items/updateItemForm";
@@ -105,5 +110,12 @@ public class ItemController {
     public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") ItemForm form) {
         itemService.updateItem(form.getId(), form.getName(), form.getPrice());
         return "redirect:/";
+    }
+
+    @GetMapping("items/{itemId}/itemView")
+    public String itemView(@PathVariable("itemId") Long itemId, Model model) {
+        Item item = itemService.findOne(itemId);
+        model.addAttribute("item", item);
+        return "items/itemView";
     }
 }
