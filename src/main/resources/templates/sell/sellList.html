@@ -37,16 +37,56 @@
                        class="btn btn-primary" role="button">수정</a>
                 </td>
                 <td>
+                    <span th:if="${item.buyer == null}"l>
                     <a href="#" th:href="@{/items/{id}/buy (id=${item.id})}"
                        class="btn btn-primary" role="button">거래완료</a>
-                    </form>
+                    </span>
+                    <span th:unless="${item.buyer == null}">
+                        <a href="#" onclick="alert('이미 거래완료한 상품입니다.');"
+                           class="btn btn-primary" role="button">거래완료</a>
+                    </span>
 
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <tr th:each="item:${items}">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder"><td th:text="${item.name}"></td></h5>
+                                    <!-- Product price-->
+                                    <td th:text="${item.price}"></td>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
+                                       class="btn btn-outline-dark mt-auto" role="button">수정</a>
+                                    <a href="#" th:href="@{/items/{id}/buy (id=${item.id})}"
+                                       class="btn btn-outline-dark mt-auto" role="button">거래완료</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </tr>
+            </div>
+        </div>
+    </section>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
+<script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@ import com.project.together.repository.UserMapper;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,12 +37,13 @@ public class UserController {
     }
 
     @PostMapping("/users/new")
-    public String create(@Valid UserForm form, BindingResult result) {
+    public String create(@Valid UserForm form, BindingResult result, Model model) {
 
         if(result.hasErrors()) {
             return "users/createUserForm";
         }
 
+        //try{
         User user = new User();
         Address address = new Address();
         user.setUserId(form.getUserId());
@@ -55,7 +57,11 @@ public class UserController {
         user.setAddress(address);
         userService.join(user);
         log.info("회원가입 성공");
-        return "redirect:/";
+            return "redirect:/";
+        /*} catch (IllegalStateException is) {
+            return "items/rejectForm";
+        }*/
+
     }
 
     /***
@@ -75,8 +81,12 @@ public class UserController {
     @PostMapping("/createUserForm2")
     public String createUserForm2(@ModelAttribute UserVO userVO,
             HttpServletRequest request, Model model) throws Exception{
-        int result = userMapper.joinUser(userVO);
-        System.out.println(result);
+        try {
+            int result = userMapper.joinUser(userVO);
+            System.out.println(result);
+        } catch(DataIntegrityViolationException e) {
+            return "items/rejectForm";
+        }
         return "redirect:/";
     }
 
@@ -204,5 +214,14 @@ public class UserController {
     @ResponseBody
     public int joinUser(@RequestBody UserVO userVO) throws Exception{
         return userMapper.joinUser(userVO);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/idCheck", method=RequestMethod.POST)
+    public int IdCheck(@RequestBody String memberId) throws Exception {
+
+        int count = 0;
+        if(memberId != null) count = userService.idCheck(memberId);
+        return count;
     }
 }

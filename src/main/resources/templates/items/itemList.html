@@ -28,6 +28,9 @@
         <th>등록날짜</th>
         <th>찜한 사용자수</th>
         <th>카테고리</th>
+        <th>가격협상</th>
+        <th>거래형태</th>
+        <th>물품상태</th>
         <th></th>
       </tr>
       </thead>
@@ -44,6 +47,9 @@
           <span th:text="${category.categoryName}"></span>
         </span>
         </td>
+        <td th:text="${item.enul}"></td>
+        <td th:text="${item.dealForm}"></td>
+        <td th:text="${item.itemLevel}"></td>
         <td>
           <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
             <button class="w-100 btn btn-dark btn-lg" type="submit">
@@ -75,10 +81,8 @@
               <!-- Product actions-->
               <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                  <form>
-                    <a href="#" th:href= "@{/items/{id}/itemView (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">view</a>
-                  </form>
                   <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
+                    <a href="#" th:href= "@{/items/{id}/itemView (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">View</a>
                     <button class="btn btn-outline-dark mt-auto" type="submit">찜</button>
                   </form>
                 </div>

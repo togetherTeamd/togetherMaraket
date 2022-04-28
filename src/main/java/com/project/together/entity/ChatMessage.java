@@ -8,11 +8,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 @Getter
 @Setter
-public class Address {
+public class ChatMessage {
 
-    private String city;
-    private String street;
-    private String zipcode;
-    private String lat;
-    private String lon;
+    private String roomId;
+    private String writer;
+    private String message;
 }

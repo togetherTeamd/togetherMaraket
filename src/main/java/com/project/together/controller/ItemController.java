@@ -58,6 +58,10 @@ public class ItemController {
         Item item = new Item();
         item.setName(form.getName());
         item.setPrice(form.getPrice());
+        item.setContents(form.getContents());
+        item.setItemLevel(form.getItemLevel());
+        item.setDealForm(form.getDealForm());
+        item.setEnul(form.getEnul());
         item.setSeller(loginUser.getUserId());
         item.setCreatedAt(LocalDateTime.now());
 
@@ -96,6 +100,7 @@ public class ItemController {
         form.setId(item.getId());
         form.setName(item.getName());
         form.setPrice(item.getPrice());
+        //form.setContents(item.getContents());
 
         model.addAttribute("form", form);
         return "items/updateItemForm";
