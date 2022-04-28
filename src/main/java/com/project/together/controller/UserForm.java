@@ -10,6 +10,8 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class UserForm {
 
+    private Long userIdx;
+
     @NotEmpty(message = "아이디를 입력해 주세요")
     private String userId;
     @NotEmpty(message = "비밀번호를 입력해 주세요")

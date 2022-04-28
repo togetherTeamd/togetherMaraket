@@ -4,6 +4,7 @@ import com.project.together.VO.UserVO;
 import com.project.together.entity.Address;
 import com.project.together.entity.User;
 import com.project.together.repository.UserMapper;
+import com.project.together.service.LoginService;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,8 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
+    private final LoginService loginService;
 
     //Mybatis Mapper
     private final UserMapper userMapper;
@@ -90,11 +93,9 @@ public class UserController {
         return "redirect:/";
     }
 
-
-    //updateUserForm 오버로딩 메소드
     /***
      * @Desc : 화면 호출 및 유저 정보 조회
-     * 회원정보 수정
+     * 회원정보 수정 - mybatis
      */
     @GetMapping("/updateUserForm")
     public String updateUserForm(
@@ -117,8 +118,8 @@ public class UserController {
     }
 
     /***
-     * @Desc : 화면 호출 및 유저 정보 조회
-     * 회원정보 수정
+     * @Desc : 유저 정보 수정 액션
+     * 회원정보 수정 - mybatis
      */
     @PostMapping("/updateUserForm")
     public String updateUserForm(@ModelAttribute UserVO userVO, Model model) throws Exception{
@@ -135,25 +136,59 @@ public class UserController {
     }
 
     /***
-     * @throws
+     * @Desc : 화면 호출 및 유저 정보 조회
+     * 회원정보 수정 - jpa
+     */
+    @GetMapping("/updateUserForm2")
+    public String updateUserForm2(
+            HttpServletRequest request,
+            @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) User loginUser
+            , Model model) throws Exception{
+
+        User userInfo = loginService.login(loginUser.getUserId(), loginUser.getUserPw());
+        UserForm userForm = new UserForm();
+        userForm.setUserIdx(userInfo.getUserIdx());
+        userForm.setUserId(userInfo.getUserId());
+        userForm.setUserPw("");
+        userForm.setUserName(userInfo.getUserName());
+        userForm.setUserPhone(userInfo.getUserPhone());
+        userForm.setCity(userInfo.getAddress()==null?"":userInfo.getAddress().getCity());
+        userForm.setZipcode(userInfo.getAddress()==null?"":userInfo.getAddress().getZipcode());
+        userForm.setStreet(userInfo.getAddress()==null?"":userInfo.getAddress().getStreet());
+
+        //userID 는 무조건 하나이니깐 List 0번째에서 가져오면 됨.
+        model.addAttribute("user", userForm);
+
+        HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
+        session.setAttribute(SessionConstants.LOGIN_USER, userInfo);
+
+        return "users/updateUserForm2";
+    }
+
+    /***
+     * @Desc : 유저 정보 수정 액션
+     * 회원정보 수정 - jpa
      */
     @PostMapping("/updateUserForm2")
-    public String updateUserForm2(@ModelAttribute UserVO userVO, Model model) throws Exception{
+//    public String updateUserForm2(@ModelAttribute UserVO userVO, Model model) throws Exception{
+    public String updateUserForm2(@Valid UserForm form, Model model) throws Exception{
+
         User user = new User();
 
-        user.setUserIdx(userVO.getUserIdx());
-        user.setUserId(userVO.getUserId());
-        user.setUserPw(userVO.getUserPw());
-        user.setUserName(userVO.getUserName());
-        user.setUserPhone(userVO.getUserPhone());
+        user.setUserIdx(form.getUserIdx());
+        user.setUserId(form.getUserId());
+        user.setUserPw(form.getUserPw());
+        user.setUserName(form.getUserName());
+        user.setUserPhone(form.getUserPhone());
 
         Address address = new Address();
-        address.setCity(userVO.getCity());
-        address.setZipcode(userVO.getZipcode());
-        address.setStreet(userVO.getStreet());
+        address.setCity(form.getCity());
+        address.setZipcode(form.getZipcode());
+        address.setStreet(form.getStreet());
 
         user.setAddress(address);
 
+        //update쪽에 데이터를 조회해온것에서 변경된 사항을 변경하기
         Long check = userService.update(user);
         System.out.println(check);
         return "redirect:/";
