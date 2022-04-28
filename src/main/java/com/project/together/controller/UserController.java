@@ -157,10 +157,10 @@ public class UserController {
         userForm.setStreet(userInfo.getAddress()==null?"":userInfo.getAddress().getStreet());
 
         //userID 는 무조건 하나이니깐 List 0번째에서 가져오면 됨.
-        model.addAttribute("user", userForm);
+        model.addAttribute("userForm", userForm);
 
         HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
-        session.setAttribute(SessionConstants.LOGIN_USER, userInfo);
+        session.setAttribute(SessionConstants.LOGIN_USER, loginUser);
 
         return "users/updateUserForm2";
     }
@@ -171,7 +171,13 @@ public class UserController {
      */
     @PostMapping("/updateUserForm2")
 //    public String updateUserForm2(@ModelAttribute UserVO userVO, Model model) throws Exception{
-    public String updateUserForm2(@Valid UserForm form, Model model) throws Exception{
+    public String updateUserForm2(HttpServletRequest request,
+                                  @Valid UserForm form, BindingResult result, Model model) throws Exception{
+
+        if(result.hasErrors()) {
+            model.addAttribute("userForm", form);
+            return "users/updateUserForm2";
+        }
 
         User user = new User();
 
@@ -191,6 +197,10 @@ public class UserController {
         //update쪽에 데이터를 조회해온것에서 변경된 사항을 변경하기
         Long check = userService.update(user);
         System.out.println(check);
+
+        HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
+        session.setAttribute(SessionConstants.LOGIN_USER, user);
+
         return "redirect:/";
     }
 
