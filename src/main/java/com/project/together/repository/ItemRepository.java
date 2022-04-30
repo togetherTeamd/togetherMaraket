@@ -27,7 +27,14 @@ public class ItemRepository {
 
     public List<Item> findByName(String name) {
         return em.createQuery("select i from Item i where i.name like :name")
-                .setParameter("name", name)
+                .setParameter("name", "%"+name+"%")
+                .getResultList();
+    }
+
+    public List<Item> findByManner(String name) {
+        return em.createQuery("select i from Item i where i.mannerItem =: score and i.name like :name")
+                .setParameter("score", 1L)
+                .setParameter("name","%"+name+"%")
                 .getResultList();
     }
 
@@ -38,7 +45,7 @@ public class ItemRepository {
     }
 
     /*public List<Item> findByCategory(String categoryId) {
-        return em.createQuery("select i from Item i where i.itemCategories")
+        return em.createQuery("select i from Item i where ")
     }*/
     public List<Item> findAll() {
         return em.createQuery("select i from Item i", Item.class)
