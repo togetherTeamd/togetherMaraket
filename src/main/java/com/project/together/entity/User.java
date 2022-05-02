@@ -16,14 +16,14 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userIdx;
 
-    @Column(name = "userId", unique = true)
+    @Column(name = "user_id", unique = true)
     private String userId;
 
     private String userPw;
 
     private String userName;
 
-    @Column(name="userPhone", unique = true)
+    @Column(name="user_phone", unique = true)
     private String userPhone;
 
     @Embedded

@@ -46,6 +46,7 @@ public class UserRepository {
         return em.createQuery("select m from User m", User.class)
                 .getResultList();
     }
+
     public Optional<User> findByLoginId(String userId) {
         return this.findAll().stream()
                 .filter(m -> m.getUserId().equals(userId))

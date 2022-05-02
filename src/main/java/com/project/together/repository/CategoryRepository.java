@@ -18,7 +18,7 @@ public class CategoryRepository {
     }
 
     public List<Category> findById(Long categoryId) {
-        return em.createQuery("select  c from Category c where c.id=:categoryId", Category.class)
+        return em.createQuery("select c from Category c where c.id=:categoryId", Category.class)
                 .setParameter("categoryId", categoryId)
                 .getResultList();
     }

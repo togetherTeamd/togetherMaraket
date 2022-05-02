@@ -40,9 +40,6 @@ public class Item {
 
     private LocalDateTime createdAt;
 
-    /*@ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();*/
-
     private int wishCount = 0;
 
     @Column(name = "item_buyer")
@@ -50,6 +47,12 @@ public class Item {
 
     @Column(name = "buy_date")
     private LocalDateTime buyDate;
+
+    @Column(name = "category_id")
+    private Long categoryId;
+
+    @Column(name = "manner_item")
+    private Long mannerItem;//1이면 매너인이 등록한 아이템 아니면 0
 
     @OneToMany(mappedBy = "item")
     private List<ItemCategory> itemCategories = new ArrayList<>();

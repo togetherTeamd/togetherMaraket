@@ -1,5 +1,7 @@
 package com.project.together.service;
 
+import com.project.together.entity.DealForm;
+import com.project.together.entity.Enul;
 import com.project.together.entity.Item;
 import com.project.together.entity.ItemStatus;
 import com.project.together.repository.ItemRepository;
@@ -38,6 +40,10 @@ public class ItemService {
         return itemRepository.findBySeller(sellerId);
     }
 
+    public List<Item> findByManner(String name) {
+        return itemRepository.findByManner(name);
+    }
+
     public List<Item> findSellingItem() {
         return itemRepository.findSellingItem();
     }
@@ -46,11 +52,19 @@ public class ItemService {
         return itemRepository.findByBuyer(buyerId);
     }
 
+    public List<Item> findByItemName(String name) {
+        return itemRepository.findByName(name);
+    }
     @Transactional
-    public void updateItem(Long itemId, String name, int price) {
+    public void updateItem(Long itemId, String name, int price, String contents, Enul enul, DealForm dealForm, String itemLevel) {
         Item item = itemRepository.findOne(itemId);
         item.setName(name);
         item.setPrice(price);
+        item.setContents(contents);
+        item.setEnul(enul);
+        item.setDealForm(dealForm);
+        item.setItemLevel(itemLevel);
+
     }
 
     @Transactional

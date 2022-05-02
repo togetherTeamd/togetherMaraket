@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
     <form th:object="${form}" method="post">
         <!-- id -->
         <input type="hidden" th:field="*{id}" />
@@ -18,6 +19,64 @@
                    placeholder="가격을 입력하세요" />
         </div>
 
+        <div class="form-group">
+            <label th:for="itemLevel">상품 상태</label>
+            <select th:field = "*{itemLevel}"  class="form-control">
+                <option th:value="'S'">S(거의 새것)</option>
+                <option th:value="'A'">A(사용감 조금 있음)</option>
+                <option th:value="'B'">B(사용감 많이 있음)</option>
+                <option th:value="'C'">C(약간의 하자가 있음)</option>
+            </select>
+            <div class="field-error" th:errors="*{itemLevel}"/>
+        </div>
+
+        <div class="form-group">
+            <div>가격 협상</div>
+            <div th:each="status : ${T(com.project.together.entity.Enul).values()}"
+                 class="form-check form-check-inline">
+                <input type="radio" th:field = "*{enul}" th:value="${status}" th:text="${status}" class="form-check-input">
+                <!--<label th:for="${#ids.prev('itemType')}" th:text="${reviewContent.contents}" class="form-check-label"></label>-->
+            </div>
+            <div class="field-error" th:errors="*{enul}"/>
+        </div>
+
+        <div class="form-group">
+            <div>거래형태</div>
+            <div th:each="status : ${T(com.project.together.entity.DealForm).values()}"
+                 class="form-check form-check-inline">
+                <input type="radio" th:field = "*{dealForm}" th:value="${status}" th:text="${status}" class="form-check-input">
+                <!--<label th:for="${#ids.prev('itemType')}" th:text="${reviewContent.contents}" class="form-check-label"></label>-->
+            </div>
+            <div class="field-error" th:errors="*{dealForm}"/>
+        </div>
+
+        <div class="form-group">
+            <label th:for="contents">상품 설명</label>
+
+            <textarea th:field="*{contents}" class="form-control"
+                      th:errorclass="field-error" placeholder="상품 설명을 해주세요">
+            </textarea>
+            <p class="textCount">0자</p>
+            <p class="textTotal">/250자</p>
+            <script src="//code.jquery.com/jquery.min.js"></script>
+            <script>
+                $("textarea.form-control").on('keydown keyup', function () {
+                    $(this).height(1).height( $(this).prop('scrollHeight')+12 );
+                });
+                $("textarea.form-control").keyup(function (e) {
+                    let content = $(this).val(); // 글자수 세기
+                    if (content.length == 0 || content == '') {
+                        $('.textCount').text('0자');
+                    } else {
+                        $('.textCount').text(content.length + '자');
+                    }
+                    // 글자수 제한
+                    if (content.length > 250) {
+                        // 250자 부터는 타이핑 되지 않도록
+                        $(this).val($(this).val().substring(0, 250)); // 250자 넘으면 알림창 뜨도록
+                        alert('글자수는 250자까지 입력 가능합니다.');
+                    }; });
+            </script>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
