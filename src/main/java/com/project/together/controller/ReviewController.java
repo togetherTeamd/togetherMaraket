@@ -32,7 +32,7 @@ public class ReviewController {
         }
         //해당 아이템 조회, 아이템 판매자 조회회
         Item item = itemService.findOne(itemId);
-        User user = userService.findById(item.getSeller()).get(0);
+        User user = userService.findById(item.getSeller());
 
         model.addAttribute("user", user);//
         model.addAttribute("reviewContents", reviewContentsRepository.findAll());//리뷰 목록
@@ -46,7 +46,7 @@ public class ReviewController {
                                @PathVariable Long itemId, @ModelAttribute("form") ReviewForm form, Model model) {
         //해당 아이템 조회, 아이템 판매자 조회회
         Item item = itemService.findOne(itemId);
-        User user = userService.findById(item.getSeller()).get(0);
+        User user = userService.findById(item.getSeller());
 
         reviewService.addReview(itemId, user.getUserIdx(), reviewContentsId, form.getMessage());
 
