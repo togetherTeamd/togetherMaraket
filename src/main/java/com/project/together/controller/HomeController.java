@@ -15,11 +15,11 @@ public class HomeController {
     @RequestMapping("/")
     public String home(@SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) User loginUser,
                        Model model) {
+        model.addAttribute("user", loginUser);
         if(loginUser == null) {
             log.info("로그아웃 홈화면");
             return "home";
         }
-        model.addAttribute("user", loginUser);
         if(loginUser.getUserId().equals("admin")) {
             log.info("관리자 홈화면");
             return "adminHome";
