@@ -59,67 +59,137 @@
                     </div>
                 </section>
 
-                <section class="nav-search">
+<!--                <section class="nav-search">-->
 
+<!--                    <form th:action="@{/search}" method="get">-->
+<!--                        <select name="manner" id="manner" class="form-control">-->
+<!--                            <option value="0">모든 상품</option>-->
+<!--                            <option th:value="1">매너상품</option>-->
+<!--                        </select>-->
+
+<!--                        <select name="enul" id="enul" class="form-control">-->
+<!--                            <option value="0">모든 가격협상</option>-->
+<!--                            <option th:each="status : ${T(com.project.together.entity.Enul).values()}"-->
+<!--                                    th:value="${status}"-->
+<!--                                    th:text="${status}">option-->
+<!--                            </option>-->
+<!--                        </select>-->
+
+<!--                        <select name="dealForm" id="dealForm" class="form-control">-->
+<!--                            <option value="0">모든 거래형태</option>-->
+<!--                            <option th:each="status : ${T(com.project.together.entity.DealForm).values()}"-->
+<!--                                    th:value="${status}"-->
+<!--                                    th:text="${status}">option-->
+<!--                            </option>-->
+<!--                        </select>-->
+
+<!--                        <select name="itemLevel" id="itemLevel" class="form-control">-->
+<!--                            <option value="0">모든 상품상태</option>-->
+<!--                            <option th:value="'S'">S</option>-->
+<!--                            <option th:value="'A'">A</option>-->
+<!--                            <option th:value="'B'">B</option>-->
+<!--                            <option th:value="'C'">C</option>-->
+<!--                        </select>-->
+
+<!--                        <select name="categoryId" id="category" class="form-control">-->
+<!--                            <option value="0">모든 카테고리</option>-->
+<!--                            <option th:value=1>인기상품</option>-->
+<!--                            <option th:value=2>디지털기기</option>-->
+<!--                            <option th:value=3>가구/인테리어</option>-->
+<!--                            <option th:value=4>스포츠/레저</option>-->
+<!--                            <option th:value=5>의류/잡화</option>-->
+<!--                            <option th:value=6>게임/취미</option>-->
+<!--                            <option th:value=7>도서/티켓/음반</option>-->
+<!--                            <option th:value=8>모바일상품권</option>-->
+<!--                        </select>-->
+
+<!--                        <input type="search" name="itemName"class="form-control form-control-dark" placeholder="상품 검색" aria-label="Search">-->
+<!--                        <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--                    </form>-->
+<!--                </section>-->
+
+<!--                <section class="nav-login">-->
+<!--                    <div class="text-end" style="display:flex; justify-content: space-between">-->
+<!--                            <form th:action="@{/logout}" method="post">-->
+<!--                                <button type="submit" class="btn btn-outline-light me-2" onclick="location.href='home.html'">-->
+<!--                                    로그아웃-->
+<!--                                </button>-->
+<!--                            </form>-->
+<!--&lt;!&ndash;                      <button class="btn btn-warning" onclick="location.href='/updateUserForm'">My Page</button>&ndash;&gt;-->
+<!--                      <button class="btn btn-warning" onclick="location.href='/updateUserForm2'">My Page</button>-->
+<!--                    </div>-->
+<!--                </section>-->
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-5">
+                <section class="nav-dropdown">
                     <form th:action="@{/search}" method="get">
-                        <select name="manner" id="manner" class="form-control">
-                            <option value="0">모든 상품</option>
-                            <option th:value="1">매너상품</option>
-                        </select>
+                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                            <div class="btn-group" role="group">
+                                <!--                                <button id="btnGroupDrop1" type="button" class="btn btn-outline-light me-2"-->
+                                <!--                                        data-bs-toggle="dropdown" aria-expanded="false">-->
+                                <!--                                    모든 상품-->
+                                <!--                                </button>-->
+                                <select name="manner" id="manner" class="form-control">
+                                    <option value="0">모든 상품</option>
+                                    <option th:value="1">매너상품</option>
+                                </select>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <select name="enul" id="enul" class="form-control">
+                                    <option value="0">가격협상</option>
+                                    <option th:each="status : ${T(com.project.together.entity.Enul).values()}"
+                                            th:value="${status}"
+                                            th:text="${status}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <select name="dealForm" id="dealForm" class="form-control">
+                                    <option value="0">거래형태</option>
+                                    <option th:each="status : ${T(com.project.together.entity.DealForm).values()}"
+                                            th:value="${status}"
+                                            th:text="${status}">option
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="btn-group" role="group">
 
-                        <select name="enul" id="enul" class="form-control">
-                            <option value="0">모든 가격협상</option>
-                            <option th:each="status : ${T(com.project.together.entity.Enul).values()}"
-                                    th:value="${status}"
-                                    th:text="${status}">option
-                            </option>
-                        </select>
+                                <select name="itemLevel" id="itemLevel" class="form-control">
+                                    <option value="0">상품상태</option>
+                                    <option th:value="'S'">S</option>
+                                    <option th:value="'A'">A</option>
+                                    <option th:value="'B'">B</option>
+                                    <option th:value="'C'">C</option>
+                                </select>
+                            </div>
 
-                        <select name="dealForm" id="dealForm" class="form-control">
-                            <option value="0">모든 거래형태</option>
-                            <option th:each="status : ${T(com.project.together.entity.DealForm).values()}"
-                                    th:value="${status}"
-                                    th:text="${status}">option
-                            </option>
-                        </select>
-
-                        <select name="itemLevel" id="itemLevel" class="form-control">
-                            <option value="0">모든 상품상태</option>
-                            <option th:value="'S'">S</option>
-                            <option th:value="'A'">A</option>
-                            <option th:value="'B'">B</option>
-                            <option th:value="'C'">C</option>
-                        </select>
-
-                        <select name="categoryId" id="category" class="form-control">
-                            <option value="0">모든 카테고리</option>
-                            <option th:value=1>인기상품</option>
-                            <option th:value=2>디지털기기</option>
-                            <option th:value=3>가구/인테리어</option>
-                            <option th:value=4>스포츠/레저</option>
-                            <option th:value=5>의류/잡화</option>
-                            <option th:value=6>게임/취미</option>
-                            <option th:value=7>도서/티켓/음반</option>
-                            <option th:value=8>모바일상품권</option>
-                        </select>
-
-                        <input type="search" name="itemName"class="form-control form-control-dark" placeholder="상품 검색" aria-label="Search">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
                     </form>
                 </section>
+                <section class="nav-search">
 
+                    <form>
+                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                    </form>
+
+                </section>
                 <section class="nav-login">
                     <div class="text-end" style="display:flex; justify-content: space-between">
-                            <form th:action="@{/logout}" method="post">
-                                <button type="submit" class="btn btn-outline-light me-2" onclick="location.href='home.html'">
-                                    로그아웃
-                                </button>
-                            </form>
-<!--                      <button class="btn btn-warning" onclick="location.href='/updateUserForm'">My Page</button>-->
-                      <button class="btn btn-warning" onclick="location.href='/updateUserForm2'">My Page</button>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn btn-outline-light me-2"
+                                    onclick="location.href='home.html'">
+                                로그아웃
+                            </button>
+                        </form>
+                        <!--                      <button class="btn btn-warning" onclick="location.href='/updateUserForm'">My Page</button>-->
+                        <button class="btn btn-warning" onclick="location.href='/updateUserForm2'">My Page</button>
                     </div>
                 </section>
-            <div>
+            </div>
+
+
         </nav>
     </div>
 </header>
