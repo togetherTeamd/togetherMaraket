@@ -45,7 +45,7 @@ public class UserService {
         return 0;
     }
 
-    public List<User> findById(String userId) {return userRepository.findById(userId);}
+    public User findById(String userId) {return userRepository.findById(userId).get(0);}
 
     public User findByIdx(Long userIdx) {
         return userRepository.findByIdx(userIdx);
