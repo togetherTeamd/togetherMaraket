@@ -129,7 +129,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
                 <section class="nav-dropdown">
-                    <form th:action="@{/search}" method="get">
+                    <form th:action="@{/search2}" method="get">
                         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                             <div class="btn-group" role="group">
 <!--                                <button id="btnGroupDrop1" type="button" class="btn btn-outline-light me-2"-->
@@ -170,15 +170,25 @@
                                 </select>
                             </div>
 
+                            <div class="btn-group" role="group">
+                                <select name="categoryId" id="category" class="form-control">-->
+                                    <option value="0">모든 카테고리</option>
+                                    <option th:value=1>인기상품</option>
+                                    <option th:value=2>디지털기기</option>
+                                    <option th:value=3>가구/인테리어</option>
+                                    <option th:value=4>스포츠/레저</option>
+                                    <option th:value=5>의류/잡화</option>
+                                    <option th:value=6>게임/취미</option>
+                                    <option th:value=7>도서/티켓/음반</option>
+                                    <option th:value=8>모바일상품권</option>
+                                </select>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <input type="search" name="itemName"class="form-control form-control-dark" placeholder="상품 검색" aria-label="Search">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
                         </div>
                     </form>
-                </section>
-                <section class="nav-search">
-
-                    <form>
-                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                    </form>
-
                 </section>
                 <section class="nav-login">
                     <div class="text-end">

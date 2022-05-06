@@ -156,4 +156,32 @@ public class ItemController {
 
         return "items/itemSearchList";
     }
+
+    @GetMapping("/search2")
+    public String itemSearchForm2(@RequestParam("itemName") String name , @RequestParam("categoryId") Long categoryId
+            , @RequestParam("itemLevel") String itemLevel, @RequestParam("dealForm") String dealForm,
+                                 @RequestParam("enul") String enul,@RequestParam("manner") Long manner, Model model) {
+        List<Item> searchItems = itemService.findByItemName(name);
+        List<Item> mannerItems = itemService.findByManner(name);
+
+
+        model.addAttribute("enul", enul);
+        model.addAttribute("dealForm", dealForm);
+        model.addAttribute("categoryId",categoryId);
+        model.addAttribute("itemLevel", itemLevel);
+
+        List<ItemCategory> itemCategories = categoryService.findAllItemCategory();
+        model.addAttribute("itemCategories", itemCategories);
+
+        if(manner == 1) {
+            model.addAttribute("items", mannerItems);
+            return "items/itemSearchList";
+        }
+
+        model.addAttribute("items", searchItems);
+
+
+
+        return "items/itemSearchList2";
+    }
 }
