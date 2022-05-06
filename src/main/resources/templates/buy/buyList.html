@@ -3,7 +3,8 @@
 <head th:replace="fragments/header :: header">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
     <!-- Bootstrap core CSS -->
-    <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -37,13 +38,14 @@
                 <td th:text="${item.price}"></td>
                 <td th:text="${item.buyDate}"></td>
                 <td>
-                    <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">
+                    <span th:each="category : ${itemCategories}" th:if="${category.itemIds == item.id} ">
                         <span th:text="${category.categoryName}"></span>
                     </span>
                 </td>
                 <td>
-                    <span th:if= "${item.review == null}">
-                        <a href="#" th:href= "@{/review/{id}/review (id=${item.id})}"class="btn btn-primary" role="button">
+                    <span th:if="${item.review == null}">
+                        <a href="#" th:href="@{/review/{id}/review (id=${item.id})}" class="btn btn-primary"
+                           role="button">
                         거래후기 보내기
                         </a>
                         <!--<button th:data-url="@{/review/{id}/review (id=${item.id})}"
@@ -64,7 +66,7 @@
                             }
                         </script>-->
                     </span>
-                    <span th:unless= "${item.getReview() == null}">
+                    <span th:unless="${item.getReview() == null}">
                         <a href="#" class="btn btn-primary" onclick="javascript:reject()" role="button">
                         거래후기 보내기
                         </a>
@@ -79,6 +81,76 @@
             </tbody>
         </table>
     </div>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <tr th:each="item:${items}">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">
+                                        <td th:text="${item.name}"></td>
+                                    </h5>
+                                    <!-- Product price-->
+                                    <td th:text="${item.price}"></td>
+                                    <td><span th:each="category : ${itemCategories}" th:if="${category.itemIds == item.id} ">
+                            <span th:text="${category.categoryName}"></span>
+                            </span></td>
+
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <span th:if="${item.review == null}">
+                        <a href="#" th:href="@{/review/{id}/review (id=${item.id})}" class="btn btn-primary"
+                           role="button">
+                        거래후기 보내기
+                        </a>
+                                        <!--<button th:data-url="@{/review/{id}/review (id=${item.id})}"
+                                                onclick="goPopup(this.getAttribute('data-url'));">후기 보내기</button>
+
+                                        <script>
+                                            function goPopup(url) {
+                                                pop = window.open(url, "pop", "width = 570, height =420, scrollbars = yes");
+                                                var param = url.serialize();
+                                                $.ajax(
+                                                    {
+                                                        url : url,
+                                                        data : param,
+                                                        success: function (data) {
+                                                            window.close();
+                                                        }
+                                                    });
+                                            }
+                                        </script>-->
+                    </span>
+                                    <span th:unless="${item.getReview() == null}">
+                        <a href="#" class="btn btn-primary" onclick="javascript:reject()" role="button">
+                        거래후기 보내기
+                        </a>
+                        <script>
+                            function reject() {
+                                swal("이미 후기를 보낸 상품입니다")
+                            }
+                        </script>
+                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </tr>
+            </div>
+        </div>
+    </section>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
