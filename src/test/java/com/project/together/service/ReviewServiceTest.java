@@ -43,7 +43,7 @@ public class ReviewServiceTest {
         }
         ReviewContents reviewContents = reviewContentsRepository.findAll().get(0);
 
-        Long id = reviewService.addReview(user.getUserIdx(), item.getId(), reviewContents.getId());
+        //Long id = reviewService.addReview(user.getUserIdx(), item.getId(), reviewContents.getId());
 
         assertEquals(user.getReviewList().get(0), item.getReview());
 

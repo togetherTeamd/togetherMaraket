@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -20,13 +21,12 @@ public class ItemForm {
     private int price;
     @NotEmpty(message = "상품 설명을 해주세요")
     private String contents;
-    //@NotEmpty(message = "상품 등급을 설정해주세요")
-    //private ItemLevel itemLevel;
     @NotEmpty(message = "협상 가능여부를 선택해주세요")
     private Enul enul;
     @NotEmpty(message = "거래 형태를 선택해주세요")
     private DealForm dealForm;
     @NotEmpty(message = "상품 등급을 설정해주세요")
     private String itemLevel;
+
 
 }
