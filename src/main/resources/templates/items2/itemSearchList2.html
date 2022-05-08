@@ -80,7 +80,9 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+                            <span th:each="file : ${files}" th:if= "${file.itemId == item.id} ">
+                                 <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
+                             </span>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -94,7 +96,7 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
-                                        <a href="#" th:href= "@{/items/{id}/itemView (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">View</a>
+                                        <a href="#" th:href= "@{/items/{id}/itemView2 (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">View</a>
                                         <button class="btn btn-outline-dark mt-auto" type="submit">찜</button>
                                     </form>
                                 </div>

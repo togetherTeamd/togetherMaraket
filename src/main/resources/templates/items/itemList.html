@@ -60,6 +60,10 @@
       </tr>
       </tbody>
     </table>
+    <!--<img class="card-img-top" th:src="@{img/{filename} (filename=${files.filename})}">-->
+    <!--<img src="C:\Users\doyeon\Desktop\예시.png">-->
+    <!--<img src="img/kakao-icon.png">-->
+
   </div>
   <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
@@ -68,7 +72,9 @@
           <div class="col mb-5">
             <div class="card h-100">
               <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+              <span th:each="file : ${files}" th:if= "${file.itemId == item.id} ">
+                <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
+              </span>
               <!-- Product details-->
               <div class="card-body p-4">
                 <div class="text-center">
