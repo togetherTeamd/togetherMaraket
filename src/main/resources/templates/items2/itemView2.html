@@ -16,7 +16,7 @@
   <meta name="theme-color" content="#7952b3">
 </head>
 <body>
-<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <section class="py-5">
   <div class="container px-4 px-lg-5 my-5">
     <div class="row gx-4 gx-lg-5 align-items-center">
@@ -47,40 +47,13 @@
               <div class="small mb-1">
                 등록 날짜 : <td th:text="${item.createdAt}"></td>
               </div>
-
             </div>
             <br>
-            <div class="d-flex">
-              <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
-                <!--            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem">-->
-                <button class="btn btn-outline-dark flex-shrink-0" type="submit">
-                  <i class="bi-cart-fill me-1"></i>
-                  찜 : <td th:text="${item.wishCount}"></td>
-                </button>
-
-                <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                  <i class="bi-cart-fill me-1"></i>
-                  Add to cart
-                </button>
-              </form>
-              <button class="btn btn-outline-dark flex-shrink-0" th:onclick="makeRoom();" >채팅</button>
-              <button class="btn btn-outline-dark flex-shrink-0" th:onclick="location.href='/mapFind'" >경로</button>
-            </div>
-
           </div>
-          <!--             </c:forEach>-->
         </div>
       </tr>
     </div>
   </div>
-  <script>
-    function makeRoom(){
-      var owner = '[[${item.seller}]]';
-      console.log(owner);
-      var url = "/chat/roomMake?owner=" + owner;
-      location.href = url;
-    }
-  </script>
 </section>
 <div th:replace="fragments/footer :: footer"/>
 </body>

@@ -11,7 +11,7 @@
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div class="container" >
-    <form th:action="@{/items/new}" th:object="${form}" method="post">
+    <form th:action="@{/items/new}" th:object="${form}" method="post" enctype="multipart/form-data">
 
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
@@ -101,7 +101,12 @@
             </script>
             <div class="field-error" th:errors="*{contents}"/>
         </div>
-<!--이미지 첨부 연결-->
+
+        <div class="form-group">
+            <label>사진 올리기</label>
+            <input multiple type="file" name="files" class="form-control">
+        </div>
+            <!--이미지 첨부 연결-->
 <!--        <div class="form-group">-->
 <!--            <label th:for="filebox">물품 사진</label>-->
 <!--            <input type="file" th:field="*{}" class="form-control"-->
