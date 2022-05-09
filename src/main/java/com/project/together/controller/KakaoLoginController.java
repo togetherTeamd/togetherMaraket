@@ -1,11 +1,17 @@
 package com.project.together.controller;
 
 import com.project.together.entity.User;
+import com.project.together.repository.UserRepository;
 import com.project.together.service.KakaoLoginService;
 import com.project.together.service.LoginService;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +34,12 @@ public class KakaoLoginController {
 
     private final UserService userService;
 
+    private final UserRepository userRepository;
     private final LoginService loginService;
 
+    private final AuthenticationManager authenticationManager;
+
+    private final BCryptPasswordEncoder passwordEncoder;
     /***
      *
      * @param code : 인가코드로 access 토큰 받기 받기
@@ -50,27 +60,38 @@ public class KakaoLoginController {
 
         HashMap<String, Object> userInfo = kakaoLoginService.getUserInfo(accessToken);
         System.out.println(userInfo);
+        //System.out.println(userRepository.findById((String)userInfo.get("email")).isEmpty());
 
-        User loginUser = loginService.login((String)userInfo.get("email"), (String)userInfo.get("email"));
+        //loginService.login((String)userInfo.get("email"), (String)userInfo.get("email"));
 
-        if(loginUser == null) {
+        if(userRepository.findById((String)userInfo.get("email")).isEmpty()) {
+
+            String encodedPassword = passwordEncoder.encode((String)userInfo.get("email"));//스프링 시큐리티 카카오 적용중
+
             User user = new User();
             user.setUserId((String)userInfo.get("email"));
-            user.setUserPw((String)userInfo.get("email"));
+            user.setUserPw(encodedPassword);
+            //user.setUserPw((String)userInfo.get("email"));
             user.setUserName((String)userInfo.get("nickname"));
             user.setUserPhone("");
             user.setCreatedAt(LocalDateTime.now());
+            user.setRole("ROLE_USER");
             userService.join(user);
             log.info("회원가입 성공");
 
-            HttpSession session = request.getSession();
-            session.setAttribute(SessionConstants.LOGIN_USER, user);
-        } else {
-            HttpSession session = request.getSession();
-            session.setAttribute(SessionConstants.LOGIN_USER, loginUser);
+
         }
+
+            Authentication kakaoUsernamePassword = new UsernamePasswordAuthenticationToken((String)userInfo.get("email"),
+                    (String)userInfo.get("email"));
+            Authentication authentication = authenticationManager.authenticate(kakaoUsernamePassword);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
 
         return "redirect:/";
     }
+
+
 
 }

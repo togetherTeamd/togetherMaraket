@@ -1,6 +1,7 @@
 package com.project.together.controller;
 
 import com.project.together.VO.UserVO;
+import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.Address;
 import com.project.together.entity.User;
 import com.project.together.repository.UserMapper;
@@ -9,6 +10,8 @@ import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +31,8 @@ public class UserController {
     private final UserService userService;
 
     private final LoginService loginService;
+
+    private final BCryptPasswordEncoder passwordEncoder;
 
     //Mybatis Mapper
     private final UserMapper userMapper;
@@ -50,7 +55,7 @@ public class UserController {
         User user = new User();
         Address address = new Address();
         user.setUserId(form.getUserId());
-        user.setUserPw(form.getUserPw());
+        user.setUserPw(passwordEncoder.encode(form.getUserPw()));
         user.setUserName(form.getUserName());
         user.setUserPhone(form.getUserPhone());
         user.setCreatedAt(LocalDateTime.now());
@@ -58,6 +63,12 @@ public class UserController {
         address.setStreet(form.getStreet());
         address.setZipcode(form.getZipcode());
         user.setAddress(address);
+        log.info(form.getUserId());//회원가입시 아이디가 admim이면 관리자 권한으로 회원가입 시켰습니다.
+        if(form.getUserId().equals("admin"))
+            user.setRole("ROLE_ADMIN");
+        else {
+            user.setRole("ROLE_USER");
+        }
         userService.join(user);
         log.info("회원가입 성공");
             return "redirect:/";
@@ -99,9 +110,9 @@ public class UserController {
      */
     @GetMapping("/updateUserForm")
     public String updateUserForm(
-            HttpServletRequest request,
-            @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) User loginUser
-            , Model model) throws Exception{
+            HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails user, Model model) throws Exception{
+
+        User loginUser = userService.findById(user.getUsername());
 
         UserVO userVO = new UserVO();
         userVO.setUserId(loginUser.getUserId());
@@ -111,8 +122,8 @@ public class UserController {
         model.addAttribute("user", userVOList.get(0));
         System.out.println("updateUserForm 데이터 확인 : " + userVOList.get(0).toString());
 
-        HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
-        session.setAttribute(SessionConstants.LOGIN_USER, loginUser);
+        /*HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
+        session.setAttribute(SessionConstants.LOGIN_USER, loginUser);*/
 
         return "users/updateUserForm";
     }
@@ -141,9 +152,9 @@ public class UserController {
      */
     @GetMapping("/updateUserForm2")
     public String updateUserForm2(
-            HttpServletRequest request,
-            @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) User loginUser
-            , Model model) throws Exception{
+            HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails user, Model model) throws Exception{
+
+        User loginUser = userService.findById(user.getUsername());
 
         User userInfo = loginService.login(loginUser.getUserId(), loginUser.getUserPw());
         UserForm userForm = new UserForm();
@@ -159,8 +170,8 @@ public class UserController {
         //userID 는 무조건 하나이니깐 List 0번째에서 가져오면 됨.
         model.addAttribute("userForm", userForm);
 
-        HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
-        session.setAttribute(SessionConstants.LOGIN_USER, loginUser);
+        /*HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
+        session.setAttribute(SessionConstants.LOGIN_USER, loginUser);*/
 
         return "users/updateUserForm2";
     }
@@ -170,7 +181,6 @@ public class UserController {
      * 회원정보 수정 - jpa
      */
     @PostMapping("/updateUserForm2")
-//    public String updateUserForm2(@ModelAttribute UserVO userVO, Model model) throws Exception{
     public String updateUserForm2(HttpServletRequest request,
                                   @Valid UserForm form, BindingResult result, Model model) throws Exception{
 
@@ -183,7 +193,7 @@ public class UserController {
 
         user.setUserIdx(form.getUserIdx());
         user.setUserId(form.getUserId());
-        user.setUserPw(form.getUserPw());
+        user.setUserPw(passwordEncoder.encode(form.getUserPw()));
         user.setUserName(form.getUserName());
         user.setUserPhone(form.getUserPhone());
 
@@ -198,8 +208,8 @@ public class UserController {
         Long check = userService.update(user);
         System.out.println(check);
 
-        HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
-        session.setAttribute(SessionConstants.LOGIN_USER, user);
+        /*HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
+        session.setAttribute(SessionConstants.LOGIN_USER, user);*/
 
         return "redirect:/";
     }

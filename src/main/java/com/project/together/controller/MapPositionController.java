@@ -1,10 +1,13 @@
 package com.project.together.controller;
 
+import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.Address;
 import com.project.together.entity.User;
 import com.project.together.service.MapService;
+import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +23,19 @@ import javax.servlet.http.HttpServletRequest;
 public class MapPositionController {
 
     private final MapService mapService;
-
+    private final UserService userService;
     @GetMapping("/mapChange")
     public String map(){
         return "map/mapChange";
     }
 
     @RequestMapping(value="/mapSave", method = RequestMethod.POST)
-    public void insertPosition(HttpServletRequest request,
-                                 @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) User loginUser
+    public void insertPosition(HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails user
             , Model model) throws Exception {
+
         /*
+        User loginUser = userService.findById(user.getUsername());
+
         String lan = request.getParameter("x");
         String lon = request.getParameter("y");
 
@@ -41,11 +46,13 @@ public class MapPositionController {
     }
 
     @GetMapping("/mapFind")
-    public String mapFind(HttpServletRequest request,
-                          @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) User loginUser
+    public String mapFind(HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails user
             , Model model){
 
         /* 사용자들 정보 가져오기 */
+        User loginUser = userService.findById(user.getUsername());
+
+
         User seller = new User();
         seller.setAddress(new Address());
         Address address = seller.getAddress();

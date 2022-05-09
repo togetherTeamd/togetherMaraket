@@ -1,5 +1,6 @@
 package com.project.together.controller;
 
+import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.Item;
 import com.project.together.entity.ItemCategory;
 import com.project.together.entity.Review;
@@ -10,6 +11,7 @@ import com.project.together.service.ItemService;
 import com.project.together.service.ReviewService;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,8 +59,9 @@ public class ReviewController {
     }
 
     @GetMapping(value = "/review")
-    public String reviewList(Model model, @SessionAttribute
-            (name = SessionConstants.LOGIN_USER, required = false) User loginUser) {
+    public String reviewList(Model model, @AuthenticationPrincipal PrincipalDetails user) {
+
+        User loginUser = userService.findById(user.getUsername());
 
         List<Review> reviewList = reviewService.findByUser(loginUser.getUserIdx());
 
