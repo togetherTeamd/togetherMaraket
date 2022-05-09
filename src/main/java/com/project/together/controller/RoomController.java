@@ -1,10 +1,13 @@
 package com.project.together.controller;
 
+import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.ChatRoom;
 import com.project.together.entity.User;
 import com.project.together.repository.ChatRoomRepository;
+import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +21,13 @@ import java.util.List;
 public class RoomController {
 
     private final ChatRoomRepository repository;
-
+    private final UserService userService;
     //채팅방 목록 조회
     @GetMapping(value = "/rooms")
-    public ModelAndView rooms(@SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) User loginUser,
-                              Model model){
+    public ModelAndView rooms(@AuthenticationPrincipal PrincipalDetails user, Model model){
+
+        User loginUser = userService.findById(user.getUsername());
+
         model.addAttribute("user", loginUser);
         log.info("# All Chat Rooms");
         ModelAndView mv = new ModelAndView("chat/rooms");
@@ -44,8 +49,9 @@ public class RoomController {
 
     //채팅방 조회
     @GetMapping("/room")
-    public void getRoom(@SessionAttribute(name = SessionConstants.LOGIN_USER, required = false) User loginUser,
-                        String roomId, Model model){
+    public void getRoom(@AuthenticationPrincipal PrincipalDetails user, String roomId, Model model){
+
+        User loginUser = userService.findById(user.getUsername());
 
         log.info("# get Chat Room, roomID : " + roomId);
 

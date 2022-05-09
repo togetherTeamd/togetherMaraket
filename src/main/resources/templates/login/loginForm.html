@@ -1,37 +1,149 @@
+<!--<!DOCTYPE HTML>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head th:replace="fragments/header :: header">-->
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>-->
+
+<!--    &lt;!&ndash;<meta charset="utf-8">-->
+
+<!--    <link th:href="@{/css/bootstrap.min.css}"-->
+<!--          href="../css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <style>-->
+<!--      .container {-->
+<!--        max-width: 560px;-->
+<!--      }-->
+<!--      .field-error {-->
+<!--        border-color: #dc3545;-->
+<!--        color: #dc3545;-->
+<!--      }-->
+<!--    </style> **/&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    &lt;!&ndash; Favicons &ndash;&gt;&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <meta name="theme-color" content="#7952b3">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    &lt;!&ndash; Custom styles for this template &ndash;&gt;&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link th:href="@{./css/signin.css}" rel="stylesheet">&ndash;&gt;-->
+<!--</head>-->
+
+<!--<style>-->
+<!--    .container-login {-->
+<!--        text-align: center;-->
+<!--        max-width: 50%;-->
+<!--        margin:0 auto;-->
+<!--        padding: 10px;-->
+<!--        white-space:nowrap;-->
+<!--    }-->
+<!--    .lfd{-->
+<!--        margin:0 auto;-->
+<!--        max-width: 80%;-->
+<!--    }-->
+<!--    .row{-->
+<!--        margin:0 auto;-->
+<!--        max-width: 80%;-->
+<!--    }-->
+<!--    .my-4{-->
+<!--        margin:0 auto;-->
+<!--    }-->
+<!--    .form-control{-->
+<!--        margin:0 auto;-->
+<!--    }-->
+<!--</style>-->
+
+<!--<body>-->
+<!--<div th:replace="fragments/bodyHeader :: bodyHeader"/>-->
+
+
+<!--<div class="container-login">-->
+<!--    <div class="py-5">-->
+<!--        <h2>로그인</h2>-->
+<!--    </div>-->
+
+<!--    <form action="/login/new"  th:object="${loginForm}" method="post">-->
+
+<!--        <div th:if="${#fields.hasGlobalErrors()}">-->
+<!--            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>-->
+<!--        </div>-->
+
+<!--        <div class="lfd">-->
+<!--            <div><input type="text" th:field="*{userId}" class="form-control" name="username"-->
+<!--                       th:errorclass="field-error" style="max-width: 600px" placeholder="아이디">-->
+<!--                <div class="field-error" th:errors="*{userId}"/>-->
+<!--            </div>-->
+<!--            <br>-->
+<!--            <div>-->
+<!--                <input type="password" th:field="*{userPw}" class="form-control" name="password"-->
+<!--                       th:errorclass="field-error" style="max-width: 600px" placeholder="비밀번호">-->
+<!--                <div class="field-error" th:errors="*{userPw}"/>-->
+<!--            </div>-->
+<!--            <hr class="my-4">-->
+
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <button class="w-100 btn btn-primary btn-lg" onclick="javascript:login()" type="submit">로그인</button>-->
+<!--                                        &lt;!&ndash;<script>-->
+<!--                                            function login(){-->
+<!--                                                Swal.fire(-->
+<!--                                                    'Good job!',-->
+<!--                                                    'You clicked the button!',-->
+<!--                                                    'success'-->
+<!--                                                )-->
+<!--                                            }-->
+<!--                                        </script>&ndash;&gt;-->
+<!--                </div>-->
+
+<!--                <div class="col">-->
+<!--                    <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='home.html'"-->
+<!--                            th:onclick="|location.href='@{/}'|"-->
+<!--                            type="button">취소-->
+<!--                    </button>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--            <br>-->
+<!--            <div class="col kakao">-->
+<!--                <button class="kakao-login" onclick="location.href='' +-->
+<!--                    'https://kauth.kakao.com/oauth/authorize' +-->
+<!--                    '?client_id=55951b24b88d60ec5899427d4125f8d5' +-->
+<!--                    '&redirect_uri=http://localhost:8090/login/oauthKakao' +-->
+<!--                    '&response_type=code' +-->
+<!--                    ''" type="button">카카오로 로그인하기</button>-->
+<!--            </div>-->
+<!--            <div class="row2">-->
+<!--                <hr class="my-4" style="max-width: 300px">-->
+<!--                <div class="col">-->
+<!--                    <a href='/users/new'>아직 회원이 아니신가요?</a>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+
+
+<!--        &lt;!&ndash;        <br>-->
+<!--                <button class="w-100 btn btn-primary btn-lg" onclick="location.href='createUserForm'"-->
+<!--                                th:conclick="|location.href='@{/users/createUserForm}'|">회원가입</button>&ndash;&gt;-->
+
+<!--    </form>-->
+<!--</div>-->
+<!--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
+<!--<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+<!--</div> &lt;!&ndash; /container &ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <!--<meta charset="utf-8">
-
-    <link th:href="@{/css/bootstrap.min.css}"
-          href="../css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      .container {
-        max-width: 560px;
-      }
-      .field-error {
-        border-color: #dc3545;
-        color: #dc3545;
-      }
-    </style> **/-->
-    <!--    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">-->
-
-    <!--    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
-    <!--    <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
-
-    <!--    &lt;!&ndash; Favicons &ndash;&gt;-->
-    <!--    <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">-->
-    <!--    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">-->
-    <!--    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">-->
-    <!--    <link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">-->
-    <!--    <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">-->
-    <!--    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">-->
-    <!--    <meta name="theme-color" content="#7952b3">-->
-
-    <!--    &lt;!&ndash; Custom styles for this template &ndash;&gt;-->
-    <!--    <link th:href="@{./css/signin.css}" rel="stylesheet">-->
 </head>
 
 <style>
@@ -66,39 +178,25 @@
     <div class="py-5">
         <h2>로그인</h2>
     </div>
-
-    <form action="/login/new" th:action th:object="${loginForm}" method="post">
-
-        <div th:if="${#fields.hasGlobalErrors()}">
-            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
-        </div>
+    <div th:if="${param.error}">
+        <p th:text="${exception}" class="alert alert-danger"></p>
+    </div>
+    <form action="/login/proc" method="post">
 
         <div class="lfd">
             <div>
-                <input type="text" th:field="*{userId}" class="form-control"
-                       th:errorclass="field-error" style="max-width: 600px" placeholder="아이디">
-                <div class="field-error" th:errors="*{userId}"/>
+                <input type="text" name="username" class="form-control" style="max-width: 600px" placeholder="아이디">
             </div>
             <br>
             <div>
-                <input type="password" th:field="*{userPw}" class="form-control"
-                       th:errorclass="field-error" style="max-width: 600px" placeholder="비밀번호">
-                <div class="field-error" th:errors="*{userPw}"/>
+                <input type="password" name="password" class="form-control"
+                       style="max-width: 600px" placeholder="비밀번호">
             </div>
             <hr class="my-4">
 
             <div class="row">
                 <div class="col">
-                    <button class="w-100 btn btn-primary btn-lg" onclick="javascript:login()" type="submit">로그인</button>
-                                        <!--<script>
-                                            function login(){
-                                                Swal.fire(
-                                                    'Good job!',
-                                                    'You clicked the button!',
-                                                    'success'
-                                                )
-                                            }
-                                        </script>-->
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">로그인</button>
                 </div>
 
                 <div class="col">
@@ -126,12 +224,6 @@
 
             </div>
         </div>
-
-
-        <!--        <br>
-                <button class="w-100 btn btn-primary btn-lg" onclick="location.href='createUserForm'"
-                                th:conclick="|location.href='@{/users/createUserForm}'|">회원가입</button>-->
-
     </form>
 </div>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -139,3 +231,23 @@
 </div> <!-- /container -->
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<h1>Login</h1> <hr>
+
+<form action="/login/new" method="POST">
+    email : <input type="text" name="username"> <br>
+    password : <input type="password" name="password"> <br>
+    <button type="submit">Login</button>
+</form> <br>
+
+<a href="/users/new">Go to join! →</a>
+</body>
+</html>-->
