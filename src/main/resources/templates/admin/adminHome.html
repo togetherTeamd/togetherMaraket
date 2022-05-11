@@ -31,7 +31,7 @@
         <a class="btn btn-lg btn-secondary" href="/admin/announcement">공지사항 등록</a>
         <a class="btn btn-lg btn-secondary" href="/admin/userManagement">회원 조회</a>
         <a class="btn btn-lg btn-secondary" href="/admin/report">신고회원 조회</a>
-        <a class="btn btn-lg btn-secondary" href="/inquiry">문의 내역</a>
+        <a class="btn btn-lg btn-secondary" href="/admin/inquiry">문의 내역</a>
     <h4 class="mb-3" th:text="|관리자 모드: ${user.userName}|">관리자</h4>
     <form th:action="@{/logout}" method="post">
         <button class="w-100 btn btn-dark btn-lg" onclick="location.href='home.html'" type="submit">

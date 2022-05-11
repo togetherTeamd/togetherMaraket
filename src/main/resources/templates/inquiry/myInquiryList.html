@@ -22,23 +22,19 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>문의 유저</th>
                 <th>문의 내용</th>
-                <th>답변내용</th>
+                <th>답변 내용</th>
                 <th>문의 날짜</th>
+                <th>답변 날짜</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="inquiry : ${inquiryList}">
                 <td th:text="${inquiry.id}"></td>
-                <td th:text="${inquiry.userIdx}"></td>
                 <td th:text="${inquiry.inquiryText}"></td>
                 <td th:text="${inquiry.inquiryAnswer}"></td>
                 <td th:text="${inquiry.createdAt}"></td>
-                <td>
-                    <a th:href="@{/admin/{inquiryId}/answer (inquiryId=${inquiry.id})}"
-                       class="btn btn-primary" role="button">답변하기</a>
-                </td>
+                <td th:text="${inquiry.answerAt}"></td>
             </tr>
             </tbody>
         </table>

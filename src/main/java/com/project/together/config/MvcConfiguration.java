@@ -20,10 +20,4 @@ public class MvcConfiguration implements WebMvcConfigurer {
                 .addResourceHandler("/**")
                 .addResourceLocations("file:src/main/resources/templates/", "file:src/main/resources/static/");
     }
-
-    public void addViewControllers(ViewControllerRegistry registry) {
-        //registry.addViewController("/admin").setViewName("admin/adminHome");
-        /*registry.addViewController("/").setViewName("home");
-        registry.addViewController("/user").setViewName("loginHome");*/
-    }
 }
