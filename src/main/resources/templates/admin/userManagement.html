@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
 <body>
-$END$
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<div class="container">
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>고유번호</th>
+                <th>아이디</th>
+                <th>전화번호</th>
+                <th>매너점수</th>
+                <th>생성일</th>
+                <th>권한</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.userIdx}"></td>
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.userPhone}"></td>
+                <td th:text="${user.mannerScore}"></td>
+                <td th:text="${user.createdAt}"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <form th:action="@{/admin/{userIdx}/setReport (userIdx=${user.userIdx})}" method="post">
+                        <button class="w-100 btn btn-dark btn-lg" onclick="return confirm('정말 제재 하시겠습니까?')" type="submit">
+                            비매너 제재
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</div> <!-- /container -->
 </body>
 </html>

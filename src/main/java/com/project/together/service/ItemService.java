@@ -64,7 +64,6 @@ public class ItemService {
         item.setEnul(enul);
         item.setDealForm(dealForm);
         item.setItemLevel(itemLevel);
-
     }
 
     @Transactional

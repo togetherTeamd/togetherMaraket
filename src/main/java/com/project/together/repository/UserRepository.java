@@ -28,6 +28,7 @@ public class UserRepository {
         originalUserInfo.setUserPhone(user.getUserPhone());
         originalUserInfo.setUserName(user.getUserName());
         originalUserInfo.setAddress(user.getAddress());
+        originalUserInfo.setRole(user.getRole());
 
         em.merge(originalUserInfo);
     }
@@ -53,4 +54,10 @@ public class UserRepository {
                 .findFirst();
     }
 
+    public List<User> findByReport() {
+        return em.createQuery("select m from User m where m.report =: true")
+                .setParameter("true", true)
+                .getResultList();
+
+    }
 }

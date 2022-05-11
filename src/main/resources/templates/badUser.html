@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+<div>
+    <button id="test" onclick="alert('이용이 정지된 회원입니다.'); history.back();">Click Me</button>
+    <script>
+        var ele =document.getElementById('test'); // 변수에 엘리먼트 저장
+
+        ele.click();
+    </script>
+</div>
 </body>
 </html>

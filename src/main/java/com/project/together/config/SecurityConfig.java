@@ -38,9 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()//csrf토큰 비활성화
                 .authorizeRequests() // user 페이지 설정
                     .antMatchers("/admin/**").hasRole("ADMIN")
-                    //.authenticated() // items2(비로그인 사용자 뷰) 권한 없어도 가능
-                    .anyRequest()
+                    .antMatchers("/users/new","/login/**","/","items2/**")//회원가입, 로그인 ,홈화면, 상품목록, 상품 검색
                     .permitAll()
+                    .anyRequest()
+                .hasRole("USER")
+                    //.authenticated()
+                    //.permitAll()
                 .and() // 로그인 페이지 사용
                 .formLogin()
                     .loginPage("/login/new") // 로그인 페이지 경로 설정
@@ -48,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login/proc") // 로그인이 실제 이루어지는 곳
                     .failureHandler(customFailureHandler);
 
-                    //.defaultSuccessUrl("/"); // 로그인 성공 후 기본적으로 리다이렉트되는 경로*/
+                    //.defaultSuccessUrl("/"); // 로그인 성공 후 기본적으로 리다이렉트되는 경로
          }
 
 }
