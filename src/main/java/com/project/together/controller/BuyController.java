@@ -1,5 +1,6 @@
 package com.project.together.controller;
 
+import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.Item;
 import com.project.together.entity.ItemCategory;
 import com.project.together.entity.ReviewContents;
@@ -9,6 +10,7 @@ import com.project.together.repository.ReviewRepository;
 import com.project.together.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,8 +71,9 @@ public class BuyController {
     }
 
     @GetMapping(value = "/buy")
-    public String list(Model model, @SessionAttribute
-            (name = SessionConstants.LOGIN_USER, required = false) User loginUser) {
+    public String list(Model model, @AuthenticationPrincipal PrincipalDetails user) {
+
+        User loginUser = userService.findById(user.getUsername());
 
         List<ItemCategory> itemCategories = categoryService.findAllItemCategory();
         model.addAttribute("itemCategories", itemCategories);

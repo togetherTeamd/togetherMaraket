@@ -1,11 +1,13 @@
 package com.project.together.controller;
 
+import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.*;
 import com.project.together.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,14 +28,17 @@ public class ItemController {
     private final CategoryService categoryService;
     private final LoginService loginService;
     private final FileService filesService;
+    private final UserService userService;
 
     @GetMapping("items/new")
-    public String createForm(Model model, @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false)
-            User loginUser) {
+    public String createForm(Model model, @AuthenticationPrincipal PrincipalDetails loginUser) {
+
+        User user = userService.findById(loginUser.getUsername());
+
         if(categoryService.findAll().isEmpty()) {
             categoryService.createCategory();
         }
-        User user = loginService.login(loginUser.getUserId(), loginUser.getUserPw());
+        //User user = loginService.login(loginUser.getUserId(), loginUser.getUserPw());
         model.addAttribute("user", user);
         model.addAttribute("form", new ItemForm());
         model.addAttribute("categories", categoryService.findAll());
@@ -42,8 +47,11 @@ public class ItemController {
 
     @PostMapping("items/new")//
     public String create(ItemForm form, @RequestParam("categoryId") Long categoryId,
-                         @SessionAttribute(name = SessionConstants.LOGIN_USER, required = false)
-                                 User loginUser, BindingResult result, @RequestPart MultipartFile files) throws Exception {
+                         @AuthenticationPrincipal PrincipalDetails user,  BindingResult result,
+                         @RequestPart MultipartFile files) throws Exception {
+
+        User loginUser = userService.findById(user.getUsername());
+
         System.out.println("상품정보 잘 들어왔나 : " + form.toString());
         System.out.println("카테고리 아이디는 왔는가 : " + categoryId);
         System.out.println("유저정보 왔는가 : " + loginUser.getUserId());
@@ -162,7 +170,7 @@ public class ItemController {
         return "items/itemView";
     }
 
-    @GetMapping("items/{itemId}/itemView2")
+    @GetMapping("items2/{itemId}/itemView2")
     public String itemView2(@PathVariable("itemId") Long itemId, Model model) {
         Item item = itemService.findOne(itemId);
         List<Files> fileList = filesService.findByItem(itemId);

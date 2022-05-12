@@ -1,13 +1,16 @@
 package com.project.together.controller;
 
+import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.ItemCategory;
 import com.project.together.entity.User;
 import com.project.together.entity.Item;
 import com.project.together.entity.Wish;
 import com.project.together.service.CategoryService;
+import com.project.together.service.UserService;
 import com.project.together.service.WishService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +27,12 @@ public class WishController {
 
     private final WishService wishService;
     private final CategoryService categoryService;
+    private final UserService userService;
 
     @GetMapping(value = "/wish")
-    public String wishList(Model model, @SessionAttribute
-            (name = SessionConstants.LOGIN_USER, required = false) User loginUser) {
+    public String wishList(Model model, @AuthenticationPrincipal PrincipalDetails user) {
+
+        User loginUser = userService.findById(user.getUsername());
 
         List<Wish> wishList = wishService.findByUser(loginUser.getUserIdx());
         List<ItemCategory> itemCategories = categoryService.findAllItemCategory();
@@ -39,8 +44,10 @@ public class WishController {
     }
 
     @PostMapping(value = "/items/{itemId}/wish")
-    public String addWish(@PathVariable Long itemId, @SessionAttribute
-            (name = SessionConstants.LOGIN_USER, required = false) User loginUser) {
+    public String addWish(@PathVariable Long itemId, @AuthenticationPrincipal PrincipalDetails user) {
+
+        User loginUser = userService.findById(user.getUsername());
+
         if(wishService.checkDuplicate(loginUser.getUserIdx(), itemId) == 1) {
             return "wish/rejectForm";
         }
@@ -51,8 +58,9 @@ public class WishController {
     }
 
     @PostMapping(value = "/wish/{wishId}/removeWish")
-    public String removeWish(@PathVariable Long wishId, @SessionAttribute
-            (name = SessionConstants.LOGIN_USER, required = false) User loginUser) {
+    public String removeWish(@PathVariable Long wishId, @AuthenticationPrincipal PrincipalDetails user) {
+
+        User loginUser = userService.findById(user.getUsername());
 
         wishService.removeWish(loginUser.getUserIdx(), wishId);
         return "redirect:/";

@@ -26,6 +26,8 @@ public class User {
     @Column(name="user_phone", unique = true)
     private String userPhone;
 
+    private String role;
+
     @Embedded
     private Address address;
 
