@@ -78,7 +78,7 @@ public class ItemController {
 
         File destinationFile;
         String destinationFileName;
-        String fileUrl = "C:\\Users\\doyeon\\IdeaProjects\\togetherteam\\src\\main\\resources\\static\\img\\"; // img 저장할곳 지정(프로젝트의 static파일명)
+        String fileUrl = "C:\\together2\\src\\main\\resources\\static\\img\\"; // img 저장할곳 지정(프로젝트의 static파일명)
 
         do {
             destinationFileName = RandomStringUtils.randomAlphanumeric(32)+ "." + sourceFileNameExtension;
