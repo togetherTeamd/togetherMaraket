@@ -18,5 +18,4 @@ public class Files {
     private String fileUrl;
     @Column(name = "item_id")
     private Long itemId;//어떤 아이템의 사진인지
-
 }

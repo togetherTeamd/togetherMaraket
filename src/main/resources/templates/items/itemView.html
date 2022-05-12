@@ -23,8 +23,8 @@
       <tr th:each="item:${item}">
 
         <div class="col-md-6"><span th:each="file : ${fileList}">
-                <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
-              </span>
+               <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
+             </span>
         </div>
         <div class="col-md-6">
           <div class="col-md">
@@ -85,3 +85,5 @@
 <div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
+
+
