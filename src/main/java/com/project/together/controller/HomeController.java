@@ -32,6 +32,11 @@ public class HomeController {
             log.info("로그아웃 홈화면");
             return "home";
         }
+
+        if(loginUser.getAuthorities().toString().equals("[ROLE_REPORT]")) {
+            return "badUser";
+        }
+
         if(loginUser.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
             log.info("관리자 홈화면");
             return "admin/adminHome";

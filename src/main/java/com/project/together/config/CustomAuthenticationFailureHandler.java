@@ -26,7 +26,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         }else if(exception instanceof InternalAuthenticationServiceException) {
             msg = "error.BadCredentials";
         } else if(exception instanceof DisabledException) {
-            msg = "error.Disaled";
+            msg = "error.Disabled";
         } else if(exception instanceof CredentialsExpiredException) {
             msg = "error.CredentialsExpired";
         }
