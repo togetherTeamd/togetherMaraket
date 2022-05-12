@@ -1,6 +1,5 @@
 package com.project.together.entity;
 
-import jdk.vm.ci.meta.Local;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
