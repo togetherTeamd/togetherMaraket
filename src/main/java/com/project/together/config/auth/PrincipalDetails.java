@@ -12,6 +12,10 @@ public class PrincipalDetails implements UserDetails {
 
     private User user;
 
+    /**
+     * 로그인시 스프링 시큐리티가 자동으로 PrincipalDetails를 호출해 인증의 과정을 거침, 인증 대상: Entity의 유저
+     * @param user
+     */
     public PrincipalDetails(User user) { this.user = user; }
 
     /**

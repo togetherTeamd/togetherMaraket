@@ -17,8 +17,14 @@ import java.util.Optional;
 @Slf4j
 public class PrincipalDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
     private final UserService userService;
+
+    /**
+     * 로그인 폼(login/new)에서 username, password를 받아 유저 정보 조회 후 있으면 인증 후 로그인 성공처리
+     * @param userId
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         User user = userService.findById(userId);

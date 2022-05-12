@@ -93,7 +93,10 @@
                                 </div>
                             </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a href="#" th:href= "@{guest/items2/{id}/itemView2 (id=${item.id})}" class="btn btn-outline-dark mt-auto" role="button">View</a>
+                            </div>
+                           <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
                                         <a href="#" th:href= "@{/items/{id}/itemView2 (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">View</a>
@@ -101,7 +104,7 @@
                                     </form>
                                 </div>
 
-                            </div>
+                            </div>-->
 
                         </div>
                     </div>

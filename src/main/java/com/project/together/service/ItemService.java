@@ -55,6 +55,7 @@ public class ItemService {
     public List<Item> findByItemName(String name) {
         return itemRepository.findByName(name);
     }
+
     @Transactional
     public void updateItem(Long itemId, String name, int price, String contents, Enul enul, DealForm dealForm, String itemLevel) {
         Item item = itemRepository.findOne(itemId);
@@ -64,7 +65,6 @@ public class ItemService {
         item.setEnul(enul);
         item.setDealForm(dealForm);
         item.setItemLevel(itemLevel);
-
     }
 
     @Transactional

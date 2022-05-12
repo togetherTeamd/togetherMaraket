@@ -28,6 +28,8 @@ public class User {
 
     private String role;
 
+    private boolean report = false;
+
     @Embedded
     private Address address;
 

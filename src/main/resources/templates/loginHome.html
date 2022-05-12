@@ -1,37 +1,3 @@
-<!--<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8">
-  <link th:href="@{/css/bootstrap.min.css}"
-        href="../css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-
-<div class="container" style="max-width: 600px">
-  <div class="py-5 text-center">
-    <h2>홈 화면</h2>
-  </div>
-
-  <h4 class="mb-3" th:text="|로그인 사용자 이름: ${user.userName}|">로그인 사용자 이름</h4>
-
-  <hr class="my-4">
-
-  <div class="row">
-    <div class="col">
-      <form th:action="@{/logout}" method="post">
-        <button class="w-100 btn btn-dark btn-lg" onclick="location.href='home.html'" type="submit">
-          로그아웃
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <hr class="my-4">
-
-</div>  /container
-
-</body>
-</html>-->
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
@@ -75,6 +41,14 @@
     </button>
   </form>
   </p>
+
+  <p class="lead">문의 기능</p>
+  <p>
+    <a class="btn btn-lg btn-dark" href="/inquiry/inquiryForm">문의하기</a>
+    <a class="btn btn-lg btn-dark" href="/inquiry/myInquiryList">문의내역</a>
+    <a class="btn btn-lg btn-dark" href="/report/reportForm">신고하기</a>
+  </p>
+
   <p class="lead">상품 기능</p>
   <p>
     <a class="btn btn-lg btn-dark" href="/items/new">상품 등록</a>
@@ -86,5 +60,7 @@
     <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>
   </p>
 </div>
-<!--    <div th:replace="fragments/footer :: footer" />-->
-<!--</div> &lt;!&ndash; /container &ndash;&gt;-->
+    <div th:replace="fragments/footer :: footer" />
+</div> &lt;!&ndash; /container &ndash;&gt;
+</body>
+</html>

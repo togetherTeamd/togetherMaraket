@@ -58,4 +58,8 @@ public class UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    public List<User> findByReport() {
+        return userRepository.findByReport();
+    }
 }
