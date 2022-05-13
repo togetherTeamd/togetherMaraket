@@ -2,10 +2,7 @@ package com.project.together.controller;
 
 import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.*;
-import com.project.together.service.CategoryService;
-import com.project.together.service.ItemService;
-import com.project.together.service.SellService;
-import com.project.together.service.UserService;
+import com.project.together.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.spi.SecondLevelCacheLogger_$logger;
@@ -26,6 +23,7 @@ public class SellController {
     private final ItemService itemService;
     private final CategoryService categoryService;
     private final UserService userService;
+    private final FileService fileService;
 
     @GetMapping(value = "/sell")
     public String sellList(Model model, @AuthenticationPrincipal PrincipalDetails user) {
@@ -41,6 +39,9 @@ public class SellController {
 
         List<Item> items = itemService.findBySeller(loginUser.getUserId());
         model.addAttribute("items", items);
+
+        List<Files> files = fileService.findAll();
+        model.addAttribute("files", files);
 
         return "sell/sellList";
     }
