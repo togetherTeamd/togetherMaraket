@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()//csrf토큰 비활성화
                 .authorizeRequests() // user 페이지 설정
                     .antMatchers("/admin/**").hasRole("ADMIN")//관리자 페이지는 관리자 권한이 있는 사용자만 사용 가능
-                    .antMatchers("/users/new","/login/**","/", "/search2/**","/items2/**", "/users/rejectForm")//회원가입, 로그인 ,홈화면, 상품목록, 상품 검색
+                    .antMatchers("/users/new","/login/**","/", "/search2/**","/items2/**", "/users/rejectForm", "/check/sendSMS", "/idCheck")//회원가입, 로그인 ,홈화면, 상품목록, 상품 검색
                     .permitAll()
                     .anyRequest()
                 .hasRole("USER")//회원페이지는 회원 권환이 있는 사용자만 사용 가능

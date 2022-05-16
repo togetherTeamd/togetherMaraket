@@ -31,7 +31,6 @@
         <th>가격협상</th>
         <th>거래형태</th>
         <th>물품상태</th>
-        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -69,7 +68,7 @@
           <div class="col mb-5">
             <div class="card h-100">
               <!-- Product image-->
-              <span th:each="file : ${files}" th:if= "${file.itemId == item.id} ">
+              <span th:each="file : ${files}" th:if= "${file.itemId == item.id} and ${file.mainPicture}">
                 <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
               </span>
               <!-- Product details-->

@@ -5,6 +5,7 @@ import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.Address;
 import com.project.together.entity.User;
 import com.project.together.repository.UserMapper;
+import com.project.together.service.CertificationService;
 import com.project.together.service.LoginService;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,6 +36,7 @@ public class UserController {
 
     private final BCryptPasswordEncoder passwordEncoder;
 
+    private final CertificationService certificationService;
     //Mybatis Mapper
     private final UserMapper userMapper;
 
@@ -71,7 +74,7 @@ public class UserController {
         }
         userService.join(user);
         log.info("회원가입 성공");
-            return "redirect:/";
+        return "redirect:/";
         /*} catch (IllegalStateException is) {
             return "items/rejectForm";
         }*/
@@ -94,7 +97,7 @@ public class UserController {
      */
     @PostMapping("/createUserForm2")
     public String createUserForm2(@ModelAttribute UserVO userVO,
-            HttpServletRequest request, Model model) throws Exception{
+                                  HttpServletRequest request, Model model) throws Exception{
         try {
             int result = userMapper.joinUser(userVO);
             System.out.println(result);
@@ -196,6 +199,7 @@ public class UserController {
         user.setUserPw(passwordEncoder.encode(form.getUserPw()));
         user.setUserName(form.getUserName());
         user.setUserPhone(form.getUserPhone());
+        user.setRole("ROLE_USER");
 
         Address address = new Address();
         address.setCity(form.getCity());
@@ -279,4 +283,22 @@ public class UserController {
         if(memberId != null) count = userService.idCheck(memberId);
         return count;
     }
+
+    @GetMapping("/check/sendSMS")
+    public @ResponseBody
+    String sendSMS(String phoneNumber) {
+
+        Random rand  = new Random();
+        String numStr = "";
+        for(int i=0; i<4; i++) {
+            String ran = Integer.toString(rand.nextInt(10));
+            numStr+=ran;
+        }
+
+        System.out.println("수신자 번호 : " + phoneNumber);
+        System.out.println("인증번호 : " + numStr);
+        certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+        return numStr;
+    }
+
 }

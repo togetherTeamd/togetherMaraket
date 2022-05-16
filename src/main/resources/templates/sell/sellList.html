@@ -16,7 +16,9 @@
                 <th>등록 날짜</th>
                 <th>찜한 사용자수</th>
                 <th>카테고리</th>
-                <th></th>
+                <th>가격협상</th>
+                <th>거래형태</th>
+                <th>물품상태</th>
             </tr>
             </thead>
             <tbody>
@@ -32,6 +34,9 @@
                         <span th:text="${category.categoryName}"></span>
                     </span>
                 </td>
+                <td th:text="${item.enul}"></td>
+                <td th:text="${item.dealForm}"></td>
+                <td th:text="${item.itemLevel}"></td>
                 <td>
                     <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
                        class="btn btn-primary" role="button">수정</a>
@@ -58,7 +63,9 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+                            <span th:each="file : ${files}" th:if= "${file.itemId == item.id} and ${file.mainPicture}">
+                                <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
+                            </span>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -66,7 +73,7 @@
                                     <h5 class="fw-bolder"><td th:text="${item.name}"></td></h5>
                                     <!-- Product price-->
                                     <td th:text="${item.price}"></td>
-                                    (<td th:text="${item.itemStatus}"></td>)
+                                    <td th:text="${item.itemStatus}"></td>
                                 </div>
                             </div>
                             <!-- Product actions-->
