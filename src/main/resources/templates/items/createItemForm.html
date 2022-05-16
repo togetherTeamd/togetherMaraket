@@ -76,7 +76,7 @@
             <label th:for="contents">상품 설명</label>
 
             <textarea th:field="*{contents}" class="form-control"
-                      th:errorclass="field-error" placeholder="상품 설명을 해주세요">
+                   th:errorclass="field-error" placeholder="상품 설명을 해주세요">
             </textarea>
             <p class="textCount">0자</p>
             <p class="textTotal">/250자</p>
@@ -87,20 +87,25 @@
                 });
                 $("textarea.form-control").keyup(function (e) {
                     let content = $(this).val(); // 글자수 세기
-                    if (content.length == 0 || content == '') {
-                        $('.textCount').text('0자');
-                    } else {
-                        $('.textCount').text(content.length + '자');
-                    }
-                    // 글자수 제한
+                 if (content.length == 0 || content == '') {
+                     $('.textCount').text('0자');
+                 } else {
+                     $('.textCount').text(content.length + '자');
+                 }
+                 // 글자수 제한
                     if (content.length > 250) {
                         // 250자 부터는 타이핑 되지 않도록
                         $(this).val($(this).val().substring(0, 250)); // 250자 넘으면 알림창 뜨도록
-                        alert('글자수는 250자까지 입력 가능합니다.');
+                         alert('글자수는 250자까지 입력 가능합니다.');
                     }; });
             </script>
             <div class="field-error" th:errors="*{contents}"/>
         </div>
+
+<!--        <div class="form-group">-->
+<!--            <label>사진 올리기</label>-->
+<!--            <input multiple type="file" name="files" class="form-control">-->
+<!--        </div>-->
 
         <div class="form-group">
             <label>사진 올리기</label>
@@ -199,21 +204,14 @@
                 )('att_zone', 'btnAtt')
             </script>
         </div>
-        <!--이미지 첨부 연결-->
-        <!--        <div class="form-group">-->
-        <!--            <label th:for="filebox">물품 사진</label>-->
-        <!--            <input type="file" th:field="*{}" class="form-control"-->
-        <!--                   th:errorclass="field-error" placeholder="물품 사진을 업로드하세요">-->
-        <!--            <div class="field-error" th:errors="*{}"/>-->
-        <!--        </div>-->
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer"/>
-</div>
+    </div>
 </div>
 </body>
 </html>

@@ -18,5 +18,6 @@ public class Files {
     private String fileUrl;
     @Column(name = "item_id")
     private Long itemId;//어떤 아이템의 사진인지
+    private boolean mainPicture; //해당 아이템으 메인 사진인지
 
 }

@@ -1,17 +1,18 @@
 server:
   port: 8090
-  servlet:
+
+
+spring:
+  http:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
 
-
-spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/test
     username: root
-    password: P@ssw0rd
+    password: root1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -21,8 +22,8 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-      ddl-auto: create
-#      ddl-auto: update
+ #     ddl-auto: create
+      ddl-auto: update
 
     devtools:
       livereload:
