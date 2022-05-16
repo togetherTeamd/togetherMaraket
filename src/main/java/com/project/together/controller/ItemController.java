@@ -130,7 +130,7 @@ public class ItemController {
     /*@PostMapping("items/new")//
     public String create(ItemForm form, @RequestParam("categoryId") Long categoryId,
                          @AuthenticationPrincipal PrincipalDetails user,  BindingResult result,
-                         @RequestPart MultipartFile files) throws Exception {
+                         @RequestPart List<MultipartFile> files) throws Exception {
 
         User loginUser = userService.findById(user.getUsername());
 
@@ -161,35 +161,65 @@ public class ItemController {
         item.setCreatedAt(LocalDateTime.now());
         //아이템 생성 세션으로부터 로그인정보, 폼으로부터 아이템 속성값들 받아옴
 
-        Files file = new Files();
-        String sourceFileName = files.getOriginalFilename(); //파일 원본 이름 ex)증명사진.jpg
-        String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase();//확장자 .앞부분 반환
-        FilenameUtils.removeExtension(sourceFileName);//확장자 .뒷부분 반환
+        for(MultipartFile mf : files){
+            Files file = new Files();
+            String sourceFileName = mf.getOriginalFilename(); //파일 원본 이름 ex)증명사진.jpg
+            String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase();//확장자 .앞부분 반환
+            FilenameUtils.removeExtension(sourceFileName);//확장자 .뒷부분 반환
 
-        File destinationFile;
-        String destinationFileName;
-        String fileUrl = "C:\\Users\\doyeon\\IdeaProjects\\togetherteam\\src\\main\\resources\\static\\img\\"; // img 저장할곳 지정(프로젝트의 static파일명)
+            File destinationFile;
+            String destinationFileName;
+            String fileUrl = "C:\\Users\\chlgu\\Desktop\\togetherMaraket\\src\\main\\resources\\static\\img\\"; // img 저장할곳 지정(프로젝트의 static파일명)
 
-        do {
-            destinationFileName = RandomStringUtils.randomAlphanumeric(32)+ "." + sourceFileNameExtension;
-            destinationFile = new File(fileUrl + destinationFileName);
-        }while (destinationFile.exists());
+            do {
+                destinationFileName = RandomStringUtils.randomAlphanumeric(32)+ "." + sourceFileNameExtension;
+                destinationFile = new File(fileUrl + destinationFileName);
+            }while (destinationFile.exists());
 
-        destinationFile.getParentFile().mkdirs();
-        files.transferTo(destinationFile);
+            destinationFile.getParentFile().mkdirs();
+            mf.transferTo(destinationFile);
 
-        file.setFilename(destinationFileName);
-        file.setFileOriName(sourceFileName);
-        file.setFileUrl(fileUrl);
+            file.setFilename(destinationFileName);
+            file.setFileOriName(sourceFileName);
+            file.setFileUrl(fileUrl);
 
+            itemService.saveItem(item);
+            categoryService.addCategory(item.getId(), categoryId);
+            sellService.sell(loginUser.getUserIdx(), item.getId());
 
+            file.setItemId(item.getId());//itemService에서 생성 후 출력댐
+            filesService.save(file);
+        }
 
-        itemService.saveItem(item);
-        categoryService.addCategory(item.getId(), categoryId);
-        sellService.sell(loginUser.getUserIdx(), item.getId());
-
-        file.setItemId(item.getId());//itemService에서 생성 후 출력댐
-        filesService.save(file);
+//        Files file = new Files();
+//        String sourceFileName = files.getOriginalFilename(); //파일 원본 이름 ex)증명사진.jpg
+//        String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase();//확장자 .앞부분 반환
+//        FilenameUtils.removeExtension(sourceFileName);//확장자 .뒷부분 반환
+//
+//        File destinationFile;
+//        String destinationFileName;
+//        String fileUrl = "C:\\Users\\chlgu\\IdeaProjects\\togetherMaraket\\src\\main\\resources\\static\\img\\"; // img 저장할곳 지정(프로젝트의 static파일명)
+//
+//        do {
+//            destinationFileName = RandomStringUtils.randomAlphanumeric(32)+ "." + sourceFileNameExtension;
+//            destinationFile = new File(fileUrl + destinationFileName);
+//        }while (destinationFile.exists());
+//
+//        destinationFile.getParentFile().mkdirs();
+//        files.transferTo(destinationFile);
+//
+//        file.setFilename(destinationFileName);
+//        file.setFileOriName(sourceFileName);
+//        file.setFileUrl(fileUrl);
+//
+//
+//
+//        itemService.saveItem(item);
+//        categoryService.addCategory(item.getId(), categoryId);
+//        sellService.sell(loginUser.getUserIdx(), item.getId());
+//
+//        file.setItemId(item.getId());//itemService에서 생성 후 출력댐
+//        filesService.save(file);
 
         return "redirect:/";
     }*/
@@ -239,7 +269,7 @@ public class ItemController {
     @PostMapping(value = "/items/{itemId}/edit")
     public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") ItemForm form) {
         itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getContents(), form.getEnul(), form.getDealForm()
-        , form.getItemLevel());
+                , form.getItemLevel());
 
         return "redirect:/";
     }
@@ -318,7 +348,7 @@ public class ItemController {
     @GetMapping("/search2")
     public String itemSearchForm2(@RequestParam("itemName") String name , @RequestParam("categoryId") Long categoryId
             , @RequestParam("itemLevel") String itemLevel, @RequestParam("dealForm") String dealForm,
-                                 @RequestParam("enul") String enul,@RequestParam("manner") Long manner, Model model) {
+                                  @RequestParam("enul") String enul,@RequestParam("manner") Long manner, Model model) {
         List<Item> searchItems = itemService.findByItemName(name);
         List<Item> mannerItems = itemService.findByManner(name);
         List<Files> files = filesService.findAll();
@@ -338,8 +368,6 @@ public class ItemController {
         }
 
         model.addAttribute("items", searchItems);
-
-
 
         return "items2/itemSearchList2";
     }
