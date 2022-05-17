@@ -156,7 +156,7 @@
             <p th:if="${#fields.hasErrors('userPw')}"
                th:errors="*{userPw}">Incorrect date</p>
             <label>비밀번호 확인</label>
-            <input type="password" class="form-control" id="pw2">
+            <input type="password" class="form-control" id="pw2" placeholder="비밀번호 확인">
 
             <label th:for="userName" class="text-field">이름</label>
             <input type="text" th:field="*{userName}" class="form-control"
