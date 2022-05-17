@@ -1,5 +1,8 @@
 package com.project.together.service;
 
+import com.project.together.entity.DealForm;
+import com.project.together.entity.Enul;
+import com.project.together.entity.Item;
 import com.project.together.entity.User;
 import com.project.together.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +60,18 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Transactional
+    public void setKakaoQR(Long userIdx, String QR) {
+        User user = userRepository.findByIdx(userIdx);
+        user.setKakaoQr(QR);
+    }
+
+    @Transactional
+    public void setTossQR(Long userIdx, String QR) {
+        User user = userRepository.findByIdx(userIdx);
+        user.setTossQr(QR);
     }
 
     public List<User> findByReport() {

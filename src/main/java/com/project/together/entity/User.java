@@ -30,6 +30,12 @@ public class User {
 
     private boolean report = false;
 
+    @Column(name = "user_kakao_QR")
+    private String kakaoQr;
+
+    @Column(name = "user_toss_QR")
+    private String TossQr;
+
     @Embedded
     private Address address;
 

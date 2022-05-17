@@ -5,10 +5,12 @@
 </HEAD>
 <BODY>
 <div id="qrcode"></div>
+<input type="text" id="url" th:asfd>
 </BODY>
 <script type="text/javascript">
+    var url = document.getElementById('url').value;
     var qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: "http://web-inf.tistory.com/",
+        text: "toss.me/doyeon98",//"https://qr.kakaopay.com/FZ7zf3U4T",//"http://web-inf.tistory.com/",
         width: 128,
         height: 128,
         colorDark : "#000000",
