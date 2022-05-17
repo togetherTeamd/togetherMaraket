@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body class="text-center">
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login" />
+
+<script>
+    function complete() {
+        alert("1. 카카오QR 등록 완료!");
+    }
+</script>
+<div class="container-createUser">
+
+    <div class="py-5">
+        <h2>Kakao 계좌 연동</h2>
+    </div>
+
+    <form role="form" action="/QRdeal/createKakaoQRProc"
+          method="post">
+        <div class="form-group">
+            <img class="card-img-top" src="/img/카카오송금등록1.jpg" style="width: 25vw; min-width: 140px;">
+            <br>
+            <span>1. 카카오톡 더보기에서 위의 사진에 표시된 영역에 들어간다.</span>
+        </div>
+
+        <div class="form-group">
+            <img class="card-img-top" src="/img/카카오송금등록2.jpg" style="width: 25vw; min-width: 140px;">
+            <br>
+            <span>2. 송금코드에 들어간다.</span>
+        </div>
+
+        <div class="form-group">
+            <img class="card-img-top" src="/img/카카오송금등록3.jpg" style="width: 25vw; min-width: 140px;">
+            <br>
+            <span>3. 위의 그림에 표시된 영역에서 url을 복사한다.</span>
+        </div>
+
+        <div class="form-group" >
+            <div style="margin: 0 auto; width: 25vw;">
+            <input type="text" class="form-control" name="kakaoUrl" placeholder="양식:https://qr.kakaopay.com/asdf" style="width: 25vw; min-width: 140px; text-align:center;" >
+            </div>
+            <span>4. 양식에 맞게 입력한다.</span>
+        </div>
+        <button type="submit" class="btn-primary" onclick="complete()">등록</button>
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+
+</body>
+</html>

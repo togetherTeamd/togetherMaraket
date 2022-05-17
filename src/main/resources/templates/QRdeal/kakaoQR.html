@@ -1,16 +1,22 @@
-<HTML>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <HEAD>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/qrcode.js"></script>
 </HEAD>
 <BODY>
+<div style="margin: 0 auto; width: 40vw;">
+<h2>KakaoQR</h2>
 <div id="qrcode"></div>
-<input type="text" id="url" th:asfd>
+</div>
 </BODY>
-<script type="text/javascript">
-    var url = document.getElementById('url').value;
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var name = [[ ${kakaoQR} ]];
+    console.log(name);
+    /*]]*/
     var qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: "toss.me/doyeon98",//"https://qr.kakaopay.com/FZ7zf3U4T",//"http://web-inf.tistory.com/",
+        text: name,//"toss.me/doyeon98",//"https://qr.kakaopay.com/FZ7zf3U4T",//"http://web-inf.tistory.com/",
         width: 128,
         height: 128,
         colorDark : "#000000",
