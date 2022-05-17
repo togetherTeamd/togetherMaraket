@@ -19,7 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -80,6 +79,47 @@ public class UserController {
         }*/
 
     }
+
+    @GetMapping("/QRdeal/createKakaoQRForm")
+    public String createKakaoQR() { //자신의 카카오
+        return "QRdeal/createKakaoQRForm";
+    }
+
+    @PostMapping("/QRdeal/createKakaoQRProc")
+    public String createKakaoQRProc(@RequestParam String kakaoUrl, @AuthenticationPrincipal PrincipalDetails user) {
+        User loginUser = userService.findById(user.getUsername());
+        userService.setKakaoQR(loginUser.getUserIdx(), kakaoUrl);
+        return "redirect:/";
+    }
+
+    @GetMapping("/QRdeal/createTossQRForm")
+    public String createTossQR() { //자신의 카카오
+        return "QRdeal/createTossQRForm";
+    }
+
+    @PostMapping("/QRdeal/createTossQRProc")
+    public String createTossQRProc(@RequestParam String tossUrl, @AuthenticationPrincipal PrincipalDetails user) {
+        User loginUser = userService.findById(user.getUsername());
+        userService.setTossQR(loginUser.getUserIdx(), tossUrl);
+        return "redirect:/";
+    }
+
+    @GetMapping("/QRdeal/tossQR")
+    public String tossQR(Model model, @AuthenticationPrincipal PrincipalDetails user) {
+        User loginUser = userService.findById(user.getUsername());
+
+        model.addAttribute("tossQR",loginUser.getTossQr());
+        return "QRdeal/tossQR";
+    }
+
+    @GetMapping("/QRdeal/kakaoQR")
+    public String kakaoQR(Model model, @AuthenticationPrincipal PrincipalDetails user) {
+        User loginUser = userService.findById(user.getUsername());
+
+        model.addAttribute("kakaoQR",loginUser.getKakaoQr());
+        return "QRdeal/kakaoQR";
+    }
+
 
     /***
      * @Desc : 화면 호출

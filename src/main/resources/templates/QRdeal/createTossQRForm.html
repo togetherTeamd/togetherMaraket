@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body class="text-center">
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login" />
+<script>
+    function complete() {
+        alert("1. 토스QR 등록 완료!");
+    }
+</script>
+<div class="container-createUser">
+
+    <div class="py-5">
+        <h2>Toss 계좌 연동</h2>
+    </div>
+
+
+    <form role="form" action="/QRdeal/createTossQRProc"
+          method="post">
+        <div class="form-group">
+            <img class="card-img-top" src="/img/토스등록1.jpg" style="width: 25vw; min-width: 140px;">
+            <br>
+            <span>1. 스마트폰에서 토스어플을 실행합니다.</span>
+            <br>
+            <span>2. 전체메뉴를 클릭합니다.</span>
+        </div>
+
+        <div class="form-group">
+            <img class="card-img-top" src="/img/토스등록2.jpg" style="width: 25vw; min-width: 140px;">
+            <br>
+            <span>3. 생활 카테고리 아래에서 내토스아이디를 누릅니다.</span>
+            <br>
+            <span>4. 3초만에 만들기를 클릭합니다.</span>
+        </div>
+
+        <div class="form-group">
+            <img class="card-img-top" src="/img/토스등록3.jpg" style="width: 25vw; min-width: 140px;">
+            <br>
+            <span>5. 토스아이디를 입력합니다.</span>
+        </div>
+
+        <div class="form-group">
+            <div style="margin: 0 auto; width: 25vw;">
+            <input type="text" class="form-control" name="tossUrl" placeholder="양식:toss.me/내아이디" style="width: 25vw; min-width: 140px;">
+            </div>
+            <br>
+            <span>6. 토스아이디와 계좌 연동 후 생성한 아이디를 형식에 맞게 입력합니다.</span>
+        </div>
+        <button type="submit" class="btn-primary" onclick="complete()">등록</button>
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+
+</body>
+</html>

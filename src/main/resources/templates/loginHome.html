@@ -194,10 +194,13 @@
     <a class="btn btn-lg btn-dark" href="/items/new">상품 등록</a>
     <a class="btn btn-lg btn-dark" href="/items">상품 목록</a>
   </p>
-  <p class="lead">주문 기능</p>
+  <p class="lead">송금 기능</p>
   <p>
-    <a class="btn btn-lg btn-info" href="/order"x>상품 주문</a>
-    <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>
+    <a class="btn btn-lg btn-info" href="/QRdeal/createTossQRForm"x>토스 연동</a>
+    <a class="btn btn-lg btn-info" href="/QRdeal/createKakaoQRForm"x>카카오페이 연동</a>
+    <a class="btn btn-lg btn-info" href="/QRdeal/tossQR"x>토스QR로 거래</a>
+    <a class="btn btn-lg btn-info" href="/QRdeal/kakaoQR"x>카카오페이QR로 거래</a>
+
   </p>
 </div>
 <div th:replace="fragments/footer :: footer" />
