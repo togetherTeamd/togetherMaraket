@@ -1,10 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
+    <!-- Bootstrap core CSS -->
+    <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#7952b3">
 </head>
 <body>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<div class="container">
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>공지 제목</th>
+                <th>공지 날짜</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="announcement : ${announcementList}">
+                <td th:text="${announcement.id}"></td>
+                <td th:text="${announcement.title}"></td>
+                <td th:text="${announcement.createdAt}"></td>
+                <td>
+                    <a href="#" th:href= "@{/announcement/{aId}/details (aId=${announcement.id})}"class="btn btn-outline-dark mt-auto" role="button">상세보기</a>
+                </td>
+                <td>
+                    <a href="#" th:href= "@{/announcement/{aId}/updateForm (aId=${announcement.id})}"class="btn btn-outline-dark mt-auto" role="button">수정하기</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
+
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+<script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
