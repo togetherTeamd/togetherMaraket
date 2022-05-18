@@ -181,11 +181,11 @@ public class UserController {
     public String updateUserForm(@ModelAttribute UserVO userVO, Model model) throws Exception{
         System.out.println("updateUserForm 수정할 데이터 확인 : " + userVO.toString());
         List<UserVO> originUserVO = userMapper.selectUser(userVO);
-        if(!originUserVO.get(0).getUserPw().equals(userVO.getUserPw())){
-            model.addAttribute("user", originUserVO.get(0));
-            model.addAttribute("incorrectPW", "비밀번호가 틀렸습니다.");
-            return "users/updateUserForm";
-        }
+//        if(!originUserVO.get(0).getUserPw().equals(userVO.getUserPw())){
+//            model.addAttribute("user", originUserVO.get(0));
+//            model.addAttribute("incorrectPW", "비밀번호가 틀렸습니다.");
+//            return "users/updateUserForm";
+//        }
         int check = userMapper.updateUser(userVO);
         System.out.println(check);
         return "redirect:/";
