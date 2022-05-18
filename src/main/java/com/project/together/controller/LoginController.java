@@ -56,7 +56,7 @@ public class LoginController {
     }
     @GetMapping("/users/rejectForm")
     public String loginFail() {
-        return "users/rejectForm";
+        return "login/rejectForm";
     }
 
 

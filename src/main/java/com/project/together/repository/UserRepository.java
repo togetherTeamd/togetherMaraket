@@ -39,6 +39,12 @@ public class UserRepository {
                 .getResultList();
     }
 
+    public List<User> findByPhone(String phone) {
+        return em.createQuery("select m from User m where m.userPhone =:phone", User.class)
+                .setParameter("phone", phone)
+                .getResultList();
+    }
+
     public User findByIdx(Long userIdx) {
         return em.find(User.class, userIdx);
     }
