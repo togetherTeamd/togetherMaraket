@@ -60,5 +60,5 @@ public class User {
     private List<Review> reviewList = new ArrayList<>();
 
     @Transient
-    private List<ChatRoom> roomList = new ArrayList<>();
+    private List<Room> roomList = new ArrayList<>();
 }

@@ -6,26 +6,23 @@
 </head>
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login" />
-<div><h4>도보 길찾기 & 거리</h4></div>
+<div class="form-group">
+    <input type="text" th:value="${user}" class="form-control" name="address" id="myaddress" placeholder="주소를 입력하세요" />
+    <button th:onclick="change();">저장하기</button>
+</div><br />
 <div id="map_div"></div>
-<div id="result1"></div>
-<div id="result2"></div>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx48396a5595344e91870ba48981274ebf"></script>
 <script type="text/javascript" src="/js/map.js"></script>
+<script type="text/javascript" src="/js/select.js"></script>
 <script th:inline="javascript">
-    initMap();
-    var x1 = [[${buyer.lon}]];
-    var y1 = [[${buyer.lat}]];
-    var x2 = [[${seller.lon}]];
-    var y2 = [[${seller.lat}]];
-    var middle_y = (parseFloat(y1) + parseFloat(y2))/2;
-    var middle_x = (parseFloat(x1) + parseFloat(x2))/2;
+    function change() {
+        var addr = document.getElementById("myaddress").value;
 
-    map.setCenter(new Tmapv2.LatLng(middle_y,middle_x));
-    map.setZoom(12);
-    findMapStraight(x1,y1,x2,y2);
-    findMapDirection(x1,y1,x2,y2);
+        findStringMap(addr);
+    }
+    initMap();
+    change();
 </script>
 </body>
 </html>

@@ -64,6 +64,8 @@ public class UserController {
         address.setCity(form.getCity());
         address.setStreet(form.getStreet());
         address.setZipcode(form.getZipcode());
+        address.setLat(form.getLat());
+        address.setLon(form.getLon());
         user.setAddress(address);
         log.info(form.getUserId());//회원가입시 아이디가 admim이면 관리자 권한으로 회원가입 시켰습니다.
         if(form.getUserId().equals("admin"))
@@ -245,6 +247,8 @@ public class UserController {
         address.setCity(form.getCity());
         address.setZipcode(form.getZipcode());
         address.setStreet(form.getStreet());
+        address.setLat(form.getLat());
+        address.setLon(form.getLon());
 
         user.setAddress(address);
 

@@ -28,4 +28,7 @@ public class UserForm {
 
     @NotEmpty(message = "주소를 검색해주세요")
     private String zipcode;
+
+    private String lat;
+    private String lon;
 }

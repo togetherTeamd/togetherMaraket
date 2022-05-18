@@ -1,6 +1,7 @@
 var map, marker_s, marker_e;
 var drawInfoArr = [];
 var resultdrawArr = [];
+var mylat, mylon;
 
 function initMap() {
     // 지도 생성
@@ -30,7 +31,6 @@ function initMap() {
 }
 
 function selectMapPoint() {
-    initMap();
 
     var lon, lat;
 
@@ -100,8 +100,8 @@ function selectMapPoint() {
                 $.ajax({
                     type: "POST",
                     url: "/mapSave",
-                    data: { "id" : $('#id').val(),
-                        "x" : lat, "y" : lon},
+                    data: {
+                        "lat" : lat, "lon" : lon},
                     success: function() {
                         alert("저장 성공");
                         location.reload();
@@ -113,7 +113,6 @@ function selectMapPoint() {
 }
 
 function findMapDirection(x1, y1, x2, y2) {
-    initMap();
 
     // 시작
     marker_s = new Tmapv2.Marker(
@@ -123,6 +122,7 @@ function findMapDirection(x1, y1, x2, y2) {
             iconSize : new Tmapv2.Size(24, 38),
             map : map
         });
+
     // 도착
     marker_e = new Tmapv2.Marker(
         {
@@ -149,6 +149,7 @@ function findMapDirection(x1, y1, x2, y2) {
                 "endName": "도착지"
             },
             success: function (response) {
+
                 var resultData = response.features;
 
                 //결과 출력
@@ -285,13 +286,12 @@ function findMapStraight(x1,y1,x2,y2) {
                 console.log("code:" + request.status + "\n"
                     + "message:" + request.responseText + "\n"
                     + "error:" + error);
+                return 0;
             }
         });
-
 }
 
 function findAddress(){
-    initMap();
 
     function reverseGeo(lon, lat) {
         $
@@ -367,10 +367,7 @@ function findAddress(){
     }
 }
 
-/* 문자열 주소로 찾기 (추후 이걸로 변경 예정)
 function findStringMap(addr){
-    initMap();
-
     $.ajax({
         method : "GET",
         url : "https://apis.openapi.sk.com/tmap/geo/fullAddrGeo?version=1&format=json&callback=result",
@@ -386,7 +383,7 @@ function findStringMap(addr){
             console.log(resultInfo);
 
             // 기존 마커 삭제
-            marker1.setMap(null);
+            marker_s.setMap(null);
 
             // 검색 결과 정보가 없을 때 처리
             if (resultInfo.coordinate.length == 0) {
@@ -423,7 +420,7 @@ function findStringMap(addr){
                 var markerPosition = new Tmapv2.LatLng(Number(lat),Number(lon));
 
                 // 마커 올리기
-                marker1 = new Tmapv2.Marker(
+                marker_s = new Tmapv2.Marker(
                     {
                         position : markerPosition,
                         icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_a.png",
@@ -593,6 +590,8 @@ function findStringMap(addr){
                         $("#result").html(text);
                     }
                 }
+                mylat = lat;
+                mylon = lon;
             }
         },
         error : function(request, status, error) {
@@ -606,8 +605,9 @@ function findStringMap(addr){
 
         }
     });
+    return [mylat, mylon];
 }
-*/
+
 function sendRequest(){
     $('#send').click(function(){
         $.ajax({
