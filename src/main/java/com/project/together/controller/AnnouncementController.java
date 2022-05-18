@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -47,6 +48,14 @@ public class AnnouncementController {
         return "redirect:/";
     }
 
+    //유저 공지사항
+    @GetMapping("/announcement/userannouncement")
+    public String announcement(Model model){
+        List<Announcement> announcementList = announcementService.findAll();
+        model.addAttribute("announcementList", announcementList);
+        return "/announcement/userannouncement";
+    }
+
     //공지사항 한개씩 detail하게
     @GetMapping("/announcement/{aId}/details")
     public String announcementDetail(@PathVariable("aId") Long aId, Model model){
@@ -64,14 +73,23 @@ public class AnnouncementController {
     }
 
     @PostMapping("/announcement/updateForm")
-    public String announcementUpdate(@PathVariable("aId") Long aId, Model model, @RequestParam String announcementText,
+    public String announcementUpdate(/*@PathVariable("aId") Long aId*/@RequestParam Long aId ,@RequestParam String announcementText,
                                      @RequestParam String announcementTitle){
         Announcement adetail = announcementService.findOne(aId);
         adetail.setTitle(announcementTitle);
-        adetail.setTitle(announcementText);
+        adetail.setText(announcementText);
         adetail.setCreatedAt(LocalDateTime.now());
         announcementService.save(adetail);
 
         return "redirect:/";
     }
+
+    //공지사항 삭제
+    @GetMapping("/announcement/{aId}/delete")
+    public String announcementDelete(@PathVariable Long aId){
+        System.out.println(aId);
+        announcementService.removeWish(aId);
+        return "redirect:/";
+    }
+
 }

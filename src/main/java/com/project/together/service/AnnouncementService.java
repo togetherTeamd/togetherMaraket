@@ -29,14 +29,11 @@ public class AnnouncementService {
         return announcementRepository.findOne(id);
     }
 
-//    public List<Inquiry> findByUserIdx(Long userIdx) {
-//        return announcementRepository.findByUserIdx(userIdx);
-//    }
+    @Transactional
+    public void removeWish(Long aId) {
+//        wishRepository.findByUserItem(userIdx, wishId).get(0).getWishItem().getItem().removeWishCount();
+//        wishRepository.wishCancel(userIdx, wishId);
+        announcementRepository.announcementCancel(aId);
 
-//    @Transactional
-//    public void answerInquiry(Long inquiryId, String inquiryAnswer) {
-//        Inquiry inquiry = inquiryRepository.findOne(inquiryId);
-//        inquiry.setInquiryAnswer(inquiryAnswer);
-//        inquiry.setAnswerAt(LocalDateTime.now());
-//    }
+    }
 }

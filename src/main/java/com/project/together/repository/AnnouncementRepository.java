@@ -36,4 +36,15 @@ public class AnnouncementRepository {
                 .setParameter("userIdx",userIdx)
                 .getResultList();
     }*/
+
+    public void announcementCancel(Long aId) {
+//        em.createQuery("delete from Wish w where  w.id =: wishId and w.user.userIdx =: userIdx")
+//                .setParameter("userIdx", userIdx)
+//                .setParameter("wishId", wishId)
+//                .executeUpdate();
+
+        em.createQuery("delete from Announcement a where a.id =: aId")
+                .setParameter("aId", aId)
+                .executeUpdate();
+    }
 }

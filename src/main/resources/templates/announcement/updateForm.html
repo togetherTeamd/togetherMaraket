@@ -11,13 +11,13 @@
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div class="container" >
-    <form th:action="@{/announcement/updateForm}" method="post" ><!--th:action="@{/inquiry/inquiryForm}">-->
-        <input type="hidden" th:name="adetail.aId">
+    <form th:action="@{/announcement/updateForm}" th:object="${adetail}"method="post" >
+        <input type="hidden" th:value="${adetail.id}" name="aId" />
         <div class="form-group">
             <label>공지 제목</label>
 
             <textarea name="announcementTitle" class="form-control"
-                      placeholder="공지 제목을 적어주세요">
+                      th:value="${adetail.title}" th:text="${adetail.title}">
             </textarea>
             <p class="textCount">0자</p>
             <p class="textTotal">/30자</p>
@@ -46,7 +46,7 @@
             <label>공지 내용</label>
 
             <textarea name="announcementText" class="form-control"
-                      placeholder="공지 내용을 적어주세요">
+                      th:value="${adetail.text}" th:text="${adetail.text}">
             </textarea>
             <p class="textCount">0자</p>
             <p class="textTotal">/250자</p>

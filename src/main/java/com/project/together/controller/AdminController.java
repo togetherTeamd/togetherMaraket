@@ -23,7 +23,8 @@ public class AdminController {//신고, 문의, 회원관리
     private final InquiryService inquiryService;
     private final AnnouncementService announcementService;
 
-    @GetMapping("/announcement")
+    //공지사항 조회
+    @GetMapping("/admin/announcement")
     public String announcement(Model model){
         List<Announcement> announcementList = announcementService.findAll();
         model.addAttribute("announcementList", announcementList);
