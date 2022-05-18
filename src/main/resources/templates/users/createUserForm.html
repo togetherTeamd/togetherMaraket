@@ -68,6 +68,7 @@
                 document.getElementById("sample6_address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("sample6_detailAddress").focus();
+                change();
             }
         }).open();
     }
@@ -227,18 +228,47 @@
             <input type="text" th:field="*{zipcode}" id="sample6_postcode" name="zipcode" placeholder="우편번호"
                    th:class="${#fields.hasErrors('zipcode')}? '' : ''">
             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" th:field="*{city}" id="sample6_address" name="city" placeholder="주소"><br>
-            <input type="text" th:field="*{street}" id="sample6_detailAddress" name="street" placeholder="상세주소">
+            <input type="text" th:field="*{city}" id="sample6_address" name="city" placeholder="주소" style="width:300px;">
             <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+            <input type="text" th:field="*{street}" id="sample6_detailAddress" name="street" placeholder="상세주소">
+            <input tpye="text" style="width: 100px" th:field="*{lat}" id="sample6_lat" name="lat" readonly/>
+            <input tpye="text" style="width: 100px" th:field="*{lon}" id="sample6_lon" name="lon" readonly/>
             <p th:if="${#fields.hasErrors('zipcode')}"
                th:errors="*{zipcode}">Incorrect date</p>
+        </div><br/>
+        <div id="map_div"></div>
+<!--        <span th:if="${error == null}">-->
+        <button type="submit" class="btn-primary">회원가입</button>
+<!--        </span>-->
+<!--        <span th:unless="${error == null}">-->
+<!--        <a href="#" class="btn btn-primary" onclick="javascript:reject()" role="button">-->
+<!--                        거래후기 보내기-->
+<!--        </a>-->
+<!--            <script th:inline="">-->
+
+<!--                function reject() {-->
+<!--                    /*<![CDATA[*/ let name = [[ ${message} ]]; /*]]*/-->
+<!--                swal("이미 후기를 보낸 상품입니다")}</script>-->
+<!--        </span>-->
         </div>
         <button type="button" class="btn-primary" onclick="test()">회원가입</button>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx48396a5595344e91870ba48981274ebf"></script>
+<script type="text/javascript" src="/js/map.js"></script>
+<script th:inline="javascript">
+    function change() {
+        var addr = document.getElementById("sample6_address").value + " " + document.getElementById("sample6_detailAddress").value;
 
+        let [lat, lon] = findStringMap(addr);
+        document.getElementById("sample6_lat").value = lat;
+        document.getElementById("sample6_lon").value = lon;
+    }
+    initMap();
+</script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 </body>
 </html>
