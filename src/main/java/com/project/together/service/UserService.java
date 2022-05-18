@@ -74,6 +74,10 @@ public class UserService {
         user.setTossQr(QR);
     }
 
+    public List<User> findByPhone(String phone) {
+        return userRepository.findByPhone(phone);
+    }
+
     public List<User> findByReport() {
         return userRepository.findByReport();
     }

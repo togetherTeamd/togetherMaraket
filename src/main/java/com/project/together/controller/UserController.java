@@ -53,6 +53,9 @@ public class UserController {
             return "users/createUserForm";
         }
 
+        if(!userService.findByPhone(form.getUserPhone()).isEmpty()) {
+            return "users/rejectForm";//이미 등록된 전화번호
+        }
         //try{
         User user = new User();
         Address address = new Address();
@@ -330,7 +333,7 @@ public class UserController {
 
     @GetMapping("/check/sendSMS")
     public @ResponseBody
-    String sendSMS(String phoneNumber) {
+    String sendSMS(String phoneNumber, Model model) {
 
         Random rand  = new Random();
         String numStr = "";
@@ -338,7 +341,7 @@ public class UserController {
             String ran = Integer.toString(rand.nextInt(10));
             numStr+=ran;
         }
-
+        model.addAttribute("test", "test");
         System.out.println("수신자 번호 : " + phoneNumber);
         System.out.println("인증번호 : " + numStr);
         certificationService.certifiedPhoneNumber(phoneNumber,numStr);

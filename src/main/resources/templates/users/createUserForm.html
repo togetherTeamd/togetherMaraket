@@ -76,9 +76,10 @@
     function idCheck() {
 
         var memberId = $("#userId").val();
+        var idRegExp = /^[a-zA-z0-9]{4,12}$/;
 
-        if(memberId.search(/\s/) != -1) {
-            alert("아이디에는 공백이 들어갈 수 없습니다.");
+        if(!idRegExp.test(memberId) && memberId != "admin"){//memberId.search(/\s/) != -1) {
+            swal("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
         } else {
             if(memberId.trim().length != 0) {
                 $.ajax({
@@ -90,17 +91,17 @@
                     contentType: "application/json; charset=UTF-8",
                     success: function(count) {
                         if(count > 0) {
-                            alert("해당 아이디 존재");
+                            swal("해당 아이디 존재");
                             $("#submit").attr("disabled", "disabled");
                             //window.location.reload();
                         } else {
-                            alert("사용가능 아이디");
+                            swal("사용가능 아이디");
                             $("#submit").removeAttr("disabled");
                             document.getElementById("check").value=1;
                         }
                     },
                     error: function(error) {
-                        alert("아이디를 입력해주세요.1");
+                        swal("아이디를 입력해주세요.1");
                     }
                 });
             } else {
@@ -110,20 +111,34 @@
     }
 
     function test() {
+
+        var nameRegExp = /^[가-힣]{2,4}$/;
         var checkId = document.getElementById('check').value;
+        var id = document.getElementById('userId').value;
+        var password1RegExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;//특수문자, 문자, 숫자로 이루어진 8~15자리의 비밀번호/^[a-zA-z0-9]{4,12}$/; //비밀번호 유효성 검사
         var checkPhone = document.getElementById('checkBtn').value;
+        var checkName = document.getElementById('userName').value;
         var p1 = document.getElementById('pw').value;
         var p2 = document.getElementById('pw2').value;
         if( p1 != p2 ) {
-            alert("비밀번호가 일치 하지 않습니다");
+            swal("비밀번호가 일치 하지 않습니다");
             return false;
         } if(checkId != 1){
-            alert('아이디 중복검사를 해주세요' + checkId);
+            swal('아이디 중복검사를 해주세요' + checkId);
             return false;
         } if(checkPhone != 1) {
-            alert('인증번호를 확인해주세요' + checkPhone);
+            swal('인증번호를 확인해주세요' + checkPhone);
+            return false;
+        } if(!password1RegExp.test(p1)) {
+            swal("비밀번호는 특수문자, 문자, 숫자로 이루어진 8~15자리여야 합니다!\n");
+            return false;
+        } if(p1 == id) {
+            swal('아이디와 비밀번호는 같을 수 없습니다!');
+            return false;
+        } if(!nameRegExp.test(checkName)) {
+            swal('이름이 올바르지 않습니다!');
+            return false;
         } else{
-            //alert("비밀번호가 일치합니다");
             document.join_form.submit();
             return true;
         }
@@ -143,36 +158,29 @@
         <div class="form-group">
             <label th:for="userId" class="text-field">아이디</label>
             <input type="text" th:field="*{userId}" class="form-control"
-                   placeholder="아이디을 입력하세요"
-                   th:class="${#fields.hasErrors('userId')}? 'form-control fieldError' : 'form-control'" id="userId">
-            <p th:if="${#fields.hasErrors('userId')}"
-               th:errors="*{userId}">Incorrect date</p>
+                   placeholder="영문 대소문자와 숫자 4~12자리" id="userId">
             <button type="button" onclick="idCheck()" id="check">아이디 중복확인</button>
             <br>
 
             <label th:for="userPw" class="text-field">비밀번호</label>
             <input type="password" th:field="*{userPw}" class="form-control"
-                   placeholder="비밀번호를 입력하세요" id="pw"
-                    th:class="${#fields.hasErrors('userPw')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('userPw')}"
-               th:errors="*{userPw}">Incorrect date</p>
-            <label>비밀번호 확인</label>
+                   placeholder="비밀번호를 입력하세요" id="pw">
+            <p th:if="${#fields.hasErrors('userName')}"
+               th:errors="*{userName}">Incorrect date</p>
+
+            <label class="text-field">비밀번호 확인</label>
             <input type="password" class="form-control" id="pw2" placeholder="비밀번호 확인">
 
             <label th:for="userName" class="text-field">이름</label>
             <input type="text" th:field="*{userName}" class="form-control"
-                   placeholder="이름을 입력하세요"
-                   th:class="${#fields.hasErrors('userName')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('userName')}"
-               th:errors="*{userName}">Incorrect date</p>
+                   placeholder="이름을 입력하세요" id = "userName">
+
         </div>
         <div class="form-group">
             <label th:for="userPhone" class="text-field">전화번호</label>
             <input type="text" th:field="*{userPhone}" class="form-control"
-                   placeholder="01012345678"
-                   th:class="${#fields.hasErrors('userPhone')}? 'form-control fieldError' : 'form-control'" id="inputPhoneNumber">
-            <p th:if="${#fields.hasErrors('userPhone')}"
-               th:errors="*{userPhone}">Incorrect date</p>
+                   placeholder="01012345678" id="inputPhoneNumber">
+
             <button type="button" id="sendPhoneNumber">인증번호 보내기</button>
             <input type="text" id="inputCertifiedNumber" placeholder="콘솔창에 인증번호 있음">
             <button type="button" id="checkBtn">확인</button>
@@ -180,6 +188,12 @@
             <script>
                 $("#sendPhoneNumber").click(function(){
                     let phoneNumber = $('#inputPhoneNumber').val();
+                    var regexr = /^\d+$/;
+                    var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+                    if(!regexr.test(phoneNumber) || !regPhone.test(phoneNumber)) {
+                        swal('양식에 맞는 핸드폰번호를 입력해주세요')
+                        return false;
+                    }
                     Swal.fire('인증번호 발송 완료!')
 
 
@@ -228,28 +242,11 @@
             <input type="text" th:field="*{zipcode}" id="sample6_postcode" name="zipcode" placeholder="우편번호"
                    th:class="${#fields.hasErrors('zipcode')}? '' : ''">
             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" th:field="*{city}" id="sample6_address" name="city" placeholder="주소" style="width:300px;">
-            <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+            <input type="text" th:field="*{city}" id="sample6_address" name="city" placeholder="주소"><br>
             <input type="text" th:field="*{street}" id="sample6_detailAddress" name="street" placeholder="상세주소">
-            <input tpye="text" style="width: 100px" th:field="*{lat}" id="sample6_lat" name="lat" readonly/>
-            <input tpye="text" style="width: 100px" th:field="*{lon}" id="sample6_lon" name="lon" readonly/>
-            <p th:if="${#fields.hasErrors('zipcode')}"
-               th:errors="*{zipcode}">Incorrect date</p>
-        </div><br/>
-        <div id="map_div"></div>
-<!--        <span th:if="${error == null}">-->
-        <button type="submit" class="btn-primary">회원가입</button>
-<!--        </span>-->
-<!--        <span th:unless="${error == null}">-->
-<!--        <a href="#" class="btn btn-primary" onclick="javascript:reject()" role="button">-->
-<!--                        거래후기 보내기-->
-<!--        </a>-->
-<!--            <script th:inline="">-->
-
-<!--                function reject() {-->
-<!--                    /*<![CDATA[*/ let name = [[ ${message} ]]; /*]]*/-->
-<!--                swal("이미 후기를 보낸 상품입니다")}</script>-->
-<!--        </span>-->
+            <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+            <input type="text" style="width: 100px" th:field="*{lat}" id="sample6_lat" name="lat" readonly/>
+            <input type="text" style="width: 100px" th:field="*{lon}" id="sample6_lon" name="lon" readonly/>
         </div>
         <button type="button" class="btn-primary" onclick="test()">회원가입</button>
     </form>
@@ -269,6 +266,5 @@
     }
     initMap();
 </script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 </body>
 </html>

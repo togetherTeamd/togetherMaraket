@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <HEAD>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/qrcode.js"></script>
 </HEAD>
@@ -13,8 +15,16 @@
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
     var name = [[ ${kakaoQR} ]];
-    console.log(name);
     /*]]*/
+    if(name.length == 4) {
+        swal({
+            title : "kakaoQR 미등록",
+            icon  : "error",
+            closeOnClickOutside : false
+        }).then(function(){
+            window.close();
+        });
+    }
     var qrcode = new QRCode(document.getElementById("qrcode"), {
         text: name,//"toss.me/doyeon98",//"https://qr.kakaopay.com/FZ7zf3U4T",//"http://web-inf.tistory.com/",
         width: 128,
