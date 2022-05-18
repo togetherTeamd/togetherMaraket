@@ -2,8 +2,11 @@ package com.project.together.controller;
 
 import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.ChatRoom;
+import com.project.together.entity.Room;
 import com.project.together.entity.User;
 import com.project.together.repository.ChatRoomRepository;
+import com.project.together.repository.RoomRepository;
+import com.project.together.service.RoomService;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,7 +25,8 @@ import java.util.List;
 @Log4j2
 public class RoomController {
 
-    private final ChatRoomRepository repository;
+    private final RoomService roomService;
+    private final ChatRoomRepository roomRepository;
     private final UserService userService;
     //채팅방 목록 조회
     @GetMapping(value = "/rooms")
@@ -32,7 +38,8 @@ public class RoomController {
         log.info("# All Chat Rooms");
         ModelAndView mv = new ModelAndView("chat/rooms");
 
-        List<ChatRoom> roomList = loginUser.getRoomList();
+        List<Room> roomList = loginUser.getRoomList();
+        log.info(roomList);
 
         mv.addObject("list", roomList);
 
@@ -42,7 +49,10 @@ public class RoomController {
     //채팅방 개설
     @GetMapping(value = "/roomMake")
     public String create(String owner){
-        ChatRoom chatRoom = repository.createChatRoom();
+        ChatRoom chatRoom = roomRepository.createChatRoom();
+        Room room = new Room();
+        room.setRoomId(chatRoom.getRoomId());
+        roomService.save(room);
 
         return "redirect:/chat/room?roomId="+chatRoom.getRoomId();
     }
@@ -55,13 +65,32 @@ public class RoomController {
 
         log.info("# get Chat Room, roomID : " + roomId);
 
-        ChatRoom chatRoom = repository.findRoomById(roomId);
+        Room room = roomService.findOne(roomId);
 
-        List<ChatRoom> roomList = loginUser.getRoomList();
-        if(!roomList.contains(chatRoom))
-            roomList.add(chatRoom);
+        List<Room> roomList = loginUser.getRoomList();
+        if(roomList==null)
+        {
+            roomList = new ArrayList<Room>();
+            loginUser.setRoomList(roomList);
+        }
+
+        boolean check = true;
+        for(Room i : roomList){
+            if(i.getRoomId().equals(room.getRoomId())) {
+                check = false;
+                break;
+            }
+        }
+
+        if(check)
+            roomList.add(room);
 
         model.addAttribute("user", loginUser);
-        model.addAttribute("room", chatRoom);
+        model.addAttribute("room", room);
+        /*
+         상대 정보를 바탕으로 채팅방에 초대(알림 기능 걱정)
+         */
+
+
     }
 }
