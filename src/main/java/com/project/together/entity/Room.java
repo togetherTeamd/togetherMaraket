@@ -15,4 +15,7 @@ public class Room {
     private Long id;
 
     private String roomId;
+
+    @Column(name = "user_idx")
+    private Long userIdx;
 }

@@ -1,15 +1,14 @@
 package com.project.together.service;
 
-import com.project.together.entity.DealForm;
-import com.project.together.entity.Enul;
-import com.project.together.entity.Item;
-import com.project.together.entity.User;
+import com.project.together.entity.*;
+import com.project.together.repository.RoomRepository;
 import com.project.together.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,6 +18,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final RoomRepository roomRepository;
     /**
      * 회원가입
      */
@@ -72,6 +72,18 @@ public class UserService {
     public void setTossQR(Long userIdx, String QR) {
         User user = userRepository.findByIdx(userIdx);
         user.setTossQr(QR);
+    }
+
+    @Transactional
+    public void addRoom(Long userIdx, Long roomIdx) {
+        User user = userRepository.findByIdx(userIdx);
+        Room room = roomRepository.findById(roomIdx);
+        room.setUserIdx(userIdx);
+        List<Room> roomList = user.getRoomList();
+        if(roomList == null)
+            roomList = new ArrayList<>();
+
+        roomList.add(room);
     }
 
     public List<User> findByPhone(String phone) {

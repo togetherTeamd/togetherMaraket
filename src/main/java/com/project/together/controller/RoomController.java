@@ -65,25 +65,30 @@ public class RoomController {
 
         log.info("# get Chat Room, roomID : " + roomId);
 
-        Room room = roomService.findOne(roomId);
+        Room room = roomService.findOne(roomId);//생성된 방 조회
+        //room.setUserIdx(loginUser.getUserIdx());
 
-        List<Room> roomList = loginUser.getRoomList();
-        if(roomList==null)
+        log.info(room.getId());
+
+        List<Room> roomList = loginUser.getRoomList(); //로그인한 유저의 방목록 조회
+        if(roomList == null)
         {
-            roomList = new ArrayList<Room>();
-            loginUser.setRoomList(roomList);
+            log.info("비어있음");
+            roomList = new ArrayList<Room>(); //로그인한 유저의 방이 비어있을 경우 Room 목록을 만듬
+            loginUser.setRoomList(roomList); //로그인한 유저의 방 목록에 위에서 만든 방목록 추가
         }
-
         boolean check = true;
         for(Room i : roomList){
-            if(i.getRoomId().equals(room.getRoomId())) {
+            if(i.getRoomId().equals(room.getRoomId())) { //유저가 가진 방 목록중에 생성한 방의 ID와 같은 방이 있으면 방목록 추가 x
                 check = false;
                 break;
             }
         }
 
         if(check)
-            roomList.add(room);
+            userService.addRoom(loginUser.getUserIdx(), room.getId());//roomList.add(room);
+        log.info("생성한 방 개수" + roomList.size());
+        //log.info("안비어있음" + loginUser.getRoomList().size());
 
         model.addAttribute("user", loginUser);
         model.addAttribute("room", room);

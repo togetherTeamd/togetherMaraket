@@ -59,6 +59,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Review> reviewList = new ArrayList<>();
 
-    @Transient
+    //@Transient
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_idx")
     private List<Room> roomList = new ArrayList<>();
 }
