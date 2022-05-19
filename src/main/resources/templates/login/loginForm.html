@@ -2,30 +2,148 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
 </head>
-
 <style>
+    html{
+        width: 100%; height: 900px;
+    }
+    body{
+        background-color: white;
+        width: 100%; height: 100%;
+    }
     .container-login {
         text-align: center;
-        max-width: 50%;
         margin:0 auto;
-        padding: 10px;
         white-space:nowrap;
+        width: 100%; height: 100%;
+        position: relative;
+        z-index: 1;
     }
-    .lfd{
+    .container-login::after {
+        text-align: center;
+        margin:0 auto;
+        white-space:nowrap;
+        width: 100%; height: 100%;
+        position: absolute;
+        top: 0; left: 0;
+        content: "";
+        z-index: -1;
+        background-image: url("/img/bg1.jpg");
+        opacity: 0.5;
+    }
+    .total-login{
+        position: absolute;
+        width: 900px; height: 500px;
+        top: 50%; left: 50%;
+        margin: -250px 0 0 -450px;
+        background-color: rgba(253, 205, 209, 0.699);
+        border-radius: 10px;
+    }
+    .main_logo {
+        width: 450px; height: 500px;
+        float: left;
+        text-align: center;
+        margin: 0 auto;
+    }
+    .logoform{
+        margin: 37.5% 0;
+    }
+    .lgform{
+        width: 450px; height: 500px;
+        float: left;
+        text-align: center;
+        margin: 35px 0;
+    }
+    .inlgform{
+        margin: 12.5% 10%;
+        line-height: 30%;
+    }
+    h1{
+        text-align: center;
+        padding: 0 0 10% 0;
+    }
+    h4{
+        font-size: 20px;
+    }
+    h6.lf{
+        padding: 0 10%;
+        text-align: right;
+    }
+    h6.rg{
+        text-align: left;
+        padding: 0 10%;
+    }
+    .btn1{
         margin:0 auto;
         max-width: 80%;
     }
-    .row{
+    .btn3{
+        width: 100%;
+        height: 50%;
+    }
+    .btn4{
         margin:0 auto;
         max-width: 80%;
     }
-    .my-4{
-        margin:0 auto;
+    .btnlg{
+        width: 100%;
+        height: 35px;
+        margin: 10px 0 5px 0;
+        border-style: none;
+        background-color: rgb(55,55,55);
+        color: white;
+        border-radius: 5px;
     }
-    .form-control{
-        margin:0 auto;
+    .kakao-login{
+        width: 100%;
+        height: 35px;
+        margin: 5px 0;
+        border-style: none;
+        background-color: yellow;
+        border-radius: 5px;
+    }
+    span{
+        font-size: 15px;
+    }
+    .logintext{
+        width: 80%;
+        height: 35px;
+        margin: 10px 0 5px 0;
+        border-color: rgba(0, 0, 0, 0.35);
+        border-radius: 5px;
+    }
+    .hr-sect {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 12px;
+        margin: 0 auto;
+        width: 288px;
+    }
+    .hr-sect::before,
+    .hr-sect::after {
+        content: "";
+        flex-grow: 1;
+        background: rgba(0, 0, 0, 0.2);
+        height: 1px;
+        font-size: 0px;
+        line-height: 0px;
+        margin: 15px 0;
+    }
+    .notuser{
+        text-decoration: none;
+        color: gray;
+        font-size: 10px;
+    }
+    img{
+        width:20px; height: 20px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+    span{
+        height: 20px;
+        vertical-align: middle;
     }
 </style>
 <script>
@@ -46,7 +164,7 @@
                         document.login.submit();
 
                     }
-                     else {
+                    else {
                         //swal("사용가능 아이디");
                         $("#submit").attr("disabled", "disabled");
                         swal({
@@ -69,63 +187,64 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<header>
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/></div>
+</header>
 <body>
-<div th:replace="fragments/bodyHeader :: bodyHeader"/>
-
-
 <div class="container-login">
-    <div class="py-5">
-        <h2>로그인</h2>
-    </div>
     <div th:if="${param.error}">
         <p th:text="${exception}" class="alert alert-danger"></p>
     </div>
     <form action="/login/proc" method="post" name="login">
-
-        <div class="lfd">
-            <div>
-                <input type="text" name="username" class="form-control" style="max-width: 600px" placeholder="아이디" id="userId">
-            </div>
-            <br>
-            <div>
-                <input type="password" name="password" class="form-control"
-                       style="max-width: 600px" placeholder="비밀번호">
-            </div>
-            <hr class="my-4">
-
-            <div class="row">
-                <div class="col">
-                    <button class="w-100 btn btn-primary btn-lg" type="button" onclick="loginCheck()">로그인</button>
+        <div class="total-login">
+            <div class="main_logo">
+                <div class="logoform">
+                    <h1><strong>TOGETHERMARKET</strong></h1>
+                    <h6 class="lf">우리 함께 거래해요 투게더,</h6>
+                    <h6 class="rg">세상 모든이와 약속 잡고</h6>
                 </div>
-
-                <div class="col">
-                    <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='home.html'"
-                            th:onclick="|location.href='@{/}'|"
-                            type="button">취소
-                    </button>
-                </div>
-
             </div>
-            <br>
-            <div class="col kakao">
-                <button class="kakao-login" onclick="location.href='' +
+            <div class="lgform">
+                <div class="inlgform">
+                    <div>
+                        <h4><b>WELCOME to TG</b></h4>
+                    </div><br><br>
+                    <div>
+                        <input type="text" name="username" class="logintext" placeholder="아이디" id="userId">
+                    </div><br>
+                    <div>
+                        <input type="password" name="password" class="logintext" placeholder="비밀번호">
+                    </div>
+                    <div class="btn1">
+                        <div class="btn3">
+                            <button class="btnlg" type="submit" onclick="loginCheck()">LOGIN</button>
+                        </div>
+                        <div class="btn3">
+                            <button class="btnlg" onclick="location.href='home.html'"
+                                    th:onclick="|location.href='@{/}'|"
+                                    type="button">BACK
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hr-sect">OR</div>
+                    <div class="btn4">
+                        <button class="kakao-login" onclick="location.href='' +
                     'https://kauth.kakao.com/oauth/authorize' +
                     '?client_id=55951b24b88d60ec5899427d4125f8d5' +
                     '&redirect_uri=http://localhost:8090/login/oauthKakao' +
                     '&response_type=code' +
-                    ''" type="button">카카오로 로그인하기</button>
-            </div>
-            <div class="row2">
-                <hr class="my-4" style="max-width: 300px">
-                <div class="col">
-                    <a href='/users/new'>아직 회원이 아니신가요?</a>
+                    ''" type="button"><img src="/img/kakao-icon.png"><span>카카오로 로그인하기</span></button>
+                    </div>
+                    <div class="btn2">
+                        <div class="btn3">
+                            <a class="notuser" href='/users/new'>아직 회원이 아니신가요?</a>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
     </form>
 </div>
-
-</div> <!-- /container -->
+<div th:replace="fragments/footer :: footer" />
 </body>
 </html>

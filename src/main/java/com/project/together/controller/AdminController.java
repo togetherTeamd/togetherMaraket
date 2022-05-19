@@ -1,9 +1,7 @@
 package com.project.together.controller;
 
-import com.project.together.entity.Inquiry;
-import com.project.together.entity.Item;
-import com.project.together.entity.Report;
-import com.project.together.entity.User;
+import com.project.together.entity.*;
+import com.project.together.service.AnnouncementService;
 import com.project.together.service.InquiryService;
 import com.project.together.service.ReportService;
 import com.project.together.service.UserService;
@@ -23,6 +21,16 @@ public class AdminController {//신고, 문의, 회원관리
     private final UserService userService;
     private final ReportService reportService;
     private final InquiryService inquiryService;
+    private final AnnouncementService announcementService;
+
+    //공지사항 조회
+    @GetMapping("/admin/announcement")
+    public String announcement(Model model){
+        List<Announcement> announcementList = announcementService.findAll();
+        model.addAttribute("announcementList", announcementList);
+        return "admin/announcement";
+    }
+
 
     @GetMapping("/admin/userManagement")
     public String userList(Model model) {
