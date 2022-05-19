@@ -232,9 +232,9 @@
                 <label th:for="userPhone" class="text-field">전화번호</label>
                 <input type="text" th:field="*{userPhone}" class="inputform"
                        placeholder="01012345678" id="inputPhoneNumber">
-                <button type="button" class="check">인증하기</button>
-                <input type="text" class="inputform" placeholder="콘솔창에 인증번호 있음">
-                <button type="button" class="check">확인</button>
+                <button type="button" class="check" id="sendPhoneNumber">인증하기</button>
+                <input type="text" class="inputform" id="inputCertifiedNumber" placeholder="콘솔창에 인증번호 있음">
+                <button type="button" class="check" id="checkBtn">확인</button>
                 <script>
                     $("#sendPhoneNumber").click(function(){
                         let phoneNumber = $('#inputPhoneNumber').val();
@@ -282,14 +282,14 @@
                     });
                 </script>
                 <label class="text-field">집 주소</label>
-                <input type="text" th:field="*{zipcode}" class="inputform" name="zipcode" placeholder="우편번호"
+                <input type="text" th:field="*{zipcode}" class="inputform" id="sample6_postcode" name="zipcode" placeholder="우편번호"
                        th:class="${#fields.hasErrors('zipcode')}? '' : ''">
                 <button type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="check">우편번호 찾기</button><br>
-                <input type="text" th:field="*{city}" class="inputform" name="city" placeholder="주소"><br>
-                <input type="text" th:field="*{street}" class="inputform" name="street" placeholder="상세주소">
-                <input type="text" class="inputform" placeholder="참고항목"><br>
-                <input type="text" style="width: 100px" th:field="*{lat}" class="inputform" name="lat" readonly/>
-                <input type="text" style="width: 100px" th:field="*{lon}" class="inputform" name="lon" readonly/>
+                <input type="text" th:field="*{city}" class="inputform" id="sample6_address" name="city" placeholder="주소"><br>
+                <input type="text" th:field="*{street}" class="inputform" id="sample6_detailAddress" name="street" placeholder="상세주소">
+                <input type="text" class="inputform" id="sample6_extraAddress" placeholder="참고항목"><br>
+                <input type="text" style="width: 100px" th:field="*{lat}" class="inputform" id="sample6_lat" name="lat" readonly/>
+                <input type="text" style="width: 100px" th:field="*{lon}" class="inputform" id="sample6_lon" name="lon" readonly/>
             </div><br>
             <button type="button" class="btn-primary" onclick="test()">회원가입</button>
         </form>
