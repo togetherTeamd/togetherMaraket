@@ -2,12 +2,9 @@ package com.project.together.controller;
 
 import com.project.together.VO.UserVO;
 import com.project.together.config.auth.PrincipalDetails;
-import com.project.together.entity.Address;
-import com.project.together.entity.User;
+import com.project.together.entity.*;
 import com.project.together.repository.UserMapper;
-import com.project.together.service.CertificationService;
-import com.project.together.service.LoginService;
-import com.project.together.service.UserService;
+import com.project.together.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -38,6 +36,11 @@ public class UserController {
     private final CertificationService certificationService;
     //Mybatis Mapper
     private final UserMapper userMapper;
+
+    private final RecentService recentService;
+    private final ItemService itemService;
+    private final FileService filesService;
+    private final WishService wishService;
 
     @GetMapping("/users/new")
     public String createForm(Model model) {
@@ -346,6 +349,47 @@ public class UserController {
         System.out.println("인증번호 : " + numStr);
         certificationService.certifiedPhoneNumber(phoneNumber,numStr);
         return numStr;
+    }
+
+    @GetMapping("/myPage")
+    public String myPage(@AuthenticationPrincipal PrincipalDetails loginUser,//스프링 시큐리티 적용 후 세션에 담긴 유저
+                         Model model){
+
+        if(loginUser != null) {
+            //log.info(loginUser.getUsername());
+            log.info(loginUser.getAuthorities().toString());
+            User user = userService.findById(loginUser.getUsername());
+            model.addAttribute("user", user);
+        }
+        if(loginUser == null) {
+            log.info("로그아웃 홈화면");
+            return "home";
+        }
+
+        if(loginUser.getAuthorities().toString().equals("[ROLE_REPORT]")) {
+            return "badUser";
+        }
+
+        if(loginUser.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+            log.info("관리자 홈화면");
+            return "admin/adminHome";
+        }
+        else {
+            log.info("로그인 홈화면");
+            User user = userService.findById(loginUser.getUsername());
+            List<Files> files = filesService.findAll();
+            List<Item> itemList = new ArrayList<>();
+            List<Recent> recentList = recentService.findByUserIdx(user.getUserIdx());
+            for (Recent recent : recentList) {
+                itemList.add(itemService.findOne(recent.getItemId()));
+            }
+            model.addAttribute("files", files);
+            model.addAttribute("itemList", itemList);
+            model.addAttribute("wishCnt", wishService.findByUser(user.getUserIdx()).size());
+            model.addAttribute("itemList", itemList);
+
+            return "users/myPage";
+        }
     }
 
 }
