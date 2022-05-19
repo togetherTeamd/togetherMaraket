@@ -183,6 +183,7 @@
             alert("아이디를 입력해주세요.2");
         }
     }
+
 </script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -192,10 +193,7 @@
 </header>
 <body>
 <div class="container-login">
-    <div th:if="${param.error}">
-        <p th:text="${exception}" class="alert alert-danger"></p>
-    </div>
-    <form action="/login/proc" method="post" name="login">
+    <form action="/login/proc" method="post" name="login" id="login">
         <div class="total-login">
             <div class="main_logo">
                 <div class="logoform">
@@ -217,7 +215,14 @@
                     </div>
                     <div class="btn1">
                         <div class="btn3">
-                            <button class="btnlg" type="submit" onclick="loginCheck()">LOGIN</button>
+                            <button class="btnlg" type="button" onclick="loginCheck()">LOGIN</button>
+                            <script>
+                                $('#login').keypress(function (e) {
+                                    if (e.keyCode === 13) {
+                                        loginCheck();
+                                    }
+                                });
+                            </script>
                         </div>
                         <div class="btn3">
                             <button class="btnlg" onclick="location.href='home.html'"
@@ -238,6 +243,8 @@
                     <div class="btn2">
                         <div class="btn3">
                             <a class="notuser" href='/users/new'>아직 회원이 아니신가요?</a>
+                            <br>
+                            <!--<a class="notuser" href='#'>아이디 비밀번호 찾기</a>-->
                         </div>
                     </div>
                 </div>
