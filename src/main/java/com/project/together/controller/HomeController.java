@@ -67,10 +67,4 @@ public class HomeController {
             return "loginHome";
         }
     }
-
-
-    @GetMapping("/test")
-    public String showIndex(){
-        return "test";
-    }
 }

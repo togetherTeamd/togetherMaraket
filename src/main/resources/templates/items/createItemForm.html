@@ -8,13 +8,29 @@
         padding: 10px;
     }
 </style>
+<script>
+    function confirm() {
+        Swal.fire({
+            title : "아이템 등록",
+            text : '상품을 등록하시겠습니까?',
+            icon : "question",
+            showCancelButton : true,
+            confirmButtonText : "예",
+            cancelButtonText : "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.itemEnrollment.submit();
+            }
+        })
+    }
+</script>
 <body>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div class="container" >
-    <form th:action="@{/items/new}" th:object="${form}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/items/new}" th:object="${form}" method="post" enctype="multipart/form-data" name="itemEnrollment">
 
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
@@ -103,12 +119,6 @@
             </script>
             <div class="field-error" th:errors="*{contents}"/>
         </div>
-
-<!--        <div class="form-group">-->
-<!--            <label>사진 올리기</label>-->
-<!--            <input multiple type="file" name="files" class="form-control">-->
-<!--        </div>-->
-
         <div class="form-group">
             <label>사진 올리기</label>
             <input multiple type="file" name="files" class="form-control" id="btnAtt">
@@ -208,7 +218,7 @@
         </div>
 
         <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" onclick="confirm()">Submit</button>
         </div>
     </form>
     <br/>

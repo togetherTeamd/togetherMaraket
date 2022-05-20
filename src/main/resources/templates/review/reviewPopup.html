@@ -3,9 +3,28 @@
 <head th:replace="fragments/header :: header" />
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    function confirm() {
+        Swal.fire({
+            title : "리뷰",
+            text : '거래후기를 보내시겠습니까?',
+            icon : "question",
+            showCancelButton : true,
+            confirmButtonText : "예",
+            cancelButtonText : "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.review.submit();
+            }
+        })
+    }
+</script>
 <div class="container">
 
-    <form th:object="${form}" method="post">
+    <form th:object="${form}" method="post" name="review">
         <!-- id -->
         <!-- <input type="hidden" th:field="*{id}" />-->
         <div class="form-group">
@@ -27,15 +46,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary" onclick="btn()";>Submit</button>
-        <script th:inline="javascript">
-            function btn() {
-                alert('등록되었습니다!');
-            }
-                var message = [[${message}]];
-                /*swal(message);*/
-
-        </script>
+        <button type="button" class="btn btn-primary" onclick="confirm()";>Submit</button>
 
     </form>
 

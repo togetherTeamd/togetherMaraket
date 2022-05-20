@@ -1,11 +1,30 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    function confirm() {
+        Swal.fire({
+            title : "거래완료",
+            text : '거래를 완료하시겠습니까?',
+            icon : "question",
+            showCancelButton : true,
+            confirmButtonText : "예",
+            cancelButtonText : "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.buy.submit();
+            }
+        })
+    }
+</script>
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div class="container">
 
-    <form th:object="${form}" method="post">
+    <form th:object="${form}" method="post" name="buy">
         <!-- id -->
        <!-- <input type="hidden" th:field="*{id}" />-->
         <div class="form-group">
@@ -13,7 +32,7 @@
             <input type="text" th:field="*{id}" class="form-control"
                    placeholder="구매자 아이디를 입력하세요" />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" onclick="confirm()">Submit</button>
     </form>
 
     <div th:replace="fragments/footer :: footer" />

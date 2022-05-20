@@ -15,6 +15,25 @@
   <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
   <meta name="theme-color" content="#7952b3">
 </head>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+  function confirm() {
+    Swal.fire({
+      title : "찜목록 추가",
+      text : '찜목록에 추가하시겠습니까?',
+      icon : "question",
+      showCancelButton : true,
+      confirmButtonText : "예",
+      cancelButtonText : "아니오",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.addWish.submit();
+      }
+    })
+  }
+</script>
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <section class="py-5">
@@ -51,9 +70,8 @@
             </div>
             <br>
             <div class="d-flex">
-              <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
-                <!--            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem">-->
-                <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+              <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post" name="addWish">
+                <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="confirm()">
                   <i class="bi-cart-fill me-1"></i>
                   찜 : <td th:text="${item.wishCount}"></td>
                 </button>

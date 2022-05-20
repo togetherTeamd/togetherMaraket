@@ -1,10 +1,7 @@
 package com.project.together.controller;
 
 import com.project.together.config.auth.PrincipalDetails;
-import com.project.together.entity.Item;
-import com.project.together.entity.ItemCategory;
-import com.project.together.entity.ReviewContents;
-import com.project.together.entity.User;
+import com.project.together.entity.*;
 import com.project.together.repository.ReviewContentsRepository;
 import com.project.together.repository.ReviewRepository;
 import com.project.together.service.*;
@@ -25,6 +22,7 @@ public class BuyController {
     private final UserService userService;
     private final ItemService itemService;
     private final CategoryService categoryService;
+    private final FileService filesService;
 
     /*@GetMapping("/buy")
     public String createForm(Model model) {
@@ -81,6 +79,8 @@ public class BuyController {
         List<Item> items = itemService.findByBuyer(loginUser.getUserId());
         model.addAttribute("items", items);
 
+        List<Files> files = filesService.findAll();
+        model.addAttribute("files", files);
 
 
         return "buy/buyList";

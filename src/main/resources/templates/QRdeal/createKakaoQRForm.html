@@ -5,12 +5,20 @@
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <body class="text-center">
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login" />
 
 <script>
     function complete() {
-        alert("1. 카카오QR 등록 완료!");
+        swal({
+            title : "kakaoQR 등록성공",
+            icon  : "success",
+            closeOnClickOutside : false
+        }).then(function(){
+            document.createKakao.submit();
+        });
     }
 </script>
 <div class="container-createUser">
@@ -19,7 +27,7 @@
         <h2>Kakao 계좌 연동</h2>
     </div>
 
-    <form role="form" action="/QRdeal/createKakaoQRProc"
+    <form role="form" action="/QRdeal/createKakaoQRProc" name="createKakao"
           method="post">
         <div class="form-group">
             <img class="card-img-top" src="/img/카카오송금등록1.jpg" style="width: 25vw; min-width: 140px;">
@@ -45,7 +53,7 @@
             </div>
             <span>4. 양식에 맞게 입력한다.</span>
         </div>
-        <button type="submit" class="btn-primary" onclick="complete()">등록</button>
+        <button type="button" class="btn-primary" onclick="complete()">등록</button>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer" />

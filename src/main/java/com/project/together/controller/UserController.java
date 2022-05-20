@@ -173,9 +173,6 @@ public class UserController {
         model.addAttribute("user", userVOList.get(0));
         System.out.println("updateUserForm 데이터 확인 : " + userVOList.get(0).toString());
 
-        /*HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
-        session.setAttribute(SessionConstants.LOGIN_USER, loginUser);*/
-
         return "users/updateUserForm";
     }
 
@@ -207,6 +204,15 @@ public class UserController {
 
         User loginUser = userService.findById(user.getUsername());
 
+        if(loginUser.getUserPhone().length() < 5) {
+            UserForm userForm = new UserForm();
+            userForm.setCity(loginUser.getAddress()==null?"":loginUser.getAddress().getCity());
+            userForm.setZipcode(loginUser.getAddress()==null?"":loginUser.getAddress().getZipcode());
+            userForm.setStreet(loginUser.getAddress()==null?"":loginUser.getAddress().getStreet());
+            model.addAttribute("userForm", userForm);
+
+            return "users/kakaoUpdateForm";
+        }
         User userInfo = loginService.login(loginUser.getUserId(), loginUser.getUserPw());
         UserForm userForm = new UserForm();
         userForm.setUserIdx(userInfo.getUserIdx());
@@ -226,6 +232,30 @@ public class UserController {
 
         return "users/updateUserForm2";
     }
+    @PostMapping("/updateKakaoUserForm")
+    public String updateKakaoUserForm(UserForm form, @AuthenticationPrincipal PrincipalDetails user) throws Exception{
+
+        User loginUser = userService.findById(user.getUsername());
+
+        Address address = new Address();
+        address.setCity(form.getCity());
+        address.setZipcode(form.getZipcode());
+        address.setStreet(form.getStreet());
+        address.setLat(form.getLat());
+        address.setLon(form.getLon());
+
+        loginUser.setAddress(address);
+
+        //update쪽에 데이터를 조회해온것에서 변경된 사항을 변경하기
+        Long check = userService.update(loginUser);
+        System.out.println(check);
+
+        /*HttpSession session = request.getSession();                         // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
+        session.setAttribute(SessionConstants.LOGIN_USER, user);*/
+
+        return "redirect:/";
+    }
+
 
     /***
      * @Desc : 유저 정보 수정 액션
@@ -233,12 +263,12 @@ public class UserController {
      */
     @PostMapping("/updateUserForm2")
     public String updateUserForm2(HttpServletRequest request,
-                                  @Valid UserForm form, BindingResult result, Model model) throws Exception{
+                                  UserForm form, BindingResult result, Model model) throws Exception{
 
-        if(result.hasErrors()) {
+        /*if(result.hasErrors()) {
             model.addAttribute("userForm", form);
             return "users/updateUserForm2";
-        }
+        }*/
 
         User user = new User();
 

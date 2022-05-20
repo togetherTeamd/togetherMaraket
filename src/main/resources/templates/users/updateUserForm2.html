@@ -20,6 +20,9 @@
     }
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -69,6 +72,36 @@
             }
         }).open();
     }
+
+    function test() {
+
+        var nameRegExp = /^[가-힣]{2,4}$/;
+        var password1RegExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;//특수문자, 문자, 숫자로 이루어진 8~15자리의 비밀번호/^[a-zA-z0-9]{4,12}$/; //비밀번호 유효성 검사
+        var regexr = /^\d+$/;
+        var checkName = document.getElementById('userName').value;
+        var p1 = document.getElementById('pw').value;
+        var p2 = document.getElementById('pw2').value;
+        if( p1 != p2 ) {
+            swal("비밀번호가 일치 하지 않습니다");
+            return false;
+        } if(!password1RegExp.test(p1)) {
+            swal("비밀번호는 특수문자, 문자, 숫자로 이루어진 8~15자리여야 합니다!\n");
+            return false;
+        } if(!nameRegExp.test(checkName)) {
+            swal('이름이 올바르지 않습니다!');
+            return false;
+        } else{
+            swal({
+                title : "회원 정보수정 완료",
+                icon  : "success",
+                closeOnClickOutside : false
+            }).then(function(){
+                document.update_form.submit();
+            });
+            return true;
+        }
+
+    }
 </script>
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
@@ -80,39 +113,31 @@
         <div>
             [[${incorrectPW}]]
         </div>
-    <form role="form" action="/updateUserForm2" th:object="${userForm}"
+    <form role="form" action="/updateUserForm2" th:object="${userForm}" name="update_form"
           method="post">
         <input type="hidden" th:field="*{userIdx}" name="userIdx">
         <div class="form-group">
             <label th:for="userId" class="text-field" >아이디</label>
             <input type="text" th:field="*{userId}" class="form-control" name="userId" readonly
-                   placeholder="아이디을 입력하세요"
-                   th:class="${#fields.hasErrors('userId')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('userId')}"
-               th:errors="*{userId}">Incorrect date</p>
+                   placeholder="아이디을 입력하세요">
 
             <label th:for="userPw" class="text-field">비밀번호</label>
             <input type="password" th:field="*{userPw}" class="form-control"
-                   placeholder="비밀번호를 입력하세요"
-                   th:class="${#fields.hasErrors('userPw')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('userPw')}"
-               th:errors="*{userPw}">Incorrect date</p>
+                   placeholder="비밀번호를 입력하세요" id="pw">
+
+            <label th:for="userPw" class="text-field">비밀번호 확인</label>
+            <input type="password" class="form-control"
+                   placeholder="비밀번호를 확인" id="pw2">
 
             <label th:for="userName" class="text-field">이름</label>
             <input type="text" th:field="*{userName}" class="form-control" name="userName"
-                   placeholder="이름을 입력하세요"
-                   th:class="${#fields.hasErrors('userName')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('userName')}"
-               th:errors="*{userName}">Incorrect date</p>
+                   placeholder="이름을 입력하세요" id = "userName">
 
         </div>
         <div class="form-group">
             <label th:for="userPhone" class="text-field">전화번호</label>
             <input type="text" th:field="*{userPhone}" class="form-control" name="userPhone"
-                   placeholder="전화번호를 입력하세요"
-                   th:class="${#fields.hasErrors('userPhone')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('userPhone')}"
-               th:errors="*{userPhone}">Incorrect date</p>
+                    id="inputPhoneNumber" readonly>
         </div>
         <label class="text-field">집 주소</label>
         <div class="form-group">
@@ -128,7 +153,7 @@
                th:errors="*{zipcode}">Incorrect date</p>
             <div id="map_div"></div>
         </div><br/>
-        <button type="submit" class="btn-primary">수정</button>
+        <button type="button" class="btn-primary" onclick="test()">수정</button>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer" />

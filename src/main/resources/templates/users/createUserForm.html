@@ -192,7 +192,14 @@
             swal('이름이 올바르지 않습니다!');
             return false;
         } else{
-            document.join_form.submit();
+            swal({
+                title : "회원가입을 환영합니다!",
+                icon  : "success",
+                closeOnClickOutside : false
+            }).then(function(){
+                document.join_form.submit();
+            });
+
             return true;
         }
 
@@ -291,7 +298,7 @@
                 <input type="text" style="width: 100px" th:field="*{lat}" class="inputform" id="sample6_lat" name="lat" readonly/>
                 <input type="text" style="width: 100px" th:field="*{lon}" class="inputform" id="sample6_lon" name="lon" readonly/>
             </div><br>
-            <button type="submit" class="btn-primary" onclick="test()">회원가입</button>
+            <button type="button" class="btn-primary" onclick="test()">회원가입</button>
         </form>
         <br/>
     </div>
