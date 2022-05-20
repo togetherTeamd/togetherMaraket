@@ -16,30 +16,31 @@
     <div class="form-group">
       <label>공지 제목</label>
 
-      <textarea name="announcementTitle" class="form-control"
+      <textarea name="announcementTitle" class="form-control" id="title"
       placeholder="공지 제목을 적어주세요">
             </textarea>
-      <p class="textCount">0자</p>
+      <p class="textCount" id="titleCount">0자</p>
       <p class="textTotal">/30자</p>
     </div>
 
       <script src="//code.jquery.com/jquery.min.js"></script>
     <script>
-      $("textarea.form-control").on('keydown keyup', function () {
+      $("#title").val("");
+      $("#title").on('keydown keyup', function () {
         $(this).height(1).height( $(this).prop('scrollHeight')+12 );
       });
-      $("textarea.form-control").keyup(function (e) {
+      $("#title").keyup(function (e) {
         let content = $(this).val(); // 글자수 세기
         if (content.length == 0 || content == '') {
-          $('.textCount').text('0자');
+          $('#titleCount').text('0자');
         } else {
-          $('.textCount').text(content.length + '자');
+          $('#titleCount').text(content.length + '자');
         }
         // 글자수 제한
-        if (content.length > 250) {
+        if (content.length > 30) {
           // 250자 부터는 타이핑 되지 않도록
-          $(this).val($(this).val().substring(0, 250)); // 250자 넘으면 알림창 뜨도록
-          alert('글자수는 250자까지 입력 가능합니다.');
+          $(this).val($(this).val().substring(0, 30)); // 250자 넘으면 알림창 뜨도록
+          alert('글자수는 30자까지 입력 가능합니다.');
         }; });
     </script>
 
@@ -47,23 +48,24 @@
     <div class="form-group">
       <label>공지 내용</label>
 
-      <textarea name="announcementText" class="form-control"
+      <textarea name="announcementText" class="form-control" id="content"
                 placeholder="공지 내용을 적어주세요">
             </textarea>
-      <p class="textCount">0자</p>
+      <p class="textCount" id="contentCount">0자</p>
       <p class="textTotal">/250자</p>
     </div>
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script>
-      $("textarea.form-control").on('keydown keyup', function () {
+      $("#content").val("");
+      $("#content").on('keydown keyup', function () {
         $(this).height(1).height( $(this).prop('scrollHeight')+12 );
       });
-      $("textarea.form-control").keyup(function (e) {
+      $("#content").keyup(function (e) {
         let content = $(this).val(); // 글자수 세기
         if (content.length == 0 || content == '') {
-          $('.textCount').text('0자');
+          $('#contentCount').text('0자');
         } else {
-          $('.textCount').text(content.length + '자');
+          $('#contentCount').text(content.length + '자');
         }
         // 글자수 제한
         if (content.length > 250) {
