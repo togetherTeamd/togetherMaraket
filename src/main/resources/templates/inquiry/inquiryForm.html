@@ -23,6 +23,7 @@
             <p class="textTotal">/250자</p>
             <script src="//code.jquery.com/jquery.min.js"></script>
             <script>
+                $("textarea.form-control").val("");
                 $("textarea.form-control").on('keydown keyup', function () {
                     $(this).height(1).height( $(this).prop('scrollHeight')+12 );
                 });
