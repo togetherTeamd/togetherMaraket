@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
 <body>
-$END$
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div class="container">
+
+    <form action="/report/reportForm" method="post">
+        <div class="form-group">
+            <label>비매너 유저 ID</label>
+            <input type="text" name="reportedUser" class="form-control" placeholder="비매너 사용자 ID"/>
+        </div>
+        <div class="form-group">
+            <label>신고 내용</label>
+            <textarea name="reportText" class="form-control">
+            </textarea>
+            <p class="textCount">0자</p>
+            <p class="textTotal">/250자</p>
+        </div>
+        <script src="//code.jquery.com/jquery.min.js"></script>
+        <script>
+            $("textarea.form-control").on('keydown keyup', function () {
+                $(this).height(1).height( $(this).prop('scrollHeight')+12 );
+            });
+            $("textarea.form-control").keyup(function (e) {
+                let content = $(this).val(); // 글자수 세기
+                if (content.length == 0 || content == '') {
+                    $('.textCount').text('0자');
+                } else {
+                    $('.textCount').text(content.length + '자');
+                }
+                // 글자수 제한
+                if (content.length > 250) {
+                    // 250자 부터는 타이핑 되지 않도록
+                    $(this).val($(this).val().substring(0, 250)); // 250자 넘으면 알림창 뜨도록
+                    alert('글자수는 250자까지 입력 가능합니다.');
+                }; });
+        </script>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
 </body>
 </html>

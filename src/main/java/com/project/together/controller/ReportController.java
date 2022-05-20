@@ -24,12 +24,12 @@ public class ReportController {
     private final ReportService reportService;
     private final UserService userService;
 
-    @GetMapping("report/reportForm")
+    @GetMapping("/report/reportForm")
     public String reportForm() {
         return "report/reportForm";
     }
 
-    @PostMapping("report/reportForm")
+    @PostMapping("/report/reportForm")
     public String reportProc(Model model, @RequestParam String reportedUser, @RequestParam String reportText,
                              @AuthenticationPrincipal PrincipalDetails user) {
         if(userService.findById(reportedUser) == null) {
