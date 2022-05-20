@@ -80,9 +80,9 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <span th:each="file : ${files}" th:if= "${file.itemId == item.id} ">
-                                 <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
-                             </span>
+                            <span th:each="file : ${files}" th:if= "${file.itemId == item.id} and ${file.mainPicture}">
+                                <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
+                            </span>>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">

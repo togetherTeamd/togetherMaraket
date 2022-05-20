@@ -5,11 +5,19 @@
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <body class="text-center">
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login" />
 <script>
     function complete() {
-        alert("1. 토스QR 등록 완료!");
+        swal({
+            title : "TossQR 등록성공",
+            icon  : "success",
+            closeOnClickOutside : false
+        }).then(function(){
+            document.createToss.submit();
+        });
     }
 </script>
 <div class="container-createUser">
@@ -19,7 +27,7 @@
     </div>
 
 
-    <form role="form" action="/QRdeal/createTossQRProc"
+    <form role="form" action="/QRdeal/createTossQRProc" name="createToss"
           method="post">
         <div class="form-group">
             <img class="card-img-top" src="/img/토스등록1.jpg" style="width: 25vw; min-width: 140px;">
@@ -50,7 +58,7 @@
             <br>
             <span>6. 토스아이디와 계좌 연동 후 생성한 아이디를 형식에 맞게 입력합니다.</span>
         </div>
-        <button type="submit" class="btn-primary" onclick="complete()">등록</button>
+        <button type="button" class="btn-primary" onclick="complete()">등록</button>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer" />

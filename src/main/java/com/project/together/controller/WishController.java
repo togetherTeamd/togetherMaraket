@@ -1,11 +1,9 @@
 package com.project.together.controller;
 
 import com.project.together.config.auth.PrincipalDetails;
-import com.project.together.entity.ItemCategory;
-import com.project.together.entity.User;
-import com.project.together.entity.Item;
-import com.project.together.entity.Wish;
+import com.project.together.entity.*;
 import com.project.together.service.CategoryService;
+import com.project.together.service.FileService;
 import com.project.together.service.UserService;
 import com.project.together.service.WishService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +26,7 @@ public class WishController {
     private final WishService wishService;
     private final CategoryService categoryService;
     private final UserService userService;
-
+    private final FileService filesService;
     @GetMapping(value = "/wish")
     public String wishList(Model model, @AuthenticationPrincipal PrincipalDetails user) {
 
@@ -36,7 +34,9 @@ public class WishController {
 
         List<Wish> wishList = wishService.findByUser(loginUser.getUserIdx());
         List<ItemCategory> itemCategories = categoryService.findAllItemCategory();
+        List<Files> files = filesService.findAll();
 
+        model.addAttribute("files", files);
         model.addAttribute("itemCategories", itemCategories);
         model.addAttribute("wishList", wishList);
 

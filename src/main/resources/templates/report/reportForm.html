@@ -2,10 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
-<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    function confirm() {
+        Swal.fire({
+            title : "신고하기",
+            text : '신고하시겠습니까?',
+            icon : "warning",
+            showCancelButton : true,
+            confirmButtonText : "예",
+            cancelButtonText : "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.report.submit();
+            }
+        })
+    }
+</script>
 <div class="container">
 
-    <form action="/report/reportForm" method="post">
+    <form action="/report/reportForm" method="post" name="report">
         <div class="form-group">
             <label>비매너 유저 ID</label>
             <input type="text" name="reportedUser" class="form-control" placeholder="비매너 사용자 ID"/>
@@ -36,7 +55,7 @@
                     alert('글자수는 250자까지 입력 가능합니다.');
                 }; });
         </script>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" onclick="confirm()" class="btn btn-primary">Submit</button>
     </form>
 
     <div th:replace="fragments/footer :: footer" />

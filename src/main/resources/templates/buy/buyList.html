@@ -48,23 +48,6 @@
                            role="button">
                         거래후기 보내기
                         </a>
-                        <!--<button th:data-url="@{/review/{id}/review (id=${item.id})}"
-                                onclick="goPopup(this.getAttribute('data-url'));">후기 보내기</button>
-
-                        <script>
-                            function goPopup(url) {
-                                pop = window.open(url, "pop", "width = 570, height =420, scrollbars = yes");
-                                var param = url.serialize();
-                                $.ajax(
-                                    {
-                                        url : url,
-                                        data : param,
-                                        success: function (data) {
-                                            window.close();
-                                        }
-                                    });
-                            }
-                        </script>-->
                     </span>
                     <span th:unless="${item.getReview() == null}">
                         <a href="#" class="btn btn-primary" onclick="javascript:reject()" role="button">
@@ -88,7 +71,9 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+                            <span th:each="file : ${files}" th:if= "${file.itemId == item.id} and ${file.mainPicture}">
+                                <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
+                            </span>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -108,27 +93,9 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <span th:if="${item.review == null}">
-                        <a href="#" th:href="@{/review/{id}/review (id=${item.id})}" class="btn btn-primary"
-                           role="button">
-                        거래후기 보내기
+                        <a class="btn btn-primary" th:href="@{/review/{id}/review (id=${item.id})}" role="button">
+                            거래후기 보내기
                         </a>
-                                        <!--<button th:data-url="@{/review/{id}/review (id=${item.id})}"
-                                                onclick="goPopup(this.getAttribute('data-url'));">후기 보내기</button>
-
-                                        <script>
-                                            function goPopup(url) {
-                                                pop = window.open(url, "pop", "width = 570, height =420, scrollbars = yes");
-                                                var param = url.serialize();
-                                                $.ajax(
-                                                    {
-                                                        url : url,
-                                                        data : param,
-                                                        success: function (data) {
-                                                            window.close();
-                                                        }
-                                                    });
-                                            }
-                                        </script>-->
                     </span>
                                     <span th:unless="${item.getReview() == null}">
                         <a href="#" class="btn btn-primary" onclick="javascript:reject()" role="button">
