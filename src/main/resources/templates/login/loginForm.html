@@ -147,6 +147,13 @@
     }
 </style>
 <script>
+    function findId() {
+        var url = "/login/findId";
+        var name = "findId";
+        var option = "width = 600, height = 600, top = 250, left = 600, location = no"
+        window.open(url, name, option);
+    }
+
     function loginCheck() {
 
         var memberId = $("#userId").val();
@@ -243,8 +250,14 @@
                     <div class="btn2">
                         <div class="btn3">
                             <a class="notuser" href='/users/new'>아직 회원이 아니신가요?</a>
+                        </div>
+                        <div class="btn3">
                             <br>
-                            <!--<a class="notuser" href='#'>아이디 비밀번호 찾기</a>-->
+                            <a class="notuser" href="javascript:findId()">아이디 찾기</a>
+                        </div>
+                        <div class="btn3">
+                            <br>
+                            <a class="notuser" href='/login/findPw'>비밀번호 찾기</a>
                         </div>
                     </div>
                 </div>

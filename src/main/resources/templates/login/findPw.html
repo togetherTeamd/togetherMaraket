@@ -72,60 +72,10 @@
         border-style: none;
     }
 </style>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
-                change();
-            }
-        }).open();
-    }
-
     function idCheck() {
 
         var memberId = $("#userId").val();
@@ -144,13 +94,14 @@
                     contentType: "application/json; charset=UTF-8",
                     success: function(count) {
                         if(count > 0) {
-                            swal("해당 아이디 존재");
+                            swal("아이디 확인 성공");
                             $("#submit").attr("disabled", "disabled");
+                            document.getElementById("check").value=1;
                             //window.location.reload();
                         } else {
-                            swal("사용가능 아이디");
+                            swal("등록되지 않은 아이디 입니다.");
                             $("#submit").removeAttr("disabled");
-                            document.getElementById("check").value=1;
+
                         }
                     },
                     error: function(error) {
@@ -162,22 +113,19 @@
             }
         }
     }
+    function changePw() {
 
-    function test() {
-
-        var nameRegExp = /^[가-힣]{2,4}$/;
         var checkId = document.getElementById('check').value;
         var id = document.getElementById('userId').value;
         var password1RegExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;//특수문자, 문자, 숫자로 이루어진 8~15자리의 비밀번호/^[a-zA-z0-9]{4,12}$/; //비밀번호 유효성 검사
         var checkPhone = document.getElementById('checkBtn').value;
-        var checkName = document.getElementById('userName').value;
         var p1 = document.getElementById('pw').value;
         var p2 = document.getElementById('pw2').value;
         if( p1 != p2 ) {
             swal("비밀번호가 일치 하지 않습니다");
             return false;
         } if(checkId != 1){
-            swal('아이디 중복검사를 해주세요' + checkId);
+            swal('등록된 사용자인지 확인해주세요!' + checkId);
             return false;
         } if(checkPhone != 1) {
             swal('인증번호를 확인해주세요' + checkPhone);
@@ -188,22 +136,20 @@
         } if(p1 == id) {
             swal('아이디와 비밀번호는 같을 수 없습니다!');
             return false;
-        } if(!nameRegExp.test(checkName)) {
-            swal('이름이 올바르지 않습니다!');
-            return false;
         } else{
             swal({
-                title : "회원가입을 환영합니다!",
+                title : "비밀번호가 변경되었습니다!",
                 icon  : "success",
                 closeOnClickOutside : false
             }).then(function(){
-                document.join_form.submit();
+                document.findPw.submit();
             });
 
             return true;
         }
 
     }
+
 </script>
 <header>
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
@@ -212,33 +158,23 @@
 <div class="container-createUser">
     <div class="totalcreateUser">
         <div class="ctuser">
-            <h2><strong>회원가입</strong></h2>
+            <h2><strong>비밀번호 찾기</strong></h2>
             <hr class="my-4">
         </div>
-        <form role="form" action="/users/new" th:object="${userForm}" name="join_form"
-              method="post">
-            <input type="hidden" th:field="*{userIdx}" name="userIdx">
+        <form role="form" action="/login/findPw" name="findPw" method="post">
             <div class="inputuser">
                 <label th:for="userId" class="text-field">아이디</label>
-                <input type="text" th:field="*{userId}" class="inputform"
-                       placeholder="영문 대소문자와 숫자 4~12자리" id="userId">
-                <button type="button" onclick="idCheck()" class="check" id="check">중복확인</button>
+                <input type="text" class="inputform" placeholder="등록된 아이디를 입력해주세요" id="userId" name="id">
+                <button type="button" onclick="idCheck()" class="check" id="check">아이디 확인</button>
                 <br>
                 <label th:for="userPw" class="text-field">비밀번호</label>
-                <input type="password" th:field="*{userPw}" class="inputform"
-                       placeholder="비밀번호를 입력하세요" id="pw">
-                <p th:if="${#fields.hasErrors('userName')}"
-                   th:errors="*{userName}">Incorrect date</p>
+                <input type="password" class="inputform" placeholder="새로운 비밀번호를 입력하세요" id="pw" name="password">
 
                 <label class="text-field">비밀번호 확인</label>
                 <input type="password" class="inputform" id="pw2" placeholder="비밀번호 확인">
 
-                <label th:for="userName" class="text-field">이름</label>
-                <input type="text" th:field="*{userName}" class="inputform"
-                       placeholder="이름을 입력하세요" id = "userName">
                 <label th:for="userPhone" class="text-field">전화번호</label>
-                <input type="text" th:field="*{userPhone}" class="inputform"
-                       placeholder="01012345678" id="inputPhoneNumber">
+                <input type="text" class="inputform" placeholder="-빼고 입력" id="inputPhoneNumber">
                 <button type="button" class="check" id="sendPhoneNumber">인증하기</button>
                 <input type="text" class="inputform" id="inputCertifiedNumber" placeholder="콘솔창에 인증번호 있음">
                 <button type="button" class="check" id="checkBtn">확인</button>
@@ -288,34 +224,11 @@
                         })
                     });
                 </script>
-                <label class="text-field">집 주소</label>
-                <input type="text" th:field="*{zipcode}" class="inputform" id="sample6_postcode" name="zipcode" placeholder="우편번호"
-                       th:class="${#fields.hasErrors('zipcode')}? '' : ''">
-                <button type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="check">우편번호 찾기</button><br>
-                <input type="text" th:field="*{city}" class="inputform" id="sample6_address" name="city" placeholder="주소"><br>
-                <input type="text" th:field="*{street}" class="inputform" id="sample6_detailAddress" name="street" placeholder="상세주소">
-                <input type="text" class="inputform" id="sample6_extraAddress" placeholder="참고항목"><br>
-                <input type="text" style="width: 100px" th:field="*{lat}" class="inputform" id="sample6_lat" name="lat" readonly/>
-                <input type="text" style="width: 100px" th:field="*{lon}" class="inputform" id="sample6_lon" name="lon" readonly/>
             </div><br>
-            <div id="map_div"></div>
-            <button type="button" class="btn-primary" onclick="test()">회원가입</button>
+            <button type="button" class="btn-primary" onclick="changePw()">비밀번호 변경</button>
         </form>
         <br/>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx48396a5595344e91870ba48981274ebf"></script>
-    <script type="text/javascript" src="/js/map.js"></script>
-    <script th:inline="javascript">
-        function change() {
-            var addr = document.getElementById("sample6_address").value + " " + document.getElementById("sample6_detailAddress").value;
-
-            let [lat, lon] = findStringMap(addr);
-            document.getElementById("sample6_lat").value = lat;
-            document.getElementById("sample6_lon").value = lon;
-        }
-        initMap();
-    </script>
 </div>
 </div>
 <div th:replace="fragments/footer :: footer" />
