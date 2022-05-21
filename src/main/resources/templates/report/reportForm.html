@@ -31,17 +31,18 @@
         </div>
         <div class="form-group">
             <label>신고 내용</label>
-            <textarea name="reportText" class="form-control">
+            <textarea name="reportText" class="form-control" id="report">
             </textarea>
             <p class="textCount">0자</p>
             <p class="textTotal">/250자</p>
         </div>
         <script src="//code.jquery.com/jquery.min.js"></script>
         <script>
-            $("textarea.form-control").on('keydown keyup', function () {
+            $("#report").val("");
+            $("#report").on('keydown keyup', function () {
                 $(this).height(1).height( $(this).prop('scrollHeight')+12 );
             });
-            $("textarea.form-control").keyup(function (e) {
+            $("#report").keyup(function (e) {
                 let content = $(this).val(); // 글자수 세기
                 if (content.length == 0 || content == '') {
                     $('.textCount').text('0자');
