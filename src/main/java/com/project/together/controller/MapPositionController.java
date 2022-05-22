@@ -70,9 +70,8 @@ public class MapPositionController {
 
         Item item = itemService.findOne(Long.parseLong(itemId));
         /* 사용자들 정보 가져오기 */
-        User seller = userService.findById(item.getSeller());
 
-        Address address = seller.getAddress();
+        Address address = item.getAddress();
 
         Address buyer = loginUser.getAddress();
 

@@ -8,6 +8,10 @@ function initChat(username) {
         send();
     });
 
+    $("#button-out").on("click", (e) => {
+        onClose();
+    });
+
     const websocket = new SockJS("/ws/chat", null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]});
 
     websocket.onmessage = onMessage;

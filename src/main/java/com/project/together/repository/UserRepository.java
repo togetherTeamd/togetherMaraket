@@ -66,4 +66,10 @@ public class UserRepository {
                 .getResultList();
 
     }
+
+    public List<User> findByRoomId(Long userIdx) {
+        return em.createQuery("select m from User m where m.userIdx =:userIdx", User.class)
+                .setParameter("userIdx", userIdx)
+                .getResultList();
+    }
 }

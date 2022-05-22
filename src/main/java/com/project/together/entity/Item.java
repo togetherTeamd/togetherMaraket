@@ -38,6 +38,9 @@ public class Item {
     @Column(name = "item_seller")
     private String seller;
 
+    @Embedded
+    private Address address;
+
     private LocalDateTime createdAt;
 
     private int wishCount = 0;

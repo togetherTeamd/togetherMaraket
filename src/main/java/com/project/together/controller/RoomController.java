@@ -6,6 +6,7 @@ import com.project.together.entity.Room;
 import com.project.together.entity.User;
 import com.project.together.repository.ChatRoomRepository;
 import com.project.together.repository.RoomRepository;
+import com.project.together.repository.UserRepository;
 import com.project.together.service.RoomService;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -27,7 +30,9 @@ public class RoomController {
 
     private final RoomService roomService;
     private final ChatRoomRepository roomRepository;
+    private final RoomRepository roomRepository2;
     private final UserService userService;
+    private final UserRepository userRepository;
     //채팅방 목록 조회
     @GetMapping(value = "/rooms")
     public ModelAndView rooms(@AuthenticationPrincipal PrincipalDetails user, Model model){
@@ -52,6 +57,8 @@ public class RoomController {
         ChatRoom chatRoom = roomRepository.createChatRoom();
         Room room = new Room();
         room.setRoomId(chatRoom.getRoomId());
+        User seller = userService.findById(owner);
+        room.setSellerIdx(seller.getUserIdx());
         roomService.save(room);
 
         return "redirect:/chat/room?roomId="+chatRoom.getRoomId();
@@ -74,7 +81,7 @@ public class RoomController {
         if(roomList == null)
         {
             log.info("비어있음");
-            roomList = new ArrayList<Room>(); //로그인한 유저의 방이 비어있을 경우 Room 목록을 만듬
+            roomList = new ArrayList<>(); //로그인한 유저의 방이 비어있을 경우 Room 목록을 만듬
             loginUser.setRoomList(roomList); //로그인한 유저의 방 목록에 위에서 만든 방목록 추가
         }
         boolean check = true;
@@ -86,7 +93,7 @@ public class RoomController {
         }
 
         if(check)
-            userService.addRoom(loginUser.getUserIdx(), room.getId());//roomList.add(room);
+            userService.addRoom(loginUser.getUserIdx(), room.getId(), room.getSellerIdx());//roomList.add(room);
         log.info("생성한 방 개수" + roomList.size());
         //log.info("안비어있음" + loginUser.getRoomList().size());
 
@@ -95,7 +102,15 @@ public class RoomController {
         /*
          상대 정보를 바탕으로 채팅방에 초대(알림 기능 걱정)
          */
+    }
 
+    @GetMapping("/roomout")
+    public String outRoom(@AuthenticationPrincipal PrincipalDetails user, String roomId){
+        // 채팅방 나간 후 삭제 로직
+        User loginUser = userService.findById(user.getUsername());
+        Room room = roomService.findOne(roomId);
+        userService.rmRoom(loginUser.getUserIdx(), room.getId());
 
+        return "redirect:/";
     }
 }

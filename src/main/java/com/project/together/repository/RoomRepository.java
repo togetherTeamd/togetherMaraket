@@ -20,11 +20,10 @@ public class RoomRepository {
         return em.find(Room.class, id);
     }
 
-    public Room findOne(String roomId) {
-        List<Room> roomList = em.createQuery("select i from Room i where i.roomId =: roomId")
+    public List<Room> findOne(String roomId) {
+        return em.createQuery("select i from Room i where i.roomId =: roomId")
                 .setParameter("roomId", roomId)
-            .getResultList();
-        return roomList.get(0);
+                .getResultList();
     }
 
     public List<Room> findAll() {

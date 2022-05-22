@@ -75,15 +75,28 @@ public class UserService {
     }
 
     @Transactional
-    public void addRoom(Long userIdx, Long roomIdx) {
+    public void addRoom(Long userIdx, Long roomIdx, Long sellerIdx) {
         User user = userRepository.findByIdx(userIdx);
+        User seller = userRepository.findByIdx(sellerIdx);
         Room room = roomRepository.findById(roomIdx);
         room.setUserIdx(userIdx);
+        List<Room> sellerRoomList = seller.getRoomList();
         List<Room> roomList = user.getRoomList();
         if(roomList == null)
             roomList = new ArrayList<>();
 
+        sellerRoomList.add(room);
         roomList.add(room);
+    }
+
+    @Transactional
+    public void rmRoom(Long userIdx, Long roomIdx) {
+        User user = userRepository.findByIdx(userIdx);
+        Room room = roomRepository.findById(roomIdx);
+        List<Room> roomList = user.getRoomList();
+
+        roomList.remove(room);
+
     }
 
     public List<User> findByPhone(String phone) {

@@ -1,5 +1,6 @@
 package com.project.together.controller;
 
+import com.project.together.entity.Address;
 import com.project.together.entity.DealForm;
 import com.project.together.entity.Enul;
 import lombok.Data;
@@ -27,6 +28,17 @@ public class ItemForm {
     private DealForm dealForm;
     @NotEmpty(message = "상품 등급을 설정해주세요")
     private String itemLevel;
+
+    private String city;
+
+    @NotEmpty(message = "상세 주소를 넣어주세요")
+    private String street;
+
+    @NotEmpty(message = "주소를 검색해주세요")
+    private String zipcode;
+
+    private String lat;
+    private String lon;
 
 
 }
