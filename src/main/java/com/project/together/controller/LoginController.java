@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,7 @@ public class LoginController {
 
     private final LoginService loginService;
     private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
     @GetMapping("/login/new")
     public String LoginForm(Model model, @RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "exception", required = false) String exception) {
@@ -72,6 +74,25 @@ public class LoginController {
 
         }
         log.info("로그아웃 성공");
+        return "redirect:/";
+    }
+
+    @GetMapping("/login/findId")
+    public String findId() {
+        return "login/findId";
+    }
+
+    @GetMapping("/login/findPw")
+    public String findPw() {
+        return "login/findPw";
+    }
+
+    @PostMapping("/login/findPw")
+    public String findPwProc(@RequestParam String id, @RequestParam String password) {
+        User user = userService.findById(id);
+        user.setUserPw(passwordEncoder.encode(password));
+        userService.update(user);
+        log.info("변경유저ID:"+user.getUserId());
         return "redirect:/";
     }
 }

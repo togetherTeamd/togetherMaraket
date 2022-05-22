@@ -128,33 +128,6 @@ public class UserController {
         return "QRdeal/kakaoQR";
     }
 
-
-    /***
-     * @Desc : 화면 호출
-     * 회원가입
-     */
-    @GetMapping("/createUserForm2")
-    public String createUserForm2(
-            HttpServletRequest request, Model model) throws Exception{
-        return "users/createUserForm2";
-    }
-
-    /***
-     * @Desc : 화면 호출
-     * 회원정보 mybatis DB 저장
-     */
-    @PostMapping("/createUserForm2")
-    public String createUserForm2(@ModelAttribute UserVO userVO,
-                                  HttpServletRequest request, Model model) throws Exception{
-        try {
-            int result = userMapper.joinUser(userVO);
-            System.out.println(result);
-        } catch(DataIntegrityViolationException e) {
-            return "items/rejectForm";
-        }
-        return "redirect:/";
-    }
-
     /***
      * @Desc : 화면 호출 및 유저 정보 조회
      * 회원정보 수정 - mybatis
@@ -362,6 +335,20 @@ public class UserController {
         int count = 0;
         if(memberId != null) count = userService.idCheck(memberId);
         return count;
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/idFind", method=RequestMethod.POST)
+    public String findUser(String userPhone) throws Exception {
+        log.info(userPhone);
+        String userId = "없음";
+        if(userService.findByPhone(userPhone).isEmpty()) {
+            log.info("회원정보:" + userId);
+            return userId;
+        }
+        userId = userService.findByPhone(userPhone).get(0).getUserId();
+        log.info("회원정보:" + userId);
+        return userId;
     }
 
     @GetMapping("/check/sendSMS")
