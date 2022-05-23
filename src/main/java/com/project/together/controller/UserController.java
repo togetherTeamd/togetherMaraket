@@ -196,6 +196,8 @@ public class UserController {
         userForm.setCity(userInfo.getAddress()==null?"":userInfo.getAddress().getCity());
         userForm.setZipcode(userInfo.getAddress()==null?"":userInfo.getAddress().getZipcode());
         userForm.setStreet(userInfo.getAddress()==null?"":userInfo.getAddress().getStreet());
+        userForm.setLon(userInfo.getAddress()==null?"":userInfo.getAddress().getLat());
+        userForm.setLat(userInfo.getAddress()==null?"":userInfo.getAddress().getLon());
 
         //userID 는 무조건 하나이니깐 List 0번째에서 가져오면 됨.
         model.addAttribute("userForm", userForm);

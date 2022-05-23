@@ -8,12 +8,19 @@
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div class="container">
     <div>
+        <tbody>
+        <tr>참여자 목록 : </tr>
+        <tr th:each="tmp : ${userList}">
+            <td th:text="${tmp.userName}"></td>
+        </tr>
+        </tbody>
         <div id="msgArea" class="col"></div>
         <div class="col-6">
             <div class="input-group mb-3">
                 <input type="text" id="msg" class="form-control">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+                    <button class="btn btn-outline-secondary" type="button" id="button-out">나가기</button>
                 </div>
             </div>
         </div>
@@ -82,10 +89,15 @@
             msg.value = '';
         });
 
+        $("#button-out").on("click", function(e){
 
+            console.log(username + ": out");
+            stomp.send('/pub/chat/out', {}, JSON.stringify({roomId: roomId, message: "out", writer: username}));
+
+            var url = "/chat/roomout?roomId=" + roomId;
+            location.href = url;
+        });
     });
-
-
 </script>
 </body>
 </html>

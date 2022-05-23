@@ -1,9 +1,6 @@
 package com.project.together.service;
 
-import com.project.together.entity.DealForm;
-import com.project.together.entity.Enul;
-import com.project.together.entity.Item;
-import com.project.together.entity.ItemStatus;
+import com.project.together.entity.*;
 import com.project.together.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -57,14 +54,21 @@ public class ItemService {
     }
 
     @Transactional
-    public void updateItem(Long itemId, String name, int price, String contents, Enul enul, DealForm dealForm, String itemLevel) {
+    public void updateItem(Long itemId, String name, int price, String contents, Enul enul, DealForm dealForm, String itemLevel, String city, String street, String zipcode, String lat, String lon) {
         Item item = itemRepository.findOne(itemId);
+        Address address = new Address();
         item.setName(name);
         item.setPrice(price);
         item.setContents(contents);
         item.setEnul(enul);
         item.setDealForm(dealForm);
         item.setItemLevel(itemLevel);
+        address.setCity(city);
+        address.setStreet(street);
+        address.setZipcode(zipcode);
+        address.setLat(lat);
+        address.setLon(lon);
+        item.setAddress(address);
     }
 
     @Transactional

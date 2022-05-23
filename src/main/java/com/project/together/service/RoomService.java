@@ -20,7 +20,7 @@ public class RoomService {
     }
 
     public Room findOne(String id) {
-        return roomRepository.findOne(id);
+        return roomRepository.findOne(id).get(0);
     }
 
     public Room findById(Long id) { return roomRepository.findById(id); }

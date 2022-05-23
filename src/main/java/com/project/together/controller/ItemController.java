@@ -66,6 +66,7 @@ public class ItemController {
         }
 
         Item item = new Item();
+        Address address = new Address();
         item.setName(form.getName());
         item.setPrice(form.getPrice());
         item.setContents(form.getContents());
@@ -74,6 +75,12 @@ public class ItemController {
         item.setEnul(form.getEnul());
         item.setSeller(loginUser.getUserId());
         item.setCategoryId(categoryId);
+        address.setCity(form.getCity());
+        address.setStreet(form.getStreet());
+        address.setZipcode(form.getZipcode());
+        address.setLat(form.getLat());
+        address.setLon(form.getLon());
+        item.setAddress(address);
         if(loginUser.getMannerScore() > 0) {
             item.setMannerItem(1L);
         }
@@ -157,6 +164,7 @@ public class ItemController {
         Item item = itemService.findOne(itemId);
 
         ItemForm form = new ItemForm();
+        Address address = item.getAddress();
         form.setId(item.getId());
         form.setName(item.getName());
         form.setPrice(item.getPrice());
@@ -164,6 +172,11 @@ public class ItemController {
         form.setDealForm(item.getDealForm());
         form.setItemLevel(item.getItemLevel());
         form.setEnul(item.getEnul());
+        form.setCity(address.getCity());
+        form.setStreet(address.getStreet());
+        form.setZipcode(address.getZipcode());
+        form.setLat(address.getLat());
+        form.setLon(address.getLon());
 
         model.addAttribute("form", form);
         return "items/updateItemForm";
@@ -172,7 +185,7 @@ public class ItemController {
     @PostMapping(value = "/items/{itemId}/edit")
     public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") ItemForm form) {
         itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getContents(), form.getEnul(), form.getDealForm()
-        , form.getItemLevel());
+        , form.getItemLevel(), form.getCity(), form.getStreet(), form.getZipcode(), form.getLat(), form.getLon());
 
         return "redirect:/";
     }
