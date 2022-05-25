@@ -17,9 +17,12 @@ public class Room {
     @Column(name = "room_id")
     private String roomId;
 
-    @Column(name = "user_idx")
-    private Long userIdx;
+    @Column(name = "user_id")
+    private String userId;
 
-    @Column(name = "seller_idx")
-    private Long sellerIdx;
+    @Column(name = "seller_id")
+    private String sellerId;
+
+    @Column(name = "item_idx")
+    private Long itemIdx;
 }

@@ -12,7 +12,11 @@
     </div>
     <div>
         <ul th:each="room : ${list}">
-            <li><a th:href="@{/chat/room(roomId=${room.roomId})}">[[${room.roomId}]]</a></li>
+            <span th:each="item : ${itemList}">
+                <span th:if="${item.id == room.itemIdx}">
+            <li><a th:href="@{/chat/room(roomId=${room.roomId})}">[[${item.name}]]: [[${room.userId}]]님과 [[${room.sellerId}]]님의 채팅방</a></li>
+                </span>
+            </span>
         </ul>
     </div>
 </div>

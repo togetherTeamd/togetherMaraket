@@ -94,8 +94,8 @@
   <script>
     function makeRoom(){
       var owner = '[[${item.seller}]]';
-
-      var url = "/chat/roomMake?owner=" + owner;
+      var itemId = '[[${item.id}]]';
+      var url = "/chat/roomMake?owner=" + owner + "&itemId=" + itemId;
       location.href = url;
     }
     function mapFind(){
