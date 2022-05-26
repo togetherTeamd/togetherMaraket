@@ -30,4 +30,25 @@ public class RoomRepository {
         return em.createQuery("select s from Room s", Room.class)
                 .getResultList();
     }
+
+    public void removeRoom(String roomId) {
+        em.createQuery("delete from Room r where r.roomId =: roomId")
+                .setParameter("roomId", roomId)
+                .executeUpdate();
+    }
+
+    public List<Room> findByUserAndItem(String userId, String sellerId, Long itemIdx) {
+        return em.createQuery("select r from Room r where r.userId =: userId and r.sellerId =: sellerId and " +
+                "r.itemIdx =: itemIdx")
+                .setParameter("userId", userId)
+                .setParameter("sellerId", sellerId)
+                .setParameter("itemIdx", itemIdx)
+                .getResultList();
+    }
+
+    public List<Room> findByUserIdx(String userId) {
+        return em.createQuery("select r from Room r where r.sellerId =: userId or r.userId =: userId")
+                .setParameter("userId", userId)
+                .getResultList();
+    }
 }

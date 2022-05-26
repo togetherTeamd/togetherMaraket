@@ -74,12 +74,12 @@ public class UserService {
         user.setTossQr(QR);
     }
 
-    @Transactional
+    /*@Transactional
     public void addRoom(Long userIdx, Long roomIdx, Long sellerIdx) {
         User user = userRepository.findByIdx(userIdx);
         User seller = userRepository.findByIdx(sellerIdx);
         Room room = roomRepository.findById(roomIdx);
-        room.setUserIdx(userIdx);
+        room.setUserId(userIdx);
         List<Room> sellerRoomList = seller.getRoomList();
         List<Room> roomList = user.getRoomList();
         if(roomList == null)
@@ -87,7 +87,7 @@ public class UserService {
 
         sellerRoomList.add(room);
         roomList.add(room);
-    }
+    }*/
 
     @Transactional
     public void rmRoom(Long userIdx, Long roomIdx) {

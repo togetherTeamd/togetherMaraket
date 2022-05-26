@@ -4,9 +4,11 @@ import com.project.together.config.auth.PrincipalDetails;
 import com.project.together.entity.ChatRoom;
 import com.project.together.entity.Room;
 import com.project.together.entity.User;
+import com.project.together.entity.Item;
 import com.project.together.repository.ChatRoomRepository;
 import com.project.together.repository.RoomRepository;
 import com.project.together.repository.UserRepository;
+import com.project.together.service.ItemService;
 import com.project.together.service.RoomService;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,22 +32,22 @@ public class RoomController {
 
     private final RoomService roomService;
     private final ChatRoomRepository roomRepository;
-    private final RoomRepository roomRepository2;
     private final UserService userService;
-    private final UserRepository userRepository;
+    private final ItemService itemService;
     //채팅방 목록 조회
     @GetMapping(value = "/rooms")
     public ModelAndView rooms(@AuthenticationPrincipal PrincipalDetails user, Model model){
 
         User loginUser = userService.findById(user.getUsername());
-
         model.addAttribute("user", loginUser);
         log.info("# All Chat Rooms");
         ModelAndView mv = new ModelAndView("chat/rooms");
 
-        List<Room> roomList = loginUser.getRoomList();
+        List<Room> roomList = roomService.findByUserIdx(loginUser.getUserId());//loginUser.getRoomList();
         log.info(roomList);
 
+        List<Item> itemList = itemService.findAll();
+        mv.addObject("itemList", itemList);
         mv.addObject("list", roomList);
 
         return mv;
@@ -53,15 +55,32 @@ public class RoomController {
 
     //채팅방 개설
     @GetMapping(value = "/roomMake")
-    public String create(String owner){
-        ChatRoom chatRoom = roomRepository.createChatRoom();
-        Room room = new Room();
-        room.setRoomId(chatRoom.getRoomId());
-        User seller = userService.findById(owner);
-        room.setSellerIdx(seller.getUserIdx());
-        roomService.save(room);
+    public String create(String owner, @AuthenticationPrincipal PrincipalDetails user, Long itemId){
+        log.info("회원 정보:" + user.getUsername());
 
-        return "redirect:/chat/room?roomId="+chatRoom.getRoomId();
+        User loginUser = userService.findById(user.getUsername());//채팅 버튼을 누른 사람
+        Item item = itemService.findOne(itemId);
+        log.info("아이템 이름:" + item.getName());
+
+        User seller = userService.findById(owner);//아이템 등록한 사람
+
+        //해당 아이템 정보의 판매자, 구매자가 일치할 때 방을 생성하지 않고 해당 방으로 입장
+        if(roomService.findByUserAndItem(loginUser.getUserId(), seller.getUserId(), itemId) == null) {
+
+            ChatRoom chatRoom = roomRepository.createChatRoom();//채팅방 생성
+
+            Room room = new Room();//방 생성
+            room.setRoomId(chatRoom.getRoomId());
+
+            room.setSellerId(seller.getUserId()); //판매자
+            room.setUserId(loginUser.getUserId()); //채팅방 클릭한 유저
+            room.setItemIdx(itemId);
+            roomService.save(room);
+
+            return "redirect:/chat/room?roomId=" + chatRoom.getRoomId();
+        } else {
+            return "redirect:/chat/room?roomId=" + roomService.findByUserAndItem(loginUser.getUserId(), seller.getUserId(), itemId).getRoomId();
+        }
     }
 
     //채팅방 조회
@@ -73,7 +92,7 @@ public class RoomController {
         log.info("# get Chat Room, roomID : " + roomId);
 
         Room room = roomService.findOne(roomId);//생성된 방 조회
-        //room.setUserIdx(loginUser.getUserIdx());
+        /*//room.setUserIdx(loginUser.getUserIdx());
 
         log.info(room.getId());
 
@@ -93,9 +112,9 @@ public class RoomController {
         }
 
         if(check)
-            userService.addRoom(loginUser.getUserIdx(), room.getId(), room.getSellerIdx());//roomList.add(room);
+            //userService.addRoom(loginUser.getUserIdx(), room.getId(), room.getSellerIdx());//roomList.add(room);
         log.info("생성한 방 개수" + roomList.size());
-        //log.info("안비어있음" + loginUser.getRoomList().size());
+        //log.info("안비어있음" + loginUser.getRoomList().size());*/
 
         model.addAttribute("user", loginUser);
         model.addAttribute("room", room);
@@ -108,9 +127,12 @@ public class RoomController {
     public String outRoom(@AuthenticationPrincipal PrincipalDetails user, String roomId){
         // 채팅방 나간 후 삭제 로직
         User loginUser = userService.findById(user.getUsername());
-        Room room = roomService.findOne(roomId);
-        userService.rmRoom(loginUser.getUserIdx(), room.getId());
+        //Room room = roomService.findOne(roomId);
+        roomService.checkoutRoom(loginUser.getUserId(), roomId);//로그인한 유저의 정보가 담긴 채팅방 나가기
 
         return "redirect:/";
+        /*userService.rmRoom(loginUser.getUserIdx(), room.getId());
+
+        return "redirect:/";*/
     }
 }

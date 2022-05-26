@@ -21,7 +21,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-    public List<Item> findItems() {
+    public List<Item> findAll() {
         return itemRepository.findAll();
     }//상품 이름, 상품 카테고리
 
