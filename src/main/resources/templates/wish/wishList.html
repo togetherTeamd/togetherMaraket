@@ -20,6 +20,20 @@
             }
         })
     }
+    function confirm2() {
+        Swal.fire({
+            title : "찜목록 삭제",
+            text : '찜목록에서 삭제하시겠습니까?',
+            icon : "question",
+            showCancelButton : true,
+            confirmButtonText : "예",
+            cancelButtonText : "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.deleteWish2.submit();
+            }
+        })
+    }
 </script>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div class="container">
@@ -45,8 +59,8 @@
                 <td th:text="${item.getWishItemCreateTime()}"></td>
 
                 <td>
-                    <form th:action="@{/wish/{id}/removeWish (id=${item.id})}" method="post">
-                        <button class="w-100 btn btn-dark btn-lg" type="submit">
+                    <form th:action="@{/wish/{id}/removeWish (id=${item.id})}" method="post" name="deleteWish2">
+                        <button class="w-100 btn btn-dark btn-lg" type="button" onclick="confirm2()">
                             찜하기 취소
                         </button>
                     </form>

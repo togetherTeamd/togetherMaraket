@@ -39,6 +39,10 @@ public class HomeController {
             model.addAttribute("user", user);
         }
         if(loginUser == null) {
+            List<Item> items = itemService.findSellingItem();
+            List<Files> files = filesService.findAll();
+            model.addAttribute("items", items);
+            model.addAttribute("files", files);
             log.info("로그아웃 홈화면");
             return "home";
         }
@@ -53,6 +57,7 @@ public class HomeController {
         }
         else {
             log.info("로그인 홈화면");
+            //최근 본 상품 조회
             User user = userService.findById(loginUser.getUsername());
             List<Files> files = filesService.findAll();
             List<Item> itemList = new ArrayList<>();
@@ -64,6 +69,10 @@ public class HomeController {
             model.addAttribute("itemList", itemList);
             model.addAttribute("wishCnt",wishService.findByUser(user.getUserIdx()).size());
             model.addAttribute("itemList", itemList);
+
+            //로그인 홈화면 모든 상품목록 조회
+            List<Item> items = itemService.findSellingItem();
+            model.addAttribute("items", items);
             return "loginHome";
         }
     }
