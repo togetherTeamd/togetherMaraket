@@ -32,6 +32,21 @@
             }
         })
     }
+
+    function confirm2() {
+        Swal.fire({
+            title : "찜목록 추가",
+            text : '찜목록에 추가하시겠습니까?',
+            icon : "question",
+            showCancelButton : true,
+            confirmButtonText : "예",
+            cancelButtonText : "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.addWish2.submit();
+            }
+        })
+    }
 </script>
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
@@ -75,8 +90,8 @@
                 <td th:text="${item.dealForm}"></td>
                 <td th:text="${item.itemLevel}"></td>
                 <td>
-                    <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
-                        <button class="w-100 btn btn-dark btn-lg" type="submit">
+                    <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post" name="addWish2">
+                        <button class="w-100 btn btn-dark btn-lg" type="button" onclick="confirm2()">
                             찜하기
                         </button>
                     </form>

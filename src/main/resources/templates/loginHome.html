@@ -113,7 +113,7 @@
     color: black;
   }
 </style>
-
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
   $( '.top' ).click( function() {
     $( 'html, body' ).animate( { scrollTop : 0 }, 400 );
@@ -211,43 +211,43 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-<!-- 로그인 홈화면 상품 리스트 -->
-<!--<section class="py-5">-->
-<!--  <div class="container px-4 px-lg-5 mt-5">-->
-<!--    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">-->
-<!--      <tr th:each="item:${items}">-->
-<!--        <div class="col mb-5">-->
-<!--          <div class="card h-100">-->
-<!--            &lt;!&ndash; Product image&ndash;&gt;-->
-<!--            <span th:each="file : ${files}" th:if= "${file.itemId == item.id} and ${file.mainPicture}">-->
-<!--                <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">-->
-<!--              </span>-->
-<!--            &lt;!&ndash; Product details&ndash;&gt;-->
-<!--            <div class="card-body p-4">-->
-<!--              <div class="text-center">-->
-<!--                &lt;!&ndash; Product name&ndash;&gt;-->
-<!--                <h5 class="fw-bolder"><td th:text="${item.name}"></td></h5>-->
-<!--                &lt;!&ndash; Product price&ndash;&gt;-->
-<!--                <td th:text="${item.price}"></td>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Product actions&ndash;&gt;-->
-<!--            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">-->
-<!--              <div class="text-center">-->
-<!--                <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post" name="addWish">-->
-<!--                  <a href="#" th:href= "@{/items/{id}/itemView (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">View</a>-->
-<!--                  <button class="btn btn-outline-dark mt-auto" type="button" onclick="confirm()">찜</button>-->
-<!--                </form>-->
-<!--              </div>-->
+로그인 홈화면 상품 리스트
+<section class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <tr th:each="item:${items}">
+        <div class="col mb-5">
+          <div class="card h-100">
+            <!-- Product image-->
+            <span th:each="file : ${files}" th:if= "${file.itemId == item.id} and ${file.mainPicture}">
+                <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
+              </span>
+            <!-- Product details-->
+            <div class="card-body p-4">
+              <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder"><td th:text="${item.name}"></td></h5>
+                <!-- Product price-->
+                <td th:text="${item.price}"></td>
+              </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div class="text-center">
+                <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post" name="addWish">
+                  <a href="#" th:href= "@{/items/{id}/itemView (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">View</a>
+                  <button class="btn btn-outline-dark mt-auto" type="button" onclick="confirm()">찜</button>
+                </form>
+              </div>
 
-<!--            </div>-->
+            </div>
 
-<!--          </div>-->
-<!--        </div>-->
-<!--      </tr>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
+          </div>
+        </div>
+      </tr>
+    </div>
+  </div>
+</section>
 <div th:replace="fragments/footer :: footer" />
 </div>
 </body>
