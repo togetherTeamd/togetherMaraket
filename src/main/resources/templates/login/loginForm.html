@@ -136,7 +136,7 @@
         color: gray;
         font-size: 10px;
     }
-    img{
+    img.kakaoimg{
         width:20px; height: 20px;
         margin-right: 10px;
         vertical-align: middle;
@@ -145,6 +145,7 @@
         height: 20px;
         vertical-align: middle;
     }
+
 </style>
 <script>
     function findId() {
@@ -247,6 +248,8 @@
                     '&response_type=code' +
                     ''" type="button"><img src="/img/kakao-icon.png"><span>카카오로 로그인하기</span></button>
                     </div><br><br>
+                    ''" type="button"><img class="kakaoimg" src="/img/kakao-icon.png"><span>카카오로 로그인하기</span></button>
+                    </div>
                     <div class="btn2">
                         <div class="btn3">
                             <a class="notuser" href='/users/new'>아직 회원이 아니신가요?</a>
