@@ -5,9 +5,68 @@
   <title>Hello</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<style>
+  .carousel-control-prev{
+    width: 20%;
+  }
+  .carousel-control-next{
+    width: 20%;
+  }
+</style>
 <body class="text-center">
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login" />
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <!--            <svg class="bd-placeholder-img" width="100%" height="471px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">-->
+      <!--                -->
+      <!--            </rect></svg>-->
+      <img src="/img/background2.jpg" width="100%" height="500px"/>
+      <div class="container">
+        <div class="carousel-caption text-start">
+          <h2>Welcome to Together Market</h2>
+          <p>로그인 후 이용하세요</p>
+          <p><a class="btn btn-outline-light me-2" href="/login/new">로그인 하기</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <!--            <svg class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>-->
+      <img src="/img/background3.jpg"width="100%" height="500px"/>
+      <div class="container">
+        <div class="carousel-caption">
+          <h2>Together Market</h2>
+          <p>원하는 물품을 찾아보세요</p>
+          <p><a class="btn btn-outline-light me-2" href="/items2">보러 가기</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <svg class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
 
+      <div class="container">
+        <div class="carousel-caption text-end">
+          <h2>One more for good measure.</h2>
+          <p>Some representative placeholder content for the third slide of this carousel.</p>
+          <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 <style>
   .sidebar{
     right: 10px;
@@ -15,6 +74,7 @@
     position: fixed;
     overflow: auto;
     z-index: 999;
+    border-radius: 10px;
   }
   .wishlist{
     width: 100%;
@@ -112,6 +172,7 @@
   .top:hover{
     color: black;
   }
+
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
@@ -160,56 +221,6 @@
   <div class="top_btn">
     <a class="top" href="#">TOP</a>
   </div>
-</div>
-<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
-    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
-    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-
-      <img src="/img/background.jpg" width="100%" height="500px"/>
-      <div class="container">
-        <div class="carousel-caption text-start">
-          <h1>Example headline.</h1>
-          <p>Some representative placeholder content for the first slide of the carousel.</p>
-          <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <svg class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
-
-      <div class="container">
-        <div class="carousel-caption">
-          <h1>Another example headline.</h1>
-          <p>Some representative placeholder content for the second slide of the carousel.</p>
-          <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <svg class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
-
-      <div class="container">
-        <div class="carousel-caption text-end">
-          <h1>One more for good measure.</h1>
-          <p>Some representative placeholder content for the third slide of this carousel.</p>
-          <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
 로그인 홈화면 상품 리스트
 <section class="py-5">
