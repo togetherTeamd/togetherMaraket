@@ -1,14 +1,12 @@
 package com.project.together.controller;
 
 import com.project.together.config.auth.PrincipalDetails;
-import com.project.together.entity.ChatRoom;
-import com.project.together.entity.Room;
-import com.project.together.entity.User;
-import com.project.together.entity.Item;
+import com.project.together.entity.*;
 import com.project.together.repository.ChatRoomRepository;
 import com.project.together.repository.RoomRepository;
 import com.project.together.repository.UserRepository;
 import com.project.together.service.ItemService;
+import com.project.together.service.MessageService;
 import com.project.together.service.RoomService;
 import com.project.together.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +31,7 @@ public class RoomController {
     private final RoomService roomService;
     private final ChatRoomRepository roomRepository;
     private final UserService userService;
+    private final MessageService messageService;
     private final ItemService itemService;
     //채팅방 목록 조회
     @GetMapping(value = "/rooms")
@@ -110,17 +109,31 @@ public class RoomController {
                 break;
             }
         }
+        boolean come_check = false;
+        if(check) {
+            userService.addRoom(loginUser.getUserIdx(), room.getId(), room.getSellerIdx());//roomList.add(room);
+            come_check = true;
+        } else {
+
+        }
 
         if(check)
             //userService.addRoom(loginUser.getUserIdx(), room.getId(), room.getSellerIdx());//roomList.add(room);
         log.info("생성한 방 개수" + roomList.size());
         //log.info("안비어있음" + loginUser.getRoomList().size());*/
+        List<Message> messageList = messageService.findByRoomId(roomId);
+        model.addAttribute("mList", messageList);
+        boolean come_check = true;
+        for(Message i : messageList){
+            if(i.getMessage().equals(loginUser.getUserName() + "님이 채팅방에 참여하였습니다.")){
+                come_check = false;
+                break;
+            }
+        }
 
+        model.addAttribute("come_check", come_check);
         model.addAttribute("user", loginUser);
         model.addAttribute("room", room);
-        /*
-         상대 정보를 바탕으로 채팅방에 초대(알림 기능 걱정)
-         */
     }
 
     @GetMapping("/roomout")
@@ -131,8 +144,5 @@ public class RoomController {
         roomService.checkoutRoom(loginUser.getUserId(), roomId);//로그인한 유저의 정보가 담긴 채팅방 나가기
 
         return "redirect:/";
-        /*userService.rmRoom(loginUser.getUserIdx(), room.getId());
-
-        return "redirect:/";*/
     }
 }

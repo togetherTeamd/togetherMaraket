@@ -54,6 +54,27 @@
         stomp.connect({}, function (){
             console.log("STOMP Connection")
 
+            var mlist = [[${mList}]];
+            console.log(mlist);
+            for(var i = 0;i < mlist.length; i++){
+                var writer = mlist[i].writer;
+                var message = mlist[i].message;
+                var str = '';
+
+                if(writer === username){
+                    str = "<div class='col-6'>";
+                    str += "<div class='alert alert-secondary'>";
+                    str += "<b>" + writer + " : " + message + "</b>";
+                    str += "</div></div>";
+                    $("#msgArea").append(str);
+                } else{
+                    str = "<div class='col-6'>";
+                    str += "<div class='alert alert-warning'>";
+                    str += "<b>" + writer + " : " + message + "</b>";
+                    str += "</div></div>";
+                    $("#msgArea").append(str);
+                }
+            }
 
             stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
                 var content = JSON.parse(chat.body);
@@ -77,8 +98,9 @@
                 }
             });
 
-
-            stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
+            var come = [[${come_check}]];
+            if(come)
+                stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
         });
 
         $("#button-send").on("click", function(e){
