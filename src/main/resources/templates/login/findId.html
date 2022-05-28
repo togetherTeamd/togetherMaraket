@@ -26,8 +26,8 @@
             width:100%;
             height:100%;
             margin: 0;
-            padding-top: 200px;
-            padding-bottom: 40px;
+            padding-top: 5px;
+            padding-bottom: 5px;
             font-family: "Nanum Gothic", arial, helvetica, sans-serif;
             background-repeat: no-repeat;
         }
@@ -69,25 +69,44 @@
     </style>
 </head>
 
-<body cellpadding="0" cellspacing="0" marginleft="0" margintop="0" width="100%" height="100%" align="center">
+<body>
+<!--cellpadding="0" cellspacing="0" marginleft="0" margintop="0" width="100%" height="100%" align="center"-->
+<!--<div class="card align-middle" style="width:25rem;" id="cam">-->
+<!--    <div class="card-title" style="margin-top:30px;">-->
 
-<div class="card align-middle" style="width:25rem;" id="cam">
-    <div class="card-title" style="margin-top:30px;">
+<!--        <h2 class="card-title" style="color:#f58b34;"></h2>-->
+<!--    </div>-->
 
-        <h2 class="card-title" style="color:#f58b34;"></h2>
+<!--    <div class="card-body">-->
+
+<!--            <p class="text2">전화번호로 아이디 찾기</p>-->
+<!--            <input type="text" name="phoneNum" id="userPhone" class="form-control" placeholder="전화번호" required><br>-->
+<!--            <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="button" onclick="idCheck()">아 이 디 찾 기</button>-->
+
+
+<!--    </div>-->
+
+<!--</div>-->
+
+<div class="modal modal-sheet position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSheet">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title">아이디 찾기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0">
+                <p>전화번호로 아이디 찾기</p>
+            </div>
+            <div class="modal-footer flex-column border-top-0">
+                <input type="text" name="phoneNum" id="userPhone" class="form-control" placeholder="전화번호" required>
+                <button class="btn btn-lg btn-light w-100 mx-0" type="button" onclick="idCheck()" data-bs-dismiss="modal">아 이 디 찾 기</button>
+<!--                <button type="button" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Save changes</button>-->
+<!--                <button type="button" class="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Close</button>-->
+            </div>
+        </div>
     </div>
-
-    <div class="card-body">
-
-            <p class="text2">전화번호로 아이디 찾기</p>
-            <input type="text" name="phoneNum" id="userPhone" class="form-control" placeholder="전화번호" required><br>
-            <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="button" onclick="idCheck()">아 이 디 찾 기</button>
-
-
-    </div>
-
 </div>
-
 </body>
 <script type="text/javascript">
     function idCheck() {

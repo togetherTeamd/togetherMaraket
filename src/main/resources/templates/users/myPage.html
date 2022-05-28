@@ -1,18 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
+
 </head>
+<link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
 <style>
-    body{
+    body {
         padding: 0;
         margin: 0;
     }
-    div{
+
+    div {
         box-sizing: border-box;
     }
 
     /* alert badge */
-    .circle{
+    .circle {
         display: inline-block;
         width: 5px;
         height: 5px;
@@ -24,15 +29,16 @@
     }
 
     /* 녹색 텍스트 */
-    .green{
+    .green {
         color: #24855b;
     }
 
-    .wrap{
+    .wrap {
         background-color: #F8F8F8;
     }
+
     /* 녹색배경 */
-    .greenContainer{
+    .greenContainer {
         height: 132px;
         background-color: #a5aaa8;
 
@@ -41,75 +47,86 @@
         padding: 16px;
     }
 
-    .greenContainer .name{
+    .greenContainer .name {
         font-size: 20px;
         font-weight: bold;
         color: #ffffff;
     }
-    .greenContainer .modify{
+
+    .greenContainer .modify {
         margin-left: auto;
     }
 
+    .user {
+        margin-left: 100px;
+        padding: 21px;
+    }
     /* 단골상점 , 상품후기 , 적립금 박스 */
-    .summaryContainer{
+    .summaryContainer {
         background-color: white;
         display: flex;
         padding: 21px 16px;
         height: 90px;
         margin-bottom: 10px;
     }
+
     /* 단골상점 , 상품후기 , 적립금 */
-    .summaryContainer .item{
+    .summaryContainer .item {
         flex-grow: 1
     }
+
     /* 녹색 숫자 */
-    .summaryContainer .number{
+    .summaryContainer .number {
         font-size: 19px;
         font-weight: bold;
         color: #24855b;
     }
+
     /* 텍스트 */
-    .summaryContainer .item > div:nth-child(2){
+    .summaryContainer .item > div:nth-child(2) {
         font-size: 13px;
     }
 
     /* ================== 주문/배송조회 박스 시작 ==================== */
-    .shippingStatusContainer{
+    .shippingStatusContainer {
         padding: 21px 16px;
         background-color: white;
         margin-bottom: 10px;
     }
 
     /* 주문/배송조회 타이틀 */
-    .shippingStatusContainer .title{
+    .shippingStatusContainer .title {
         font-size: 16px;
         font-weight: bold;
         margin-bottom: 15px;
     }
 
     /* 장바구니 결제완료 배송중 구매확정 [로우] */
-    .shippingStatusContainer .status{
+    .shippingStatusContainer .status {
         display: flex;
         justify-content: space-between;
         margin-bottom: 21px;
     }
+
     /* 장바구니 결제완료 배송중 구매확정 [아이템]  */
-    .shippingStatusContainer .item{
+    .shippingStatusContainer .item {
         display: flex;
     }
 
-    .shippingStatusContainer .number{
+    .shippingStatusContainer .number {
         font-size: 31px;
         font-weight: 500;
         text-align: center;
     }
-    .shippingStatusContainer .text{
+
+    .shippingStatusContainer .text {
         font-size: 12px;
         font-weight: normal;
         color: #c2c2c2;
         text-align: center;
     }
-    .shippingStatusContainer .icon{
+
+    .shippingStatusContainer .icon {
         display: flex;
         align-items: center;
         padding: 20px;
@@ -119,12 +136,13 @@
 
 
     /*=================== 주문목록 ~ 찜한상품 리스트 ==================*/
-    .listContainer{
+    .listContainer {
         padding: 0;
         background-color: #ffffff;
         margin-bottom: 10px;
     }
-    .listContainer .item{
+
+    .listContainer .item {
         display: flex;
         align-items: center;
         padding: 16px;
@@ -133,44 +151,47 @@
         height: 56px;
         box-sizing: border-box;
     }
-    .listContainer .icon{
+
+    .listContainer .icon {
         margin-right: 14px;
     }
-    .listContainer .text{
+
+    .listContainer .text {
         font-size: 16px;
         position: relative;
     }
-    .listContainer .right{
+
+    .listContainer .right {
         margin-left: auto;
     }
 
 
     /*=================== 내지갑의 보유 적립금 들어가는 부분 ================*/
-    .listContainer .smallLight{
+    .listContainer .smallLight {
         font-size: 14px;
         color: #c2c2c2;
     }
-    .listContainer .smallLight > span{
+
+    .listContainer .smallLight > span {
         margin-left: 10px;
     }
 
-    .listContainer .right .blct{
+    .listContainer .right .blct {
         font-size: 14px;
         font-weight: bold;
         margin-right: 5px;
     }
 
 
-
     /* 공지사항 이용안내 고객센터 */
-    .infoContainer{
+    .infoContainer {
         background-color: white;
         display: flex;
         height: 100px;
         margin-bottom: 10px;
     }
 
-    .infoContainer .item{
+    .infoContainer .item {
         flex-grow: 1;
         display: flex;
         align-items: center;
@@ -180,142 +201,142 @@
         text-decoration: none;
         color: black;
     }
-    .infoContainer .item > div:first-child{
+
+    .infoContainer .item > div:first-child {
         margin-bottom: 2px;
     }
 
 
-
     /*  */
-    .listContainer .item:hover{
+    .listContainer .item:hover {
         /*   background-color: #f8f8f8; */
     }
-    .infoContainer .item:hover{
+
+    .infoContainer .item:hover {
         /*   background-color: #f8f8f8; */
     }
 </style>
 <body class="text-center">
 <!--<div class="container">-->
-<div th:replace="fragments/bodyHeader_login :: bodyHeader_login" />
-
-<div class="wrap">
-    <div class="greenContainer">
-        <div>
-            <h4 class="mb-3" th:text="|${user.userName}|">로그인 사용자 이름</h4>
-        </div>
-        <a href="/updateUserForm2" class="item">
-            <div class="modify">회원정보수정</div>
-        </a>
+<div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<div class="greenContainer">
+    <div class="user">
+        <h4 class="mb-3" th:text="|${user.userName}|">로그인 사용자 이름</h4>
     </div>
-<!--    <div class="summaryContainer">-->
-<!--        <div class="item">-->
-<!--            <div class="number">354</div>-->
-<!--            <div>단골상점</div>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <div class="number">354</div>-->
-<!--            <div>상품후기</div>-->
-<!--        </div>-->
-<!--        <div class="item">-->
-<!--            <div class="number">354</div>-->
-<!--            <div>적립금(BLCT)</div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="shippingStatusContainer">-->
-<!--        <div class="title">-->
-<!--            주문/배송조회-->
-<!--        </div>-->
-<!--        <div class="status">-->
+    <a href="/updateUserForm2" class="item">
+        <div class="modify">회원정보수정</div>
+    </a>
+</div>
+<div class="container">
+    <!--    <div class="summaryContainer">-->
+    <!--        <div class="item">-->
+    <!--            <div class="number">354</div>-->
+    <!--            <div>단골상점</div>-->
+    <!--        </div>-->
+    <!--        <div class="item">-->
+    <!--            <div class="number">354</div>-->
+    <!--            <div>상품후기</div>-->
+    <!--        </div>-->
+    <!--        <div class="item">-->
+    <!--            <div class="number">354</div>-->
+    <!--            <div>적립금(BLCT)</div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--    <div class="shippingStatusContainer">-->
+    <!--        <div class="title">-->
+    <!--            주문/배송조회-->
+    <!--        </div>-->
+    <!--        <div class="status">-->
 
-<!--            <div class="item">-->
-<!--                <div>-->
-<!--                    <div class="green number">6</div>-->
-<!--                    <div class="text">장바구니</div>-->
-<!--                </div>-->
-<!--                <div class="icon"> > </div>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <div>-->
-<!--                    <div class="number">0</div>-->
-<!--                    <div class="text">결제완료</div>-->
-<!--                </div>-->
-<!--                <div class="icon"> > </div>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <div>-->
-<!--                    <div class="green number">1</div>-->
-<!--                    <div class="text">배송중</div>-->
-<!--                </div>-->
-<!--                <div class="icon"> > </div>-->
-<!--            </div>-->
-<!--            <div class="item">-->
-<!--                <div>-->
-<!--                    <div class="green number">3</div>-->
-<!--                    <div class="text">구매확정</div>-->
-<!--                </div>-->
-<!--            </div>-->
+    <!--            <div class="item">-->
+    <!--                <div>-->
+    <!--                    <div class="green number">6</div>-->
+    <!--                    <div class="text">장바구니</div>-->
+    <!--                </div>-->
+    <!--                <div class="icon"> > </div>-->
+    <!--            </div>-->
+    <!--            <div class="item">-->
+    <!--                <div>-->
+    <!--                    <div class="number">0</div>-->
+    <!--                    <div class="text">결제완료</div>-->
+    <!--                </div>-->
+    <!--                <div class="icon"> > </div>-->
+    <!--            </div>-->
+    <!--            <div class="item">-->
+    <!--                <div>-->
+    <!--                    <div class="green number">1</div>-->
+    <!--                    <div class="text">배송중</div>-->
+    <!--                </div>-->
+    <!--                <div class="icon"> > </div>-->
+    <!--            </div>-->
+    <!--            <div class="item">-->
+    <!--                <div>-->
+    <!--                    <div class="green number">3</div>-->
+    <!--                    <div class="text">구매확정</div>-->
+    <!--                </div>-->
+    <!--            </div>-->
 
-<!--        </div>-->
+    <!--        </div>-->
 
-<!--    </div>-->
+    <!--    </div>-->
     <div class="listContainer">
         <a href="/sell" class="item">
-            <div class="icon">ii</div>
-            <div class="text">판매목록</div>
-            <div class="right"> > </div>
+        <div class="icon"><img src="img/cart.png" width="20px"></div>
+        <div class="text">판매목록</div>
+        <div class="right"> ></div>
         </a>
         <a href="/buy" class="item">
-            <div class="icon">ii</div>
+            <div class="icon"><img src="img/buy.png" width="20px"></div>
             <div class="text">구매목록</div>
-            <div class="right"> > </div>
+            <div class="right"> ></div>
         </a>
         <a href="/wish" class="item">
-            <div class="icon">ii</div>
+            <div class="icon"><img src="img/love.png" width="20px"></div>
             <div class="text">찜한상품</div>
-            <div class="right"> > </div>
+            <div class="right"> ></div>
         </a>
         <a href="/review" class="item">
-            <div class="icon">ii</div>
+            <div class="icon"><img src="img/review.png" width="20px"></div>
             <div class="text">상품후기</div>
-            <div class="right"> > </div>
+            <div class="right"> ></div>
         </a>
         <a href="/mapChange" class="item">
-            <div class="icon">ii</div>
+            <div class="icon"><img src="img/position.png" width="20px"></div>
             <div class="text">내 위치 수정</div>
-            <div class="right"> > </div>
+            <div class="right"> ></div>
         </a>
         <a href="/chat/rooms" class="item">
-            <div class="icon">ii</div>
+            <div class="icon"><img src="img/chat.png" width="20px"></div>
             <div class="text">채팅목록</div>
-            <div class="right"> > </div>
+            <div class="right"> ></div>
         </a>
     </div>
-<!--    <div class="listContainer">-->
-<!--        <a href="#" class="item">-->
-<!--            <div class="icon">ii</div>-->
-<!--            <div class="text">-->
-<!--                <span>내지갑</span>-->
-<!--                <span class="smallLight">-->
-<!--          <span>|</span>-->
-<!--          <span>보유 적립금</span>-->
-<!--        </span>-->
-<!--            </div>-->
-<!--            <div class="right">-->
-<!--                <span class="blct">175 BLCT</span>-->
-<!--                >-->
-<!--            </div>-->
-<!--        </a>-->
-<!--        <a href="#" class="item">-->
-<!--            <div class="icon">ii</div>-->
-<!--            <div class="text">알림</div>-->
-<!--            <div class="right"> > </div>-->
-<!--        </a>-->
-<!--        <a href="#" class="item">-->
-<!--            <div class="icon">ii</div>-->
-<!--            <div class="text">설정</div>-->
-<!--            <div class="right"> > </div>-->
-<!--        </a>-->
-<!--    </div>-->
+    <!--    <div class="listContainer">-->
+    <!--        <a href="#" class="item">-->
+    <!--            <div class="icon">ii</div>-->
+    <!--            <div class="text">-->
+    <!--                <span>내지갑</span>-->
+    <!--                <span class="smallLight">-->
+    <!--          <span>|</span>-->
+    <!--          <span>보유 적립금</span>-->
+    <!--        </span>-->
+    <!--            </div>-->
+    <!--            <div class="right">-->
+    <!--                <span class="blct">175 BLCT</span>-->
+    <!--                >-->
+    <!--            </div>-->
+    <!--        </a>-->
+    <!--        <a href="#" class="item">-->
+    <!--            <div class="icon">ii</div>-->
+    <!--            <div class="text">알림</div>-->
+    <!--            <div class="right"> > </div>-->
+    <!--        </a>-->
+    <!--        <a href="#" class="item">-->
+    <!--            <div class="icon">ii</div>-->
+    <!--            <div class="text">설정</div>-->
+    <!--            <div class="right"> > </div>-->
+    <!--        </a>-->
+    <!--    </div>-->
     <div class="infoContainer">
         <a href="/announcement/userannouncement" class="item">
             <div><img src="/img/notice.png" width="20px"/></div>
@@ -335,5 +356,10 @@
         </a>
     </div>
 </div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
+
+<script src="/docs/5.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </html>
