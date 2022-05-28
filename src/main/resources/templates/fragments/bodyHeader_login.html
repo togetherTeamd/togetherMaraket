@@ -42,18 +42,21 @@
         transform-style: preserve-3d;
     }
     .search_input::placeholder {
-         color: color(#575756 a(0.8));
+         color: #575756;
          text-transform: uppercase;
          letter-spacing: 1.5px;
     }
 
-    search_input:hover,:focus {
+    search_input:hover,searh_input:focus {
          padding: 12px 0;
          outline: 0;
          border: 1px solid transparent;
          border-bottom: 1px solid #575756;
          border-radius: 0;
          background-position: 100% center;
+    }
+    .logo{
+        width: 150px;
     }
 </style>
 <header class="p-3 bg-dark text-white">
@@ -62,8 +65,9 @@
             <div class="container px-5">
 
                 <section class="nav-logo">
-                    <a class="navbar-brand" href="#" th:href="@{/}">Together Market</a>
+                    <a class="navbar-brand logo" href="#" th:href="@{/}"><img src="/img/logo2.png" width="150px"></a>
                 </section>
+
 
                 <section class="nav-body">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -156,7 +160,7 @@
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <br>
                             <div class="btn-group" role="group">
-                                <input type="search" name="itemName"class="search_input" placeholder="상품 검색" aria-label="Search">
+                                <input type="search" name="itemName"class="search_input" placeholder="상품 검색">
                             </div>
                         </div>
                     </form>
