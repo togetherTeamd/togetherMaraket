@@ -1,21 +1,21 @@
 
 server:
-  port: 8090
-
-
-spring:
-  http:
+  port: 8080
+  servlet:
     encoding:
       charset: UTF-8
       enabled: true
       force: true
 
+
+spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test
+    url: jdbc:mysql://root.cnzle8av488m.ap-northeast-2.rds.amazonaws.com:3306/test
     username: root
     password: root1234
 
     driver-class-name: com.mysql.cj.jdbc.Driver
+
 
   jpa:
     database: mysql
@@ -24,12 +24,14 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-#      ddl-auto: create
-      ddl-auto: update
+      ddl-auto: create
+#      ddl-auto: update
 
     devtools:
       livereload:
         enabled: true
+  mvc:
+    static-path-pattern: /static/**
 
 
 mybatis:
