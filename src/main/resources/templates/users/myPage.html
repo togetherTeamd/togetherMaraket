@@ -58,7 +58,7 @@
     }
 
     .user {
-        margin-left: 100px;
+        margin-left: 50px;
         padding: 21px;
     }
     /* 단골상점 , 상품후기 , 적립금 박스 */
@@ -215,18 +215,25 @@
     .infoContainer .item:hover {
         /*   background-color: #f8f8f8; */
     }
+    .modify{
+        text-decoration: underline;
+        color: #343a40;
+    }
 </style>
 <body class="text-center">
 <!--<div class="container">-->
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div th:block th:replace="fragments/sidebar :: sidebar"></div>
 <div class="greenContainer">
+    <div class="user"></div>
     <div class="user">
-        <h4 class="mb-3" th:text="|${user.userName}|">로그인 사용자 이름</h4>
+        <h4 class="mb-3" th:text="|${user.userName}|" font-size="25px">로그인 사용자 이름</h4>
     </div>
-    <a href="/updateUserForm2" class="item">
-        <div class="modify">회원정보수정</div>
-    </a>
+    <div class="user">
+        <a href="/updateUserForm2" class="item">
+            <div class="modify">회원정보수정</div>
+        </a>
+    </div>
 </div>
 <div class="container">
     <!--    <div class="summaryContainer">-->
