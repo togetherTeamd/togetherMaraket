@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body th:fragment="bodyHeader_login">
+<body th:fragment="bodyHeader_kakaoLogin">
 <style>
     header{
         background: white;
@@ -90,7 +90,6 @@
         width:200px;
         float: left;
     }
-
 </style>
 <header>
     <div class="container-body-login">
@@ -134,12 +133,26 @@
                 </section>
                 <section class="nav-login">
                     <div class="text-end" style="display:flex; justify-content: space-between">
-                        <form th:action="@{/logout}" method="post">
-                            <button type="submit" class="btn me-2"
-                                    onclick="location.href='home.html'">
+                        <div>
+                            <!-- 로컬용 카카오 로그아웃-->
+                            <button class="btn me-2"
+                                    onclick="location.href='' +
+                    'https://kauth.kakao.com/oauth/logout' +
+                    '?client_id=55951b24b88d60ec5899427d4125f8d5' +
+                    '&logout_redirect_uri=http://localhost:8090/logout/oauthKakao'
+                    " type="button">
                                 로그아웃
                             </button>
-                        </form>
+                            <!--서버용 카카오 로그아웃-->
+                            <!--<button class="btn me-2"
+                                    onclick="location.href='' +
+                    'https://kauth.kakao.com/oauth/logout' +
+                    '?client_id=55951b24b88d60ec5899427d4125f8d5' +
+                    '&logout_redirect_uri=http://54.180.70.116:8080/logout/oauthKakao'
+                            " type="button">
+                                로그아웃
+                            </button>-->
+                        </div>
                         <button class="btn me-2" onclick="location.href='/myPage'">My Page</button>
 
                     </div>

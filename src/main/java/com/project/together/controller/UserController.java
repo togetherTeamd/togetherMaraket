@@ -375,6 +375,16 @@ public class UserController {
                          Model model){
         User user = userService.findById(loginUser.getUsername());
         model.addAttribute("user", user);
+        //최근 본 상품
+        List<Files> files = filesService.findAll();
+        List<Item> itemList = new ArrayList<>();
+        List<Recent> recentList = recentService.findByUserIdx(user.getUserIdx());
+        for (Recent recent : recentList) {
+            itemList.add(itemService.findOne(recent.getItemId()));
+        }
+        model.addAttribute("files", files);
+        model.addAttribute("itemList", itemList);
+
         return "users/myPage";
     }
 

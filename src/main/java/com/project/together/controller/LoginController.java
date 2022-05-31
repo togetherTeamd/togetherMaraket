@@ -13,10 +13,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -93,6 +90,21 @@ public class LoginController {
         user.setUserPw(passwordEncoder.encode(password));
         userService.update(user);
         log.info("변경유저ID:"+user.getUserId());
+        return "redirect:/";
+    }
+
+    @RequestMapping("/logout/oauthKakao")
+    public String kakaologout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();   // 세션 날림
+
+        }
+        log.info("로그아웃 성공");
         return "redirect:/";
     }
 }

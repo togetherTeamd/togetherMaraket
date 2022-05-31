@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -52,7 +53,9 @@ public class ItemController {
 
         User loginUser = userService.findById(user.getUsername());
 
-        if(categoryId == 400) {
+        if(categoryId == 400 || form.getDealForm() == null || form.getItemLevel() == null || form.getContents() == null
+        || form.getEnul() == null || form.getCity() == null || form.getStreet() == null || form.getZipcode() == null ||
+        form.getLat() == null || form.getLon() == null) {
             return "itemReject";
         }
 
@@ -100,7 +103,7 @@ public class ItemController {
 
             File destinationFile;
             String destinationFileName;
-            String fileUrl = "C:\\Users\\User\\IdeaProjects\\togetherMaraket\\src\\main\\resources\\static\\img\\";
+            String fileUrl = "C:\\Users\\doyeon\\IdeaProjects\\togetherteam\\src\\main\\resources\\static\\img\\";
 
             do {
                 destinationFileName = RandomStringUtils.randomAlphanumeric(32)+ "." + sourceFileNameExtension;
@@ -136,7 +139,7 @@ public class ItemController {
     }
 
     @GetMapping(value = "/items")
-    public String list(Model model) {
+    public String list(Model model, @AuthenticationPrincipal PrincipalDetails user) {
         List<Item> items = itemService.findSellingItem();
         List<ItemCategory> itemCategories = categoryService.findAllItemCategory();
         List<Files> files = filesService.findAll();
@@ -144,6 +147,15 @@ public class ItemController {
         model.addAttribute("items", items);
         model.addAttribute("itemCategories", itemCategories);
         model.addAttribute("files", files);
+
+        //최근 본 상품 추가
+        User loginUser = userService.findById(user.getUsername());
+        List<Item> itemList = new ArrayList<>();
+        List<Recent> recentList = recentService.findByUserIdx(loginUser.getUserIdx());
+        for (Recent recent : recentList) {
+            itemList.add(itemService.findOne(recent.getItemId()));
+        }
+        model.addAttribute("itemList", itemList);
         return "items/itemList";
     }
 
@@ -214,6 +226,16 @@ public class ItemController {
         } else {
             recentService.save(recent);
         }
+//최근 본 상품
+        List<Files> files = filesService.findAll();
+        List<Item> itemList = new ArrayList<>();
+        List<Recent> recentLists = recentService.findByUserIdx(loginUser.getUserIdx());
+        for (Recent recents : recentLists) {
+            itemList.add(itemService.findOne(recents.getItemId()));
+        }
+        model.addAttribute("files", files);
+        model.addAttribute("itemList", itemList);
+        //
 
         Item item = itemService.findOne(itemId);
         List<Files> fileList = filesService.findByItem(itemId);
@@ -234,7 +256,18 @@ public class ItemController {
     @GetMapping("/search")
     public String itemSearchForm(@RequestParam("itemName") String name , @RequestParam("categoryId") Long categoryId
             , @RequestParam("itemLevel") String itemLevel, @RequestParam("dealForm") String dealForm,
-                                 @RequestParam("enul") String enul,@RequestParam("manner") Long manner, Model model) {
+                                 @RequestParam("enul") String enul,@RequestParam("manner") Long manner, Model model
+            ,@AuthenticationPrincipal PrincipalDetails user) {
+        //최근 본 상품
+        User loginUser = userService.findById(user.getUsername());
+
+        List<Item> itemList = new ArrayList<>();
+        List<Recent> recentList = recentService.findByUserIdx(loginUser.getUserIdx());
+        for (Recent recent : recentList) {
+            itemList.add(itemService.findOne(recent.getItemId()));
+        }
+        model.addAttribute("itemList", itemList);
+        //
         List<Item> searchItems = itemService.findByItemName(name);
         List<Item> mannerItems = itemService.findByManner(name);
         List<Files> files = filesService.findAll();
@@ -265,6 +298,7 @@ public class ItemController {
     public String itemSearchForm2(@RequestParam("itemName") String name , @RequestParam("categoryId") Long categoryId
             , @RequestParam("itemLevel") String itemLevel, @RequestParam("dealForm") String dealForm,
                                  @RequestParam("enul") String enul,@RequestParam("manner") Long manner, Model model) {
+        log.info("검색된 단어:" + name);
         List<Item> searchItems = itemService.findByItemName(name);
         List<Item> mannerItems = itemService.findByManner(name);
         List<Files> files = filesService.findAll();

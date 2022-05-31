@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<style>
+    .carousel-control-prev{
+        width: 20%;
+    }
+    .carousel-control-next{
+        width: 20%;
+    }
+</style>
+<body class="text-center">
+<!--<div th:replace="fragments/bodyHeader_login :: bodyHeader_login" />-->
+<div th:replace="fragments/bodyHeader_kakaoLogin :: bodyHeader_kakaoLogin" />
+<div th:block th:replace="fragments/sidebar :: sidebar"></div>
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <!--            <svg class="bd-placeholder-img" width="100%" height="471px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">-->
+            <!--                -->
+            <!--            </rect></svg>-->
+            <img src="/img/background2.jpg" width="100%" height="500px"/>
+            <div class="container">
+                <div class="carousel-caption text-start">
+                    <h2>Welcome to Together Market</h2>
+                    <p>로그인 후 이용하세요</p>
+                    <p><a class="btn btn-outline-light me-2" href="/login/new">로그인 하기</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <!--            <svg class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>-->
+            <img src="/img/background3.jpg"width="100%" height="500px"/>
+            <div class="container">
+                <div class="carousel-caption">
+                    <h2>Together Market</h2>
+                    <p>원하는 물품을 찾아보세요</p>
+                    <p><a class="btn btn-outline-light me-2" href="/items2">보러 가기</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <svg class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+
+            <div class="container">
+                <div class="carousel-caption text-end">
+                    <h2>One more for good measure.</h2>
+                    <p>Some representative placeholder content for the third slide of this carousel.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+</style>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    $( '.top' ).click( function() {
+        $( 'html, body' ).animate( { scrollTop : 0 }, 400 );
+        return false;
+    } );
+
+    function toss() {
+        var url = "/QRdeal/tossQR";
+        var name = "TossQR";
+        var option = "width = 300, height = 300, top = 250, left = 600, location = no"
+        window.open(url, name, option);
+    }
+
+    function kakao() {
+        var url = "/QRdeal/kakaoQR";
+        var name = "KakaoQR";
+        var option = "width = 300, height = 300, top = 250, left = 600, location = no"
+        window.open(url, name, option);
+    }
+</script>
+로그인 홈화면 상품 리스트
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <tr th:each="item:${items}">
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <span th:each="file : ${files}" th:if= "${file.itemId == item.id} and ${file.mainPicture}">
+                <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
+              </span>
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder"><td th:text="${item.name}"></td></h5>
+                                <!-- Product price-->
+                                <td th:text="${item.price}"></td>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post" name="addWish">
+                                    <a href="#" th:href= "@{/items/{id}/itemView (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">View</a>
+                                    <button class="btn btn-outline-dark mt-auto" type="button" onclick="confirm()">찜</button>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </tr>
+        </div>
+    </div>
+</section>
+<div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>

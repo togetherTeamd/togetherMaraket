@@ -2,11 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body th:fragment="bodyHeader">
 <style>
+    header{
+        background: white;
+    }
     div.container-body {
         margin: 0 auto;
         white-space: nowrap;
+        text-align: center;
     }
-
     .nav-logo {
         align: left;
         margin: 0 auto;
@@ -23,14 +26,12 @@
         margin-right: 5%;
     }
     .search_input {
-        width: 100%;
-        padding: 12px 24px;
-
+        width: 400px;
+        padding: 12px 40px;
         background-color: transparent;
         transition: transform 250ms ease-in-out;
         font-size: 14px;
         line-height: 18px;
-
         color: #575756;
         background-color: transparent;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
@@ -48,7 +49,6 @@
         text-transform: uppercase;
         letter-spacing: 1.5px;
     }
-
     search_input:hover,searh_input:focus {
         padding: 12px 0;
         outline: 0;
@@ -58,18 +58,42 @@
         background-position: 100% center;
     }
     .logo{
-        width: 150px;
+        width: 200px;
+        margin-bottom: 5%;
+    }
+    .me-2{
+        border: solid 2px;
+        border-radius: 0.25rem;
+    }
+    .me-2:hover{
+        background-color:lightpink;
+        color: black;
+    }
+    .nav-cate{
+        color:#343a40;
+        text-decoration: none;
+        margin: 0 15px;
+    }
+    .nav-cate:hover{
+        color:black;
+    }
+    .nav-body{
+        float: left;
+    }
+    .btn-group{
+        margin-bottom:10px;
+    }
+    form{
+        margin-bottom: 20px;
     }
 </style>
-<header class="p-3 bg-dark text-white">
+<header>
     <div class="container-body">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container px-5">
-
                 <section class="nav-logo">
-                    <a class="navbar-brand logo" href="#" th:href="@{/}"><img src="/img/logo2.png" width="150px"></a>
+                    <a class="navbar-brand logo" th:href="@{/}"><img src="/img/logo2.png"></a>
                 </section>
-
                 <section class="nav-body">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -77,24 +101,20 @@
                             class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-<!--                            <li class="nav-item"><a class="nav-link" href="/items/new">상품등록</a></li>-->
-                            <li class="nav-item">
-                                <a class="nav-link" onclick="javascript:btn()">상품등록</a>
+                            <li class="nav-list">
+                                <a class="nav-cate" onclick="javascript:btn()">상품등록</a>
 
-                                    <script> function btn() {
-                                        swal('로그인 후 이용해 주세요')
+                                <script> function btn() {
+                                    swal('로그인 후 이용해 주세요')
                                         .then(function (){
                                             location.href="'/sell"
                                         })
 
-                                    } </script>
-
-
+                                } </script>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="/items2">상품목록</a></li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button"
+                            <li class="nav-list"><a class="nav-cate" href="/items2">상품목록</a></li>
+                            <li class="nav-list dropdown">
+                                <a class="nav-cate dropdown-toggle" id="navbarDropdownBlog" href="#" role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                                     <li><a class="dropdown-item" href="#">인기상품</a></li>
@@ -111,86 +131,76 @@
                         </ul>
                     </div>
                 </section>
-            </div>
-
-        </nav>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container px-5">
-                <section class="nav-dropdown">
-                    <form th:action="@{/search2}" method="get">
-                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                            <div class="btn-group" role="group">
-                                <select name="manner" id="manner" class="form-control">
-                                    <option value="0">모든 상품</option>
-                                    <option th:value="1">매너상품</option>
-                                </select>
-                             </div>
-                            <div class="btn-group" role="group">
-                                <select name="enul" id="enul" class="form-control">
-                                    <option value="0">가격협상</option>
-                                    <option th:each="status : ${T(com.project.together.entity.Enul).values()}"
-                                            th:value="${status}"
-                                            th:text="${status}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <select name="dealForm" id="dealForm" class="form-control">
-                                    <option value="0">거래형태</option>
-                                    <option th:each="status : ${T(com.project.together.entity.DealForm).values()}"
-                                            th:value="${status}"
-                                            th:text="${status}">option
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="btn-group" role="group">
-
-                                <select name="itemLevel" id="itemLevel" class="form-control">
-                                    <option value="0">상품상태</option>
-                                    <option th:value="'S'">S</option>
-                                    <option th:value="'A'">A</option>
-                                    <option th:value="'B'">B</option>
-                                    <option th:value="'C'">C</option>
-                                </select>
-                            </div>
-
-                            <div class="btn-group" role="group">
-                                <select name="categoryId" id="category" class="form-control">-->
-                                    <option value="0">모든 카테고리</option>
-                                    <option th:value=1>인기상품</option>
-                                    <option th:value=2>디지털기기</option>
-                                    <option th:value=3>가구/인테리어</option>
-                                    <option th:value=4>스포츠/레저</option>
-                                    <option th:value=5>의류/잡화</option>
-                                    <option th:value=6>게임/취미</option>
-                                    <option th:value=7>도서/티켓/음반</option>
-                                    <option th:value=8>모바일상품권</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <br>
-                            <div class="btn-group" role="group">
-                                <input type="search" name="itemName"class="search_input" placeholder="상품 검색">
-                            </div>
-                        </div>
-                    </form>
-                </section>
                 <section class="nav-login">
                     <div class="text-end">
-                        <button type="button" class="btn btn-outline-light me-2"
+                        <button type="button" class="btn me-2"
                                 onclick="location.href='/login/new'">
                             Login
                         </button>
-                        <button type="button" class="btn btn-warning" onclick="location.href='/users/new'">Sign-up
-                        </button>
+                        <button type="button" class="btn me-2" onclick="location.href='/users/new'">Sign-up</button>
                     </div>
                 </section>
             </div>
-
-
         </nav>
+        <form th:action="@{/search2}" method="get">
+            <div class="btn-group" role="group">
+                <select name="manner" id="manner" class="form-control">
+                    <option value="0">모든 상품</option>
+                    <option th:value="1">매너상품</option>
+                </select>
+            </div>
+            <div class="btn-group" role="group">
+                <select name="enul" id="enul" class="form-control">
+                    <option value="0">가격협상</option>
+                    <option th:each="status : ${T(com.project.together.entity.Enul).values()}"
+                            th:value="${status}"
+                            th:text="${status}">
+                    </option>
+                </select>
+            </div>
+            <div class="btn-group" role="group">
+                <select name="dealForm" id="dealForm" class="form-control">
+                    <option value="0">거래형태</option>
+                    <option th:each="status : ${T(com.project.together.entity.DealForm).values()}"
+                            th:value="${status}"
+                            th:text="${status}">option
+                    </option>
+                </select>
+            </div>
+            <div class="btn-group" role="group">
+                <select name="itemLevel" id="itemLevel" class="form-control">
+                    <option value="0">상품상태</option>
+                    <option th:value="'S'">S</option>
+                    <option th:value="'A'">A</option>
+                    <option th:value="'B'">B</option>
+                    <option th:value="'C'">C</option>
+                </select>
+            </div>
+            <div class="btn-group" role="group">
+                <select name="categoryId" id="category" class="form-control">-->
+                    <option value="0">모든 카테고리</option>
+                    <option th:value=1>인기상품</option>
+                    <option th:value=2>디지털기기</option>
+                    <option th:value=3>가구/인테리어</option>
+                    <option th:value=4>스포츠/레저</option>
+                    <option th:value=5>의류/잡화</option>
+                    <option th:value=6>게임/취미</option>
+                    <option th:value=7>도서/티켓/음반</option>
+                    <option th:value=8>모바일상품권</option>
+                </select>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="submit" class="btn me-2">Submit</button>
+            </div>
+            <div class="btn-group" role="group">
+                <section class="nav-dropdown">
+                    <div class="search_bar" role="group">
+                        <input type="search" name="itemName"class="search_input" placeholder="상품 검색">
+                    </div>
+                </section>
+            </div>
+        </form>
     </div>
-
     </div>
 </header>
 

@@ -16,7 +16,6 @@
 </head>
 <body>
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-<div th:block th:replace="fragments/sidebar :: sidebar"></div>
 <div class="container">
     <div>
         <table class="table table-striped">
@@ -57,11 +56,7 @@
                 <td th:text="${item.dealForm}"></td>
                 <td th:text="${item.itemLevel}"></td>
                 <td>
-                    <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
-                        <button class="w-100 btn btn-dark btn-lg" type="submit">
-                            찜하기
-                        </button>
-                    </form>
+                    <a href="#" th:href= "@{/items2/{id}/itemView2 (id=${item.id})}" class="btn btn-outline-dark mt-auto" role="button">상세보기</a>
                 </td></span></span></span></span>
                 </span>
 
@@ -72,7 +67,7 @@
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <tr th:each="item:${items}">
+                <tr th:each="item : ${items}">
                     <span th:if="${item.itemStatus.name()} == 'SELLING'">
                     <span th:if="${enul} == ${item.enul.name()} or ${enul} == 0">
                     <span th:if="${dealForm} == ${item.dealForm.name()} or ${dealForm} == 0">
@@ -83,7 +78,7 @@
                             <!-- Product image-->
                             <span th:each="file : ${files}" th:if= "${file.itemId == item.id} and ${file.mainPicture}">
                                 <img class="card-img-top" th:src="@{/img/{filename} (filename=${file.filename})}">
-                            </span>>
+                            </span>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -95,17 +90,8 @@
                             </div>
                             <!-- Product actions-->
                             <div class="text-center">
-                                <a href="#" th:href= "@{guest/items2/{id}/itemView2 (id=${item.id})}" class="btn btn-outline-dark mt-auto" role="button">View</a>
+                                <a href="#" th:href= "@{/items2/{id}/itemView2 (id=${item.id})}" class="btn btn-outline-dark mt-auto" role="button">View</a>
                             </div>
-                           <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post">
-                                        <a href="#" th:href= "@{/items/{id}/itemView2 (id=${item.id})}"class="btn btn-outline-dark mt-auto" role="button">View</a>
-                                        <button class="btn btn-outline-dark mt-auto" type="submit">찜</button>
-                                    </form>
-                                </div>
-
-                            </div>-->
 
                         </div>
                     </div>
