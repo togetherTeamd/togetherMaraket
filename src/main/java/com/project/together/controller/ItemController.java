@@ -52,7 +52,9 @@ public class ItemController {
 
         User loginUser = userService.findById(user.getUsername());
 
-        if(categoryId == 400) {
+        if(categoryId == 400 || form.getDealForm() == null || form.getItemLevel() == null || form.getContents() == null
+        || form.getEnul() == null || form.getCity() == null || form.getStreet() == null || form.getZipcode() == null ||
+        form.getLat() == null || form.getLon() == null) {
             return "itemReject";
         }
 
@@ -265,6 +267,7 @@ public class ItemController {
     public String itemSearchForm2(@RequestParam("itemName") String name , @RequestParam("categoryId") Long categoryId
             , @RequestParam("itemLevel") String itemLevel, @RequestParam("dealForm") String dealForm,
                                  @RequestParam("enul") String enul,@RequestParam("manner") Long manner, Model model) {
+        log.info("검색된 단어:" + name);
         List<Item> searchItems = itemService.findByItemName(name);
         List<Item> mannerItems = itemService.findByManner(name);
         List<Files> files = filesService.findAll();

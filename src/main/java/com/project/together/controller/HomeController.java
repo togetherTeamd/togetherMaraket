@@ -73,6 +73,10 @@ public class HomeController {
             //로그인 홈화면 모든 상품목록 조회
             List<Item> items = itemService.findSellingItem();
             model.addAttribute("items", items);
+
+            if(user.getUserId().contains("@"))
+                return "kakaoLoginHome";
+
             return "loginHome";
         }
     }
