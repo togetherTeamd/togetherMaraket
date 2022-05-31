@@ -68,7 +68,6 @@ public class HomeController {
             model.addAttribute("files", files);
             model.addAttribute("itemList", itemList);
             model.addAttribute("wishCnt",wishService.findByUser(user.getUserIdx()).size());
-            model.addAttribute("itemList", itemList);
 
             //로그인 홈화면 모든 상품목록 조회
             List<Item> items = itemService.findSellingItem();
