@@ -219,6 +219,7 @@
 <body class="text-center">
 <!--<div class="container">-->
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
+<div th:block th:replace="fragments/sidebar :: sidebar"></div>
 <div class="greenContainer">
     <div class="user">
         <h4 class="mb-3" th:text="|${user.userName}|">로그인 사용자 이름</h4>
