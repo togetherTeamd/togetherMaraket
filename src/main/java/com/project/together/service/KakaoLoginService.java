@@ -27,7 +27,7 @@ public class KakaoLoginService {
             RequestBody body = RequestBody.create(mediaType, "");
             Request request = new Request.Builder()
                     .url(reqURL+"?grant_type=authorization_code&client_id=55951b24b88d60ec5899427d4125f8d5" +
-                            "&redirect_uri=http://localhost:8090/login/oauthKakao&code="+code)
+                            "&redirect_uri=http://54.180.70.116:8080/login/oauthKakao&code="+code)
                     //.method("POST", body)
                     .method("GET", null)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
