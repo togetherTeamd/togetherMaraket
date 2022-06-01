@@ -21,42 +21,42 @@
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container">
   <div>
-    <table class="table table-striped">
-      <thead>
+<!--    <table class="table table-striped">-->
+<!--      <thead>-->
 
-      <tr>
-        <th>#</th>
-        <th>상품명</th>
-        <th>가격</th>
-        <th>등록자</th>
-        <th>등록날짜</th>
-        <th>찜한 사용자수</th>
-        <th>카테고리</th>
-        <th>가격협상</th>
-        <th>거래형태</th>
-        <th>물품상태</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="item : ${items}">
-        <td th:text="${item.id}"></td>
-        <td th:text="${item.name}"></td>
-        <td th:text="${item.price}"></td>
-        <td th:text="${item.seller}"></td>
-        <td th:text="${item.createdAt}"></td>
-        <td th:text="${item.wishCount}"></td>
-        <td>
-        <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">
-          <span th:text="${category.categoryName}"></span>
-        </span>
-        </td>
-        <td th:text="${item.enul}"></td>
-        <td th:text="${item.dealForm}"></td>
-        <td th:text="${item.itemLevel}"></td>
-      </tr>
-      </tbody>
+<!--      <tr>-->
+<!--        <th>#</th>-->
+<!--        <th>상품명</th>-->
+<!--        <th>가격</th>-->
+<!--        <th>등록자</th>-->
+<!--        <th>등록날짜</th>-->
+<!--        <th>찜한 사용자수</th>-->
+<!--        <th>카테고리</th>-->
+<!--        <th>가격협상</th>-->
+<!--        <th>거래형태</th>-->
+<!--        <th>물품상태</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr th:each="item : ${items}">-->
+<!--        <td th:text="${item.id}"></td>-->
+<!--        <td th:text="${item.name}"></td>-->
+<!--        <td th:text="${item.price}"></td>-->
+<!--        <td th:text="${item.seller}"></td>-->
+<!--        <td th:text="${item.createdAt}"></td>-->
+<!--        <td th:text="${item.wishCount}"></td>-->
+<!--        <td>-->
+<!--        <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">-->
+<!--          <span th:text="${category.categoryName}"></span>-->
+<!--        </span>-->
+<!--        </td>-->
+<!--        <td th:text="${item.enul}"></td>-->
+<!--        <td th:text="${item.dealForm}"></td>-->
+<!--        <td th:text="${item.itemLevel}"></td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
 
-    </table>
+<!--    </table>-->
   </div>
   <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">

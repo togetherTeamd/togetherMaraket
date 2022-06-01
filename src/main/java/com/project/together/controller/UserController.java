@@ -384,6 +384,7 @@ public class UserController {
         }
         model.addAttribute("files", files);
         model.addAttribute("itemList", itemList);
+        model.addAttribute("wishCnt",wishService.findByUser(user.getUserIdx()).size());
 
         return "users/myPage";
     }

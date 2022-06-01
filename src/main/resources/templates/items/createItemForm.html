@@ -30,9 +30,20 @@
         border-radius: 10px;
     }
     .form-group{
-        max-width: 50%;
+        width: 75%;
         margin:0 auto;
         padding: 10px;
+    }
+    .text-field{
+        margin:5px;
+        padding:10px;
+    }
+    .inputform{
+        width: 100%;
+        margin: 0 2% 2% 0;
+        height: 40px;
+        border-color: rgba(0, 0, 0, 0.35);
+        border-radius: 5px;
     }
     .btn-primary{
         float: right;
@@ -129,21 +140,21 @@
             </div>
 
             <div class="form-group">
-                <label th:for="name">상품명</label>
+                <label th:for="name" class="text-field">상품명</label>
                 <input type="text" th:field="*{name}" class="form-control" id="name"
                        th:errorclass="field-error" placeholder="상품명을 입력하세요">
                 <div class="field-error" th:errors="*{name}"/>
 
             </div>
             <div class="form-group">
-                <label th:for="price">가격</label>
+                <label th:for="price" class="text-field">가격</label>
                 <input type="number" th:field="*{price}" class="form-control" id="price"
                        th:errorclass="field-error" placeholder="가격을 입력하세요">
                 <div class="field-error" th:errors="*{price}"/>
             </div>
 
             <div class="form-group">
-                <label for="category">카테고리</label>
+                <label for="category" class="text-field">카테고리</label>
                 <select name="categoryId" id="category" class="form-control">
                     <option value="">카테고리선택</option>
                     <option th:each="category : ${categories}"
@@ -153,7 +164,7 @@
             </div>
 
             <div class="form-group">
-                <label th:for="itemLevel">상품 상태</label>
+                <label th:for="itemLevel" class="text-field">상품 상태</label>
                 <select th:field = "*{itemLevel}"  class="form-control" id="itemLevel">
                     <option th:value="'S'">S(거의 새것)</option>
                     <option th:value="'A'">A(사용감 조금 있음)</option>
@@ -164,7 +175,7 @@
             </div>
 
             <div class="form-group">
-                <div>가격 협상</div>
+                <div class="text-field">가격 협상</div>
                 <div th:each="status : ${T(com.project.together.entity.Enul).values()}"
                      class="form-check form-check-inline">
                     <input type="radio" th:field = "*{enul}" th:value="${status}" th:text="${status}" class="form-check-input" id="enul">
@@ -174,7 +185,7 @@
             </div>
 
             <div class="form-group">
-                <div>거래형태</div>
+                <div class="text-field">거래형태</div>
                 <div th:each="status : ${T(com.project.together.entity.DealForm).values()}"
                      class="form-check form-check-inline">
                     <input type="radio" th:field = "*{dealForm}" th:value="${status}" th:text="${status}" class="form-check-input" id="dealForm">
@@ -183,7 +194,7 @@
             </div>
 
             <div class="form-group">
-                <label th:for="contents">상품 설명</label>
+                <label th:for="contents" class="text-field">상품 설명</label>
 
                 <textarea th:field="*{contents}" class="form-control"
                           th:errorclass="field-error" placeholder="상품 설명을 해주세요">
@@ -218,7 +229,7 @@
             <!--        </div>-->
 
             <div class="form-group">
-                <label>사진 올리기</label>
+                <label class="text-field">사진 올리기</label>
                 <input multiple type="file" name="files" class="form-control" id="btnAtt">
                 <div id="att_zone" data-placeholder="파일선택하거나 드래그앤드롭"></div>
                 <script type="text/javascript">
@@ -313,9 +324,7 @@
                         }
                     )('att_zone', 'btnAtt')
                 </script>
-            </div>
-            <div class="form-group">
-                <label>판매 위치</label>
+                <label class="text-field">판매 위치</label><br>
                 <input type="text" th:field="*{zipcode}" class="inputform" id="sample6_postcode" name="zipcode" placeholder="우편번호"
                        th:class="${#fields.hasErrors('zipcode')}? '' : ''">
                 <button type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="check">우편번호 찾기</button><br>
@@ -324,11 +333,10 @@
                 <input type="text" class="inputform" id="sample6_extraAddress" placeholder="참고항목">
                 <input type="text" style="width: 100px" th:field="*{lat}" class="inputform" id="sample6_lat" name="lat" readonly/>
                 <input type="text" style="width: 100px" th:field="*{lon}" class="inputform" id="sample6_lon" name="lon" readonly/>
-            </div><br/>
-            <div id="map_div"></div>
-
+            </div><br>
+            <div id="map_div"></div><br>
             <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="confirm()">Submit</button>
+                <button type="button" class="btn-primary" onclick="confirm()">등록하기</button>
             </div>
         </form>
         <br/>

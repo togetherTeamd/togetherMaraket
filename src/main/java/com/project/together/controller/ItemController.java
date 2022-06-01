@@ -30,6 +30,7 @@ public class ItemController {
     private final RecentService recentService;
     private final FileService filesService;
     private final UserService userService;
+    private final WishService wishService;
 
     @GetMapping("items/new")
     public String createForm(Model model, @AuthenticationPrincipal PrincipalDetails loginUser) {
@@ -155,6 +156,7 @@ public class ItemController {
         for (Recent recent : recentList) {
             itemList.add(itemService.findOne(recent.getItemId()));
         }
+        model.addAttribute("wishCnt",wishService.findByUser(loginUser.getUserIdx()).size());
         model.addAttribute("itemList", itemList);
         return "items/itemList";
     }
@@ -235,6 +237,7 @@ public class ItemController {
         }
         model.addAttribute("files", files);
         model.addAttribute("itemList", itemList);
+        model.addAttribute("wishCnt",wishService.findByUser(loginUser.getUserIdx()).size());
         //
 
         Item item = itemService.findOne(itemId);
@@ -280,6 +283,8 @@ public class ItemController {
 
         List<ItemCategory> itemCategories = categoryService.findAllItemCategory();
         model.addAttribute("itemCategories", itemCategories);
+
+        model.addAttribute("wishCnt",wishService.findByUser(loginUser.getUserIdx()).size());
 
         if(manner == 1) {
             model.addAttribute("items", mannerItems);
