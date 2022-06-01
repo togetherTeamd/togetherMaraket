@@ -34,6 +34,11 @@
     })
   }
 </script>
+<style>
+  .viewbutton{
+    margin: 5px;
+  }
+</style>
 <body>
 <div th:replace="fragments/bodyHeader_login :: bodyHeader_login"/>
 <div th:block th:replace="fragments/sidebar :: sidebar"></div>
@@ -48,7 +53,7 @@
         </div>
         <div class="col-md-6">
           <div class="col-md">
-            <h1 class="display-5 fw-bolder"><td th:text="${item.name}"></td></h1>
+            <h2 class="display-5 fw-bolder"><td th:text="${item.name}"></td></h2>
             <div class="fs-5 mb-5">
               <!--                    <span class="text-decoration-line-through">$45.00</span>-->
               <span><td th:text="${item.price}"></td>원</span>
@@ -72,18 +77,22 @@
             <br>
             <div class="d-flex">
               <form th:action="@{/items/{id}/wish (id=${item.id})}" method="post" name="addWish">
-                <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="confirm()">
+                <button class="btn btn-outline-dark flex-shrink-0 viewbutton" type="button" onclick="confirm()">
                   <i class="bi-cart-fill me-1"></i>
                   찜 : <td th:text="${item.wishCount}"></td>
                 </button>
 
-                <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                  <i class="bi-cart-fill me-1"></i>
-                  Add to cart
-                </button>
+<!--                <button class="btn btn-outline-dark flex-shrink-0" type="button">-->
+<!--                  <i class="bi-cart-fill me-1"></i>-->
+<!--                  Add to cart-->
+<!--                </button>-->
               </form>
-              <button class="btn btn-outline-dark flex-shrink-0" th:onclick="makeRoom();" >채팅</button>
-              <button class="btn btn-outline-dark flex-shrink-0" th:onclick="mapFind()" >경로</button>
+              <button class="btn btn-outline-dark flex-shrink-0 viewbutton" th:onclick="makeRoom();" >
+                <i class="bi-cart-fill me-1"></i>
+                채팅
+              </button>
+              <button class="btn btn-outline-dark flex-shrink-0 viewbutton" th:onclick="mapFind()" >
+                <i class="bi-cart-fill me-1"></i>경로</button>
             </div>
 
           </div>

@@ -18,51 +18,51 @@
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div class="container">
     <div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>상품명</th>
-                <th>가격</th>
-                <th>등록자</th>
-                <th>등록날짜</th>
-                <th>찜한 사용자수</th>
-                <th>카테고리</th>
-                <th>가격협상</th>
-                <th>거래형태</th>
-                <th>물품상태</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${items}">
-                    <span th:if="${item.itemStatus.name()} == 'SELLING'">
-                    <span th:if="${enul} == ${item.enul.name()} or ${enul} == 0">
-                    <span th:if="${dealForm} == ${item.dealForm.name()} or ${dealForm} == 0">
-                    <span th:if="${itemLevel} == ${item.itemLevel} or ${itemLevel} == 0">
-                    <span th:if="${categoryId} == ${item.categoryId} or ${categoryId} == 0"><!-- jpa 조인쿼리와 query dsl 사용 미숙으로 조회를 이렇게 했습니다 ㅠ -->
-                <td th:text="${item.id}"></td>
-                <td th:text="${item.name}"></td>
-                <td th:text="${item.price}"></td>
-                <td th:text="${item.seller}"></td>
-                <td th:text="${item.createdAt}"></td>
-                <td th:text="${item.wishCount}"></td>
-                <td>
-        <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">
-          <span th:text="${category.categoryName}"></span>
-        </span>
-                </td>
-                <td th:text="${item.enul}"></td>
-                <td th:text="${item.dealForm}"></td>
-                <td th:text="${item.itemLevel}"></td>
-                <td>
-                    <a href="#" th:href= "@{/items2/{id}/itemView2 (id=${item.id})}" class="btn btn-outline-dark mt-auto" role="button">상세보기</a>
-                </td></span></span></span></span>
-                </span>
+<!--        <table class="table table-striped">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>#</th>-->
+<!--                <th>상품명</th>-->
+<!--                <th>가격</th>-->
+<!--                <th>등록자</th>-->
+<!--                <th>등록날짜</th>-->
+<!--                <th>찜한 사용자수</th>-->
+<!--                <th>카테고리</th>-->
+<!--                <th>가격협상</th>-->
+<!--                <th>거래형태</th>-->
+<!--                <th>물품상태</th>-->
+<!--                <th></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="item : ${items}">-->
+<!--                    <span th:if="${item.itemStatus.name()} == 'SELLING'">-->
+<!--                    <span th:if="${enul} == ${item.enul.name()} or ${enul} == 0">-->
+<!--                    <span th:if="${dealForm} == ${item.dealForm.name()} or ${dealForm} == 0">-->
+<!--                    <span th:if="${itemLevel} == ${item.itemLevel} or ${itemLevel} == 0">-->
+<!--                    <span th:if="${categoryId} == ${item.categoryId} or ${categoryId} == 0">&lt;!&ndash; jpa 조인쿼리와 query dsl 사용 미숙으로 조회를 이렇게 했습니다 ㅠ &ndash;&gt;-->
+<!--                <td th:text="${item.id}"></td>-->
+<!--                <td th:text="${item.name}"></td>-->
+<!--                <td th:text="${item.price}"></td>-->
+<!--                <td th:text="${item.seller}"></td>-->
+<!--                <td th:text="${item.createdAt}"></td>-->
+<!--                <td th:text="${item.wishCount}"></td>-->
+<!--                <td>-->
+<!--        <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">-->
+<!--          <span th:text="${category.categoryName}"></span>-->
+<!--        </span>-->
+<!--                </td>-->
+<!--                <td th:text="${item.enul}"></td>-->
+<!--                <td th:text="${item.dealForm}"></td>-->
+<!--                <td th:text="${item.itemLevel}"></td>-->
+<!--                <td>-->
+<!--                    <a href="#" th:href= "@{/items2/{id}/itemView2 (id=${item.id})}" class="btn btn-outline-dark mt-auto" role="button">상세보기</a>-->
+<!--                </td></span></span></span></span>-->
+<!--                </span>-->
 
-            </tr>
-            </tbody>
-        </table>
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
     </div>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
@@ -89,10 +89,11 @@
                                 </div>
                             </div>
                             <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
                                 <a href="#" th:href= "@{/items2/{id}/itemView2 (id=${item.id})}" class="btn btn-outline-dark mt-auto" role="button">View</a>
                             </div>
-
+                            </div>
                         </div>
                     </div>
                     </span></span></span></span>
