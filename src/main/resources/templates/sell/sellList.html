@@ -6,55 +6,55 @@
 <div class="container">
 
     <div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>상품명</th>
-                <th>가격</th>
-                <th>판매 상태</th>
-                <th>등록 날짜</th>
-                <th>찜한 사용자수</th>
-                <th>카테고리</th>
-                <th>가격협상</th>
-                <th>거래형태</th>
-                <th>물품상태</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${items}">
-                <td th:text="${item.id}"></td>
-                <td th:text="${item.name}"></td>
-                <td th:text="${item.price}"></td>
-                <td th:text="${item.itemStatus}"></td>
-                <td th:text="${item.createdAt}"></td>
-                <td th:text="${item.wishCount}"></td>
-                <td>
-                    <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">
-                        <span th:text="${category.categoryName}"></span>
-                    </span>
-                </td>
-                <td th:text="${item.enul}"></td>
-                <td th:text="${item.dealForm}"></td>
-                <td th:text="${item.itemLevel}"></td>
-                <td>
-                    <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"
-                       class="btn btn-primary" role="button">수정</a>
-                </td>
-                <td>
-                    <span th:if="${item.buyer == null}"l>
-                    <a href="#" th:href="@{/items/{id}/buy (id=${item.id})}"
-                       class="btn btn-primary" role="button">거래완료</a>
-                    </span>
-                    <span th:unless="${item.buyer == null}">
-                        <a href="#" onclick="alert('이미 거래완료한 상품입니다.');"
-                           class="btn btn-primary" role="button">거래완료</a>
-                    </span>
+<!--        <table class="table table-striped">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>#</th>-->
+<!--                <th>상품명</th>-->
+<!--                <th>가격</th>-->
+<!--                <th>판매 상태</th>-->
+<!--                <th>등록 날짜</th>-->
+<!--                <th>찜한 사용자수</th>-->
+<!--                <th>카테고리</th>-->
+<!--                <th>가격협상</th>-->
+<!--                <th>거래형태</th>-->
+<!--                <th>물품상태</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="item : ${items}">-->
+<!--                <td th:text="${item.id}"></td>-->
+<!--                <td th:text="${item.name}"></td>-->
+<!--                <td th:text="${item.price}"></td>-->
+<!--                <td th:text="${item.itemStatus}"></td>-->
+<!--                <td th:text="${item.createdAt}"></td>-->
+<!--                <td th:text="${item.wishCount}"></td>-->
+<!--                <td>-->
+<!--                    <span th:each="category : ${itemCategories}" th:if= "${category.itemIds == item.id} ">-->
+<!--                        <span th:text="${category.categoryName}"></span>-->
+<!--                    </span>-->
+<!--                </td>-->
+<!--                <td th:text="${item.enul}"></td>-->
+<!--                <td th:text="${item.dealForm}"></td>-->
+<!--                <td th:text="${item.itemLevel}"></td>-->
+<!--                <td>-->
+<!--                    <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}"-->
+<!--                       class="btn btn-primary" role="button">수정</a>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <span th:if="${item.buyer == null}"l>-->
+<!--                    <a href="#" th:href="@{/items/{id}/buy (id=${item.id})}"-->
+<!--                       class="btn btn-primary" role="button">거래완료</a>-->
+<!--                    </span>-->
+<!--                    <span th:unless="${item.buyer == null}">-->
+<!--                        <a href="#" onclick="alert('이미 거래완료한 상품입니다.');"-->
+<!--                           class="btn btn-primary" role="button">거래완료</a>-->
+<!--                    </span>-->
 
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
     </div>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
