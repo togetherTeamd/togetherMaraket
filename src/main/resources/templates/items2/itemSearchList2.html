@@ -68,12 +68,7 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <tr th:each="item : ${items}">
-                    <span th:if="${item.itemStatus.name()} == 'SELLING'">
-                    <span th:if="${enul} == ${item.enul.name()} or ${enul} == 0">
-                    <span th:if="${dealForm} == ${item.dealForm.name()} or ${dealForm} == 0">
-                    <span th:if="${itemLevel} == ${item.itemLevel} or ${itemLevel} == 0">
-                    <span th:if="${categoryId} == ${item.categoryId} or ${categoryId} == 0">
-                    <div class="col mb-5">
+                    <div class="col mb-5" th:if="(${item.itemStatus.name()} == 'SELLING') and (${enul} == ${item.enul.name()} or ${enul} == 0) and (${dealForm} == ${item.dealForm.name()} or ${dealForm} == 0) and (${itemLevel} == ${item.itemLevel} or ${itemLevel} == 0) and (${categoryId} == ${item.categoryId} or ${categoryId} == 0)">
                         <div class="card h-100">
                             <!-- Product image-->
                             <span th:each="file : ${files}" th:if= "${file.itemId == item.id} and ${file.mainPicture}">
@@ -96,8 +91,6 @@
                             </div>
                         </div>
                     </div>
-                    </span></span></span></span>
-                    </span>
                 </tr>
             </div>
         </div>

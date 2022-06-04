@@ -71,9 +71,7 @@ public class KakaoLoginController {
             User user = new User();
             user.setUserId((String)userInfo.get("email"));
             user.setUserPw(encodedPassword);
-            //user.setUserPw((String)userInfo.get("email"));
             user.setUserName((String)userInfo.get("nickname"));
-            user.setUserPhone("");
             user.setCreatedAt(LocalDateTime.now());
             user.setRole("ROLE_USER");
             userService.join(user);
