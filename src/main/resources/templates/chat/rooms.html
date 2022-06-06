@@ -68,7 +68,7 @@
             </div>
             <ul th:each="room : ${list}">
         <span th:each="item : ${itemList}">
-        <li><a th:href="@{/chat/room(roomId=${room.roomId})}" style="color: inherit; text-decoration: none;">[[${item.name}]]: [[${room.userId}]]님과 [[${room.sellerId}]]님의 채팅방</a></li>
+        <li th:if="${item.id == room.itemIdx}"><a th:href="@{/chat/room(roomId=${room.roomId})}" style="color: inherit; text-decoration: none;">[[${item.name}]]: [[${room.userId}]]님과 [[${room.sellerId}]]님의 채팅방</a></li>
         </span>
             </ul>
         </nav>

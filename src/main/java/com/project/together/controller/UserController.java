@@ -177,7 +177,7 @@ public class UserController {
 
         User loginUser = userService.findById(user.getUsername());
 
-        if(loginUser.getUserPhone().length() < 5) {
+        if(loginUser.getUserPhone() == null) {
             UserForm userForm = new UserForm();
             userForm.setCity(loginUser.getAddress()==null?"":loginUser.getAddress().getCity());
             userForm.setZipcode(loginUser.getAddress()==null?"":loginUser.getAddress().getZipcode());
