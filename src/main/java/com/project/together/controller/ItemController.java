@@ -103,7 +103,7 @@ public class ItemController {
 
             File destinationFile;
             String destinationFileName;
-            String fileUrl = "C:\\Users\\User\\IdeaProjects\\togetherMaraket\\src\\main\\resources\\static\\img\\";
+            String fileUrl = "/home/ec2-user/togetherMarket/src/main/resources/static/img/";
 
             do {
                 destinationFileName = RandomStringUtils.randomAlphanumeric(32)+ "." + sourceFileNameExtension;
