@@ -104,7 +104,8 @@ public class ItemController {
 
             File destinationFile;
             String destinationFileName;
-            String fileUrl = "C:\\Users\\doyeon\\IdeaProjects\\togetherteam\\src\\main\\resources\\static\\img\\";
+
+            String fileUrl = "C:\\Users\\chlgu\\IdeaProjects\\togetherMarket\\src\\main\\resources\\static\\img\\";
 
             do {
                 destinationFileName = RandomStringUtils.randomAlphanumeric(32)+ "." + sourceFileNameExtension;
