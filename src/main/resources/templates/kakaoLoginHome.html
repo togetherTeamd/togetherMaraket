@@ -70,6 +70,8 @@
 </div>
 
 </style>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
     $( '.top' ).click( function() {
@@ -89,6 +91,20 @@
         var name = "KakaoQR";
         var option = "width = 300, height = 300, top = 250, left = 600, location = no"
         window.open(url, name, option);
+    }
+    function confirm() {
+        Swal.fire({
+            title : "찜목록 추가",
+            text : '찜목록에 추가하시겠습니까?',
+            icon : "question",
+            showCancelButton : true,
+            confirmButtonText : "예",
+            cancelButtonText : "아니오",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.addWish.submit();
+            }
+        })
     }
 </script>
 
